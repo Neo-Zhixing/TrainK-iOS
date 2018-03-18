@@ -1,0 +1,52 @@
+//
+//  Station.swift
+//  TrainK
+//
+//  Created by 张之行 on 3/19/18.
+//  Copyright © 2018 begin Studio. All rights reserved.
+//
+
+import UIKit
+import SwiftyJSON
+
+public class Node:Hashable {
+    public var id: Int
+    public var position: CGPoint
+    public init(data: JSON) {
+        self.id = data["id"].intValue
+        
+        let position = data["position"]
+        self.position = CGPoint(x: position[0].doubleValue, y: position[1].doubleValue)
+        
+    }
+    
+    public var hashValue: Int {
+        return self.id
+    }
+    
+    public static func ==(lhs: Node, rhs: Node) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
+public class Station:Node {
+    public enum Level:String {
+        case minor
+        case major
+        case interchange
+        case intercity
+    }
+    public var level: Level = .major
+
+    public var name: String?
+
+    public override init(data: JSON) {
+        super.init(data: data)
+        self.name = data["name"].stringValue
+        let typeName = data["type"].string
+        if let level = typeName == nil ? nil : Level(rawValue: typeName!) {
+            self.level = level
+        }
+        
+    }
+}

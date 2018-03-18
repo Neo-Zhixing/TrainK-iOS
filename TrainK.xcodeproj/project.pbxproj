@@ -14,6 +14,8 @@
 		2248D699205ED10A0007FF11 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2248D698205ED10A0007FF11 /* SwiftyJSON.framework */; };
 		2248D69B205ED1350007FF11 /* MetroMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D69A205ED1350007FF11 /* MetroMapViewController.swift */; };
 		2248D6A4205EF0270007FF11 /* MetroMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6A3205EF0270007FF11 /* MetroMap.swift */; };
+		2248D6A6205EF1810007FF11 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6A5205EF1810007FF11 /* Station.swift */; };
+		2248D6A8205EF1FC0007FF11 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6A7205EF1FC0007FF11 /* Line.swift */; };
 		22DD87F6205EC4DE00EEBBB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD87F5205EC4DE00EEBBB4 /* AppDelegate.swift */; };
 		22DD87F8205EC4DE00EEBBB4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD87F7205EC4DE00EEBBB4 /* ViewController.swift */; };
 		22DD87FB205EC4DE00EEBBB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22DD87F9205EC4DE00EEBBB4 /* Main.storyboard */; };
@@ -45,10 +47,12 @@
 		2248D689205EC8890007FF11 /* SwiftSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSVG.framework; path = Carthage/Build/iOS/SwiftSVG.framework; sourceTree = "<group>"; };
 		2248D690205ECAF50007FF11 /* station.svg */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = station.svg; sourceTree = "<group>"; };
 		2248D694205ECB010007FF11 /* MetroMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetroMapView.swift; sourceTree = "<group>"; };
-		2248D696205ECF130007FF11 /* pubs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = pubs.json; path = TrainK/Resources/pubs.json; sourceTree = SOURCE_ROOT; };
+		2248D696205ECF130007FF11 /* pubs.json */ = {isa = PBXFileReference; explicitFileType = text.json; fileEncoding = 4; indentWidth = 2; name = pubs.json; path = TrainK/Resources/pubs.json; sourceTree = SOURCE_ROOT; tabWidth = 2; };
 		2248D698205ED10A0007FF11 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		2248D69A205ED1350007FF11 /* MetroMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroMapViewController.swift; sourceTree = "<group>"; };
 		2248D6A3205EF0270007FF11 /* MetroMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetroMap.swift; path = TrainK/Sources/MetroMap/Models/MetroMap.swift; sourceTree = SOURCE_ROOT; };
+		2248D6A5205EF1810007FF11 /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Station.swift; path = TrainK/Sources/MetroMap/Models/Station.swift; sourceTree = SOURCE_ROOT; };
+		2248D6A7205EF1FC0007FF11 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Line.swift; path = TrainK/Sources/MetroMap/Models/Line.swift; sourceTree = SOURCE_ROOT; };
 		22DD87F2205EC4DE00EEBBB4 /* TrainK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22DD87F5205EC4DE00EEBBB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		22DD87F7205EC4DE00EEBBB4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +136,8 @@
 			isa = PBXGroup;
 			children = (
 				2248D6A3205EF0270007FF11 /* MetroMap.swift */,
+				2248D6A7205EF1FC0007FF11 /* Line.swift */,
+				2248D6A5205EF1810007FF11 /* Station.swift */,
 			);
 			name = Models;
 			path = "New Group";
@@ -354,6 +360,8 @@
 				2248D695205ECB010007FF11 /* MetroMapView.swift in Sources */,
 				22DD87F6205EC4DE00EEBBB4 /* AppDelegate.swift in Sources */,
 				2248D6A4205EF0270007FF11 /* MetroMap.swift in Sources */,
+				2248D6A6205EF1810007FF11 /* Station.swift in Sources */,
+				2248D6A8205EF1FC0007FF11 /* Line.swift in Sources */,
 				2248D69B205ED1350007FF11 /* MetroMapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,20 +1,58 @@
 {
-    "configs": {
-        "spacing": 10,
+  "configs": {
+    "spacing": 10,
+  },
+  "resources": {
+    "stationIcons": {
+      "major": "station"
+    }
+  },
+  "nodes": {
+
+  },
+  "stations": [
+    {
+      "id": 1,
+      "name": "测试1",
+      "position": [20, 20],
+      "level": "major"
     },
-    "resources": {
-        "stationIcons": {
-            "major": "station"
+    {
+      "id": 2,
+      "name": "测试2",
+      "position": [40, 40],
+      "level": "major"
+    },
+    {
+      "id": 3,
+      "name": "测试2",
+      "position": [60, 30],
+      "level": "major"
+    },
+    {
+      "id": 4,
+      "name": "测试2",
+      "position": [80, 60],
+      "level": "major"
+    }
+  ],
+  "lines": [
+    {
+      "id": 1,
+      "name": "一号线",
+      "segments": [
+        {
+          "from": 1,
+          "to": 2
+        },
+        {
+          "to": 3,
+          "inverse": true
+        },
+        {
+          "to": 4
         }
-    },
-	"stations": [
-		{
-			"name": "测试1",
-			"position": [0, 0]
-		},
-		{
-			"name": "测试2",
-			"position": [20, 20]
-		}
-	]
+      ]
+    }
+  ]
 }

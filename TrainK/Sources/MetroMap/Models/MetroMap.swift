@@ -10,38 +10,22 @@ import UIKit
 import SwiftyJSON
 import SwiftSVG
 
-public struct Station {
-    public enum Level:String {
-        case minor
-        case major
-        case interchange
-        case intercity
-    }
-    public var position: CGPoint
-    public var name: String
-    public var level: Level
-    
-    public init(data: JSON) {
-        let position = data["position"]
-        self.position = CGPoint(x: position[0].doubleValue, y: position[1].doubleValue)
-        self.name = data["name"].stringValue
-        
-        let typeName = data["type"].string
-        self.level = typeName == nil ? Level.major : Level(rawValue: typeName!)!
-    }
-}
-
 public class MetroMap: NSObject {
-    public var stations: [Station] = []
+    public var nodes: Set<Node> = []
+    public var stations: Set<Station> = []
+    
+    public var nodeMapping: [Int:Node] = [:]
+    
     public var stationIcons: [Station.Level : Data] = [:]
     
-    public var spacing: Double = 10
-}
+    public var lines: Set<Line> = []
 
-public extension MetroMap {
-    convenience init(data: JSON) {
-        self.init()
-        self.spacing = data["configs"]["spacing"].double ?? self.spacing
+    public var spacing: Double = 10
+
+    public init(data: JSON) {
+        if let spacing = data["configs"]["spacing"].double {
+            self.spacing = spacing
+        }
         for (levelName, iconName) in data["resources"]["stationIcons"] {
             let level = Station.Level(rawValue: levelName)!
             let iconURL = Bundle.main.url(forResource: iconName.stringValue, withExtension: "svg")!
@@ -49,8 +33,28 @@ public extension MetroMap {
                 self.stationIcons[level] = data
             }
         }
-        for station in data["stations"].arrayValue {
-            self.stations.append(Station(data: station))
+        for stationJSON in data["stations"].arrayValue {
+            let station = Station(data: stationJSON)
+            self.stations.insert(station)
+        }
+        for nodeJSON in data["nodes"].arrayValue {
+            let node = Node(data: nodeJSON)
+            self.nodes.insert(node)
+        }
+
+        // Generating Node Mappings so that we could fetch the node using its id
+        for node in self.stations {
+            self.nodeMapping[node.id] = node
+        }
+        for node in self.nodes {
+            self.nodeMapping[node.id] = node
+        }
+        
+        // Creating Lines
+        for line in data["lines"].arrayValue {
+            
+            let line = Line(data: line, nodes: self.nodeMapping)
+            self.lines.insert(line)
         }
     }
 }
