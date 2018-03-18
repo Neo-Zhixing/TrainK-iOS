@@ -1,0 +1,20 @@
+{
+    "configs": {
+        "spacing": 10,
+    },
+    "resources": {
+        "stationIcons": {
+            "major": "station"
+        }
+    },
+	"stations": [
+		{
+			"name": "测试1",
+			"position": [0, 0]
+		},
+		{
+			"name": "测试2",
+			"position": [20, 20]
+		}
+	]
+}
