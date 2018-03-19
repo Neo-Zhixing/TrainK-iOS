@@ -7,33 +7,42 @@
       "major": "station"
     }
   },
-  "nodes": {
-
-  },
+  "nodes": [
+    {
+      "id": 6,
+      "position": [30, 70]
+    }
+  ],
   "stations": [
     {
       "id": 1,
       "name": "测试1",
-      "position": [20, 20],
-      "level": "major"
+      "position": [20, 20]
     },
     {
       "id": 2,
       "name": "测试2",
-      "position": [40, 40],
-      "level": "major"
+      "position": [40, 40]
     },
     {
       "id": 3,
       "name": "测试2",
-      "position": [60, 30],
-      "level": "major"
+      "position": [60, 30]
     },
     {
       "id": 4,
       "name": "测试2",
-      "position": [80, 60],
-      "level": "major"
+      "position": [80, 60]
+    },
+    {
+      "id": 5,
+      "name": "测试2",
+      "position": [65, 70]
+    },
+    {
+      "id": 7,
+      "name": "测试2",
+      "position": [25, 55]
     }
   ],
   "lines": [
@@ -50,7 +59,24 @@
           "inverse": true
         },
         {
-          "to": 4
+          "to": 4,
+          "inverse": true
+        },
+        {
+          "to": 5,
+          "inverse": true
+        },
+        {
+          "to": 6,
+          "inverse": false
+        },
+        {
+          "to": 7,
+          "inverse": false
+        },
+        {
+          "from": 2,
+          "to": 5
         }
       ]
     }
