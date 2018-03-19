@@ -1,6 +1,6 @@
 {
   "configs": {
-    "spacing": 5,
+    "spacing": 10,
   },
   "resources": {
     "stationIcons": {
@@ -9,6 +9,10 @@
     }
   },
   "nodes": [
+    {
+      "id": 6,
+      "position": [30, 70]
+    }
   ],
   "stations": [
     {
@@ -20,33 +24,27 @@
       "id": 2,
       "name": "测试2",
       "level": "minor",
-      "position": [20, 40]
+      "position": [40, 40]
     },
     {
       "id": 3,
       "name": "测试2",
-      "position": [20, 60]
+      "position": [60, 30]
     },
     {
       "id": 4,
       "name": "测试2",
-      "position": [20, 80]
+      "position": [80, 60]
     },
     {
       "id": 5,
       "name": "测试2",
-      "position": [40, 80]
-    },
-    {
-      "id": 6,
-      "name": "测试2",
-      "level": "minor",
-      "position": [60, 80]
+      "position": [65, 70]
     },
     {
       "id": 7,
       "name": "测试2",
-      "position": [80, 80]
+      "position": [25, 55]
     }
   ],
   "lines": [
@@ -59,20 +57,32 @@
           "to": 2
         },
         {
-          "to": 3
+          "to": 3,
+          "inverse": false,
+          "mode": "square"
         },
         {
-          "to": 4
+          "to": 4,
+          "mode": "line"
         },
         {
+          "to": 5,
+          "inverse": true,
+          "mode": "curve"
+        },
+        {
+          "to": 6,
+          "inverse": false
+        },
+        {
+          "to": 7,
+          "inverse": false,
+          "mode": "curve"
+        },
+        {
+          "from": 2,
           "to": 5
-        },
-        {
-          "to": 6
-        },
-        {
-          "to": 7
-        },
+        }
       ]
     }
   ]

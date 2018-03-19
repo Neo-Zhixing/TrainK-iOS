@@ -43,8 +43,7 @@ public class Station:Node {
     public override init(data: JSON) {
         super.init(data: data)
         self.name = data["name"].stringValue
-        let typeName = data["type"].string
-        if let level = typeName == nil ? nil : Level(rawValue: typeName!) {
+        if let levelName = data["level"].string, let level = Level(rawValue: levelName) {
             self.level = level
         }
         
