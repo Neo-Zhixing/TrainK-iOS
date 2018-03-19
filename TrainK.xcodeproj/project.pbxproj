@@ -19,6 +19,8 @@
 		2248D6AF205FF8460007FF11 /* LineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6AE205FF8460007FF11 /* LineLayer.swift */; };
 		2248D6B3205FFB7D0007FF11 /* LineLayerTriangleSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6B2205FFB7D0007FF11 /* LineLayerTriangleSegment.swift */; };
 		2248D6B5205FFD320007FF11 /* LineLayerSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6B4205FFD320007FF11 /* LineLayerSegment.swift */; };
+		2248D6B7206017620007FF11 /* LineLayerSquareSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6B6206017620007FF11 /* LineLayerSquareSegment.swift */; };
+		2248D6B920601AFA0007FF11 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6B820601AFA0007FF11 /* Utils.swift */; };
 		22DD87F6205EC4DE00EEBBB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD87F5205EC4DE00EEBBB4 /* AppDelegate.swift */; };
 		22DD87F8205EC4DE00EEBBB4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD87F7205EC4DE00EEBBB4 /* ViewController.swift */; };
 		22DD87FB205EC4DE00EEBBB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22DD87F9205EC4DE00EEBBB4 /* Main.storyboard */; };
@@ -59,6 +61,8 @@
 		2248D6AE205FF8460007FF11 /* LineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineLayer.swift; path = TrainK/Sources/MetroMap/Views/Lines/LineLayer.swift; sourceTree = SOURCE_ROOT; };
 		2248D6B2205FFB7D0007FF11 /* LineLayerTriangleSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineLayerTriangleSegment.swift; path = TrainK/Sources/MetroMap/Views/Lines/LineLayerTriangleSegment.swift; sourceTree = SOURCE_ROOT; };
 		2248D6B4205FFD320007FF11 /* LineLayerSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineLayerSegment.swift; sourceTree = "<group>"; };
+		2248D6B6206017620007FF11 /* LineLayerSquareSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineLayerSquareSegment.swift; sourceTree = "<group>"; };
+		2248D6B820601AFA0007FF11 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		22DD87F2205EC4DE00EEBBB4 /* TrainK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22DD87F5205EC4DE00EEBBB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		22DD87F7205EC4DE00EEBBB4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 				2248D69E205ED34A0007FF11 /* Models */,
 				2248D6A9205FF4570007FF11 /* Views */,
 				2248D6AA205FF4940007FF11 /* Controllers */,
+				2248D6B820601AFA0007FF11 /* Utils.swift */,
 			);
 			path = MetroMap;
 			sourceTree = "<group>";
@@ -170,6 +175,7 @@
 			children = (
 				2248D6AE205FF8460007FF11 /* LineLayer.swift */,
 				2248D6B4205FFD320007FF11 /* LineLayerSegment.swift */,
+				2248D6B6206017620007FF11 /* LineLayerSquareSegment.swift */,
 				2248D6B2205FFB7D0007FF11 /* LineLayerTriangleSegment.swift */,
 			);
 			path = Lines;
@@ -390,6 +396,7 @@
 			files = (
 				2248D6B3205FFB7D0007FF11 /* LineLayerTriangleSegment.swift in Sources */,
 				22DD87F8205EC4DE00EEBBB4 /* ViewController.swift in Sources */,
+				2248D6B7206017620007FF11 /* LineLayerSquareSegment.swift in Sources */,
 				2248D695205ECB010007FF11 /* MetroMapView.swift in Sources */,
 				22DD87F6205EC4DE00EEBBB4 /* AppDelegate.swift in Sources */,
 				2248D6A4205EF0270007FF11 /* MetroMap.swift in Sources */,
@@ -398,6 +405,7 @@
 				2248D6A8205EF1FC0007FF11 /* Line.swift in Sources */,
 				2248D69B205ED1350007FF11 /* MetroMapViewController.swift in Sources */,
 				2248D6AF205FF8460007FF11 /* LineLayer.swift in Sources */,
+				2248D6B920601AFA0007FF11 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

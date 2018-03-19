@@ -11,8 +11,14 @@ import UIKit
 private extension Line.Segment.DrawingMode {
     var drawer: LineLayerSegment.Type {
         switch self {
-        default:
+        case .line:
+            return LineLayerDirectSegment.self
+        case .triangle:
             return LineLayerTriangleSegment.self
+        case .square:
+            return LineLayerSquareSegment.self
+        case .curve:
+            return LineLayerCurveSegment.self
         }
     }
 }

@@ -9,21 +9,9 @@
 import UIKit
 
 class LineLayerTriangleSegment: LineLayerSegment {
-    private func point(from: CGPoint, to: CGPoint, apart r: CGFloat) -> CGPoint {
-        let width = to.x - from.x
-        let height = to.y - from.y
-        let L = sqrt(width * width + height * height)
-        let l = L + r
-        return CGPoint(
-            x: from.x + (L*width) / l,
-            y: from.y + (L*height) / l
-        )
-    }
+    var cornerRadius: CGFloat = 10
     override func draw(on path: UIBezierPath) {
-        if let fromNode = segment.from {
-            path.move(to: self.lineLayer.mapView.spacedPosition(fromNode.position))
-        }
-        let targetPoint = self.lineLayer.mapView.spacedPosition(segment.to.position)
+        super.draw(on: path)
         let width = abs(targetPoint.x - path.currentPoint.x)
         let height = abs(targetPoint.y - path.currentPoint.y)
         let xDir:CGFloat = targetPoint.x - path.currentPoint.x > 0 ? 1 : -1
@@ -47,15 +35,11 @@ class LineLayerTriangleSegment: LineLayerSegment {
                         y: targetPoint.y - width * yDir
                 )
             }
-            let curveFrom = self.point(from: path.currentPoint, to: intermediatePoint, apart: 10)
-            let curveTo = self.point(from: targetPoint, to: intermediatePoint, apart: 10)
+            let curveFrom = point(from: path.currentPoint, to: intermediatePoint, apart: self.cornerRadius)
+            let curveTo = point(from: targetPoint, to: intermediatePoint, apart: self.cornerRadius)
             path.addLine(to: curveFrom)
             path.addQuadCurve(to: curveTo, controlPoint: intermediatePoint)
-            //path.move(to: curveTo)
-            path.addLine(to: targetPoint)
         }
         path.addLine(to: targetPoint)
     }
-    
-    
 }

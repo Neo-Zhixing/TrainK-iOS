@@ -12,7 +12,7 @@ import SwiftyJSON
 public class Line:Hashable {
     public class Segment {
         public enum DrawingMode:String {
-            case direct
+            case line
             case square
             case triangle
             case curve
@@ -20,7 +20,7 @@ public class Line:Hashable {
         var from: Node?
         var to: Node
         var inverse: Bool = false
-        var drawingMode: DrawingMode = .triangle
+        var drawingMode: DrawingMode = .line
         
         init(to: Node) {
             self.to = to
@@ -42,7 +42,7 @@ public class Line:Hashable {
             if let inverse = data["inverse"].bool {
                 segment.inverse = inverse
             }
-            if let drawingModeStr = data["drawingMode"].string, let drawingMode = Segment.DrawingMode(rawValue: drawingModeStr) {
+            if let drawingModeStr = data["mode"].string, let drawingMode = Segment.DrawingMode(rawValue: drawingModeStr) {
                 segment.drawingMode = drawingMode
             }
             return segment

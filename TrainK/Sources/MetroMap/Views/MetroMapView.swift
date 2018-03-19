@@ -23,10 +23,13 @@ public class MetroMapView: UIView {
     public func reload() {
         if self.datasource == nil { return }
         self.drawStations()
-        self.drawLines()
+        for line in datasource.lines {
+            let layer = LineLayer(line, mapView: self)
+            self.layer.addSublayer(layer)
+        }
     }
     
-    internal func spacedPosition(_ position: CGPoint, spacing: CGFloat? = nil, offsetX: CGFloat = 0, offsetY: CGFloat = 0) -> CGPoint {
+    func spacedPosition(_ position: CGPoint, spacing: CGFloat? = nil, offsetX: CGFloat = 0, offsetY: CGFloat = 0) -> CGPoint {
         let k = spacing ?? CGFloat(self.datasource.spacing)
         return CGPoint(
             x: position.x * k + offsetX,
@@ -49,9 +52,6 @@ public class MetroMapView: UIView {
     }
     
     func drawLines() {
-        for line in datasource.lines {
-            let layer = LineLayer(line, mapView: self)
-            self.layer.addSublayer(layer)
-        }
+
     }
 }

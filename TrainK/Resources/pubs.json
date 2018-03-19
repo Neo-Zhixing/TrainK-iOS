@@ -56,15 +56,17 @@
         },
         {
           "to": 3,
-          "inverse": true
+          "inverse": false,
+          "mode": "square"
         },
         {
           "to": 4,
-          "inverse": true
+          "mode": "line"
         },
         {
           "to": 5,
-          "inverse": true
+          "inverse": true,
+          "mode": "curve"
         },
         {
           "to": 6,
@@ -72,7 +74,8 @@
         },
         {
           "to": 7,
-          "inverse": false
+          "inverse": false,
+          "mode": "curve"
         },
         {
           "from": 2,
