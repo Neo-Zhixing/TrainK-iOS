@@ -13,6 +13,7 @@ import SwiftSVG
 public class MetroMap: NSObject {
     public var nodes: Set<Node> = []
     public var stations: Set<Station> = []
+    public var connections: [Segment] = []
     
     public var nodeMapping: [Int:Node] = [:]
     
@@ -23,9 +24,7 @@ public class MetroMap: NSObject {
     public var spacing: Double = 10
 
     public init(data: JSON) {
-        if let spacing = data["configs"]["spacing"].double {
-            self.spacing = spacing
-        }
+        super.init()
         for (levelName, iconName) in data["resources"]["stationIcons"] {
             let level = Station.Level(rawValue: levelName)!
             let iconURL = Bundle.main.url(forResource: iconName.stringValue, withExtension: "svg")!
@@ -33,12 +32,12 @@ public class MetroMap: NSObject {
                 self.stationIcons[level] = data
             }
         }
-        for stationJSON in data["stations"].arrayValue {
-            let station = Station(data: stationJSON)
+        for jsondata in data["stations"].arrayValue {
+            let station = Station(data: jsondata)
             self.stations.insert(station)
         }
-        for nodeJSON in data["nodes"].arrayValue {
-            let node = Node(data: nodeJSON)
+        for jsondata in data["nodes"].arrayValue {
+            let node = Node(data: jsondata)
             self.nodes.insert(node)
         }
 
@@ -50,10 +49,15 @@ public class MetroMap: NSObject {
             self.nodeMapping[node.id] = node
         }
         
+        
+        for jsondata in data["connections"].arrayValue {
+            let con = Segment(data: jsondata, onMap: self)
+            self.connections.append(con)
+        }
+        
         // Creating Lines
         for line in data["lines"].arrayValue {
-            
-            let line = Line(data: line, nodes: self.nodeMapping)
+            let line = Line(data: line, onMap: self)
             self.lines.insert(line)
         }
     }

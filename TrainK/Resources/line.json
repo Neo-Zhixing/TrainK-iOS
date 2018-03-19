@@ -1,7 +1,4 @@
 {
-  "configs": {
-    "spacing": 10,
-  },
   "resources": {
     "stationIcons": {
       "major": "major",
@@ -11,40 +8,46 @@
   "nodes": [
     {
       "id": 6,
-      "position": [30, 70]
+      "position": [300, 700]
     }
   ],
   "stations": [
     {
       "id": 1,
       "name": "测试1",
-      "position": [20, 20]
+      "position": [200, 200]
     },
     {
       "id": 2,
       "name": "测试2",
       "level": "minor",
-      "position": [40, 40]
+      "position": [400, 400]
     },
     {
       "id": 3,
       "name": "测试2",
-      "position": [60, 30]
+      "position": [600, 300]
     },
     {
       "id": 4,
       "name": "测试2",
-      "position": [80, 60]
+      "position": [800, 600]
     },
     {
       "id": 5,
       "name": "测试2",
-      "position": [65, 70]
+      "position": [650, 700]
     },
     {
       "id": 7,
       "name": "测试2",
-      "position": [25, 55]
+      "position": [250, 550]
+    }
+  ],
+  "connections": [
+    {
+      "from": 1,
+      "to": 3
     }
   ],
   "lines": [

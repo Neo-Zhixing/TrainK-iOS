@@ -8,7 +8,7 @@
 
 import UIKit
 
-private extension Line.Segment.DrawingMode {
+extension Segment.DrawingMode {
     var drawer: LineLayerSegment.Type {
         switch self {
         case .line:
@@ -24,14 +24,12 @@ private extension Line.Segment.DrawingMode {
 }
 class LineLayer: CAShapeLayer {
     var line: Line
-    var mapView: MetroMapView
-    init(_ line: Line, mapView: MetroMapView) {
+    init(_ line: Line) {
         self.line = line
-        self.mapView = mapView
         super.init()
         let path = UIBezierPath()
         for segment in line.segments {
-            let drawer = segment.drawingMode.drawer.init(segment, onLayer: self)
+            let drawer = segment.drawingMode.drawer.init(segment)
             drawer.draw(on: path)
         }
         self.frame = self.bounds

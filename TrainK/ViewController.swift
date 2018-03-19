@@ -13,7 +13,7 @@ class ViewController: MetroMapViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url = Bundle.main.url(forResource: "pubs", withExtension: "json")!
+        let url = Bundle.main.url(forResource: "line", withExtension: "json")!
         let data = try! Data(contentsOf: url)
         let json = try! JSON(data: data)
         self.metroMap = MetroMap(data: json)

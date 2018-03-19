@@ -9,20 +9,18 @@
 import UIKit
 
 class LineLayerSegment {
-    var segment: Line.Segment
-    weak var lineLayer: LineLayer!
+    var segment: Segment
     var targetPoint:CGPoint {
-        return self.lineLayer.mapView.spacedPosition(segment.to.position)
+        return segment.to.position
     }
     
-    required init(_ segment: Line.Segment, onLayer layer: LineLayer) {
+    required init(_ segment: Segment) {
         self.segment = segment
-        self.lineLayer = layer
     }
 
     func draw(on path: UIBezierPath) {
         if let fromNode = segment.from {
-            path.move(to: self.lineLayer.mapView.spacedPosition(fromNode.position))
+            path.move(to: fromNode.position)
         }
     }
 }
