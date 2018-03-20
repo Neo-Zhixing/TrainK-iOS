@@ -9,11 +9,11 @@
 import UIKit
 import SwiftyJSON
 
-public class Line:Hashable {
-    public var id: Int
-    public var name: String?
-    public var segments: [Segment]
-    public var color: UIColor
+open class Line:Hashable {
+    open var id: Int
+    open var name: String?
+    open var segments: [Segment]
+    open var color: UIColor
 
     public init(data: JSON, onMap map: MetroMap){
         self.id = data["id"].intValue
@@ -28,27 +28,27 @@ public class Line:Hashable {
             self.color = UIColor.red
         }
     }
-    public var hashValue: Int {
+    open var hashValue: Int {
         return self.id
     }
-    public static func ==(lhs: Line, rhs: Line) -> Bool {
+    open static func ==(lhs: Line, rhs: Line) -> Bool {
         return lhs.id == rhs.id
     }
 }
 
-public class Segment {
+open class Segment {
     public enum DrawingMode:String {
         case line
         case square
         case triangle
         case curve
     }
-    var from: Node?
-    var to: Node
-    var inverse: Bool = false
-    var drawingMode: DrawingMode = .line
+    open var from: Node?
+    open var to: Node
+    open var inverse: Bool = false
+    open var drawingMode: DrawingMode = .line
     
-    init(data: JSON, onMap map:MetroMap) {
+    public init(data: JSON, onMap map:MetroMap) {
         let nodes = map.nodeMapping
         self.to = nodes[data["to"].intValue]!
         if let fromNodeID = data["from"].int {

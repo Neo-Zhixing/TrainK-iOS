@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RBv-Dy-OO5" customClass="MetroMapView" customModule="TrainK" customModuleProvider="target">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RBv-Dy-OO5" customClass="MetroMapView" customModule="MetroMap">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -42,7 +42,7 @@
         <!--Metro Map Station Popover View Controller-->
         <scene sceneID="NUr-iY-qCh">
             <objects>
-                <viewController id="2NM-3i-Elb" customClass="MetroMapStationPopoverViewController" customModule="TrainK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="2NM-3i-Elb" customClass="MetroMapStationPopoverViewController" customModule="MetroMap" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MrJ-5c-CJc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

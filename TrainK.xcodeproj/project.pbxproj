@@ -7,23 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2248D68A205EC88A0007FF11 /* SwiftSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2248D689205EC8890007FF11 /* SwiftSVG.framework */; };
-		2248D691205ECAF50007FF11 /* major.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2248D690205ECAF50007FF11 /* major.svg */; };
-		2248D695205ECB010007FF11 /* MetroMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D694205ECB010007FF11 /* MetroMapView.swift */; };
 		2248D697205ECF140007FF11 /* pubs.json in Resources */ = {isa = PBXBuildFile; fileRef = 2248D696205ECF130007FF11 /* pubs.json */; };
-		2248D699205ED10A0007FF11 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2248D698205ED10A0007FF11 /* SwiftyJSON.framework */; };
-		2248D69B205ED1350007FF11 /* MetroMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D69A205ED1350007FF11 /* MetroMapViewController.swift */; };
-		2248D6A4205EF0270007FF11 /* MetroMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6A3205EF0270007FF11 /* MetroMap.swift */; };
-		2248D6A6205EF1810007FF11 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6A5205EF1810007FF11 /* Station.swift */; };
-		2248D6A8205EF1FC0007FF11 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6A7205EF1FC0007FF11 /* Line.swift */; };
-		2248D6AF205FF8460007FF11 /* LineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6AE205FF8460007FF11 /* LineLayer.swift */; };
-		2248D6B3205FFB7D0007FF11 /* LineLayerTriangleSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6B2205FFB7D0007FF11 /* LineLayerTriangleSegment.swift */; };
-		2248D6B5205FFD320007FF11 /* LineLayerSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6B4205FFD320007FF11 /* LineLayerSegment.swift */; };
-		2248D6B7206017620007FF11 /* LineLayerSquareSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6B6206017620007FF11 /* LineLayerSquareSegment.swift */; };
-		2248D6B920601AFA0007FF11 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6B820601AFA0007FF11 /* Utils.swift */; };
-		2248D6BD2060245A0007FF11 /* minor.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2248D6BC2060245A0007FF11 /* minor.svg */; };
 		2248D6BF2060264B0007FF11 /* line.json in Resources */ = {isa = PBXBuildFile; fileRef = 2248D6BE2060264B0007FF11 /* line.json */; };
-		2289F4182060F5C50029E6D1 /* MetroMapStationPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2289F4172060F5C50029E6D1 /* MetroMapStationPopoverViewController.swift */; };
+		22D0979E20617D3200DA4DDC /* MetroMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D0979520617D3100DA4DDC /* MetroMap.framework */; };
+		22D097A520617D3200DA4DDC /* MetroMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097A420617D3200DA4DDC /* MetroMapTests.swift */; };
+		22D097A720617D3200DA4DDC /* MetroMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D0979720617D3200DA4DDC /* MetroMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22D097AA20617D3200DA4DDC /* MetroMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D0979520617D3100DA4DDC /* MetroMap.framework */; };
+		22D097AC20617D3200DA4DDC /* MetroMap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 22D0979520617D3100DA4DDC /* MetroMap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		22D097B320617DCE00DA4DDC /* SwiftSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2248D689205EC8890007FF11 /* SwiftSVG.framework */; };
+		22D097B420617DE100DA4DDC /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2248D698205ED10A0007FF11 /* SwiftyJSON.framework */; };
+		22D097C620617ECA00DA4DDC /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097B820617ECA00DA4DDC /* Station.swift */; };
+		22D097C720617ECB00DA4DDC /* MetroMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097B920617ECA00DA4DDC /* MetroMap.swift */; };
+		22D097C820617ECB00DA4DDC /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097BA20617ECA00DA4DDC /* Line.swift */; };
+		22D097C920617ECB00DA4DDC /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097BB20617ECA00DA4DDC /* Utils.swift */; };
+		22D097CA20617ECB00DA4DDC /* MetroMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097BD20617ECA00DA4DDC /* MetroMapViewController.swift */; };
+		22D097CB20617ECB00DA4DDC /* MetroMapStationPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097BE20617ECA00DA4DDC /* MetroMapStationPopoverViewController.swift */; };
+		22D097CC20617ECB00DA4DDC /* MetroMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097C020617ECA00DA4DDC /* MetroMapView.swift */; };
+		22D097CD20617ECB00DA4DDC /* LineLayerSquareSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097C220617ECA00DA4DDC /* LineLayerSquareSegment.swift */; };
+		22D097CE20617ECB00DA4DDC /* LineLayerSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097C320617ECA00DA4DDC /* LineLayerSegment.swift */; };
+		22D097CF20617ECB00DA4DDC /* LineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097C420617ECA00DA4DDC /* LineLayer.swift */; };
+		22D097D020617ECB00DA4DDC /* LineLayerTriangleSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097C520617ECA00DA4DDC /* LineLayerTriangleSegment.swift */; };
+		22D097D3206181AE00DA4DDC /* major.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2248D690205ECAF50007FF11 /* major.svg */; };
+		22D097D4206181B100DA4DDC /* minor.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2248D6BC2060245A0007FF11 /* minor.svg */; };
 		22DD87F6205EC4DE00EEBBB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD87F5205EC4DE00EEBBB4 /* AppDelegate.swift */; };
 		22DD87F8205EC4DE00EEBBB4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD87F7205EC4DE00EEBBB4 /* ViewController.swift */; };
 		22DD87FB205EC4DE00EEBBB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22DD87F9205EC4DE00EEBBB4 /* Main.storyboard */; };
@@ -31,10 +36,30 @@
 		22DD8800205EC4DE00EEBBB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22DD87FE205EC4DE00EEBBB4 /* LaunchScreen.storyboard */; };
 		22DD880B205EC4DE00EEBBB4 /* TrainKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD880A205EC4DE00EEBBB4 /* TrainKTests.swift */; };
 		22DD8816205EC4DE00EEBBB4 /* TrainKUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD8815205EC4DE00EEBBB4 /* TrainKUITests.swift */; };
-		22DD8824205EC59100EEBBB4 /* cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 22DD8823205EC59100EEBBB4 /* cartfile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		22D0979F20617D3200DA4DDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22DD87EA205EC4DD00EEBBB4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22D0979420617D3100DA4DDC;
+			remoteInfo = MetroMap;
+		};
+		22D097A120617D3200DA4DDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22DD87EA205EC4DD00EEBBB4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22DD87F1205EC4DD00EEBBB4;
+			remoteInfo = TrainK;
+		};
+		22D097A820617D3200DA4DDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22DD87EA205EC4DD00EEBBB4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22D0979420617D3100DA4DDC;
+			remoteInfo = MetroMap;
+		};
 		22DD8807205EC4DE00EEBBB4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 22DD87EA205EC4DD00EEBBB4 /* Project object */;
@@ -51,24 +76,44 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		22D097AB20617D3200DA4DDC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				22D097AC20617D3200DA4DDC /* MetroMap.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		2248D689205EC8890007FF11 /* SwiftSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSVG.framework; path = Carthage/Build/iOS/SwiftSVG.framework; sourceTree = "<group>"; };
 		2248D690205ECAF50007FF11 /* major.svg */ = {isa = PBXFileReference; explicitFileType = text.xml; fileEncoding = 4; path = major.svg; sourceTree = "<group>"; };
-		2248D694205ECB010007FF11 /* MetroMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetroMapView.swift; sourceTree = "<group>"; };
 		2248D696205ECF130007FF11 /* pubs.json */ = {isa = PBXFileReference; explicitFileType = text.json; fileEncoding = 4; indentWidth = 2; path = pubs.json; sourceTree = "<group>"; tabWidth = 2; };
 		2248D698205ED10A0007FF11 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
-		2248D69A205ED1350007FF11 /* MetroMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroMapViewController.swift; sourceTree = "<group>"; };
-		2248D6A3205EF0270007FF11 /* MetroMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetroMap.swift; path = TrainK/Sources/MetroMap/Models/MetroMap.swift; sourceTree = SOURCE_ROOT; };
-		2248D6A5205EF1810007FF11 /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Station.swift; path = TrainK/Sources/MetroMap/Models/Station.swift; sourceTree = SOURCE_ROOT; };
-		2248D6A7205EF1FC0007FF11 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Line.swift; path = TrainK/Sources/MetroMap/Models/Line.swift; sourceTree = SOURCE_ROOT; };
-		2248D6AE205FF8460007FF11 /* LineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineLayer.swift; path = TrainK/Sources/MetroMap/Views/Lines/LineLayer.swift; sourceTree = SOURCE_ROOT; };
-		2248D6B2205FFB7D0007FF11 /* LineLayerTriangleSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineLayerTriangleSegment.swift; path = TrainK/Sources/MetroMap/Views/Lines/LineLayerTriangleSegment.swift; sourceTree = SOURCE_ROOT; };
-		2248D6B4205FFD320007FF11 /* LineLayerSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineLayerSegment.swift; sourceTree = "<group>"; };
-		2248D6B6206017620007FF11 /* LineLayerSquareSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineLayerSquareSegment.swift; sourceTree = "<group>"; };
-		2248D6B820601AFA0007FF11 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		2248D6BC2060245A0007FF11 /* minor.svg */ = {isa = PBXFileReference; explicitFileType = text.xml; fileEncoding = 4; path = minor.svg; sourceTree = "<group>"; };
 		2248D6BE2060264B0007FF11 /* line.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = line.json; sourceTree = "<group>"; };
-		2289F4172060F5C50029E6D1 /* MetroMapStationPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroMapStationPopoverViewController.swift; sourceTree = "<group>"; };
+		22D0979520617D3100DA4DDC /* MetroMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MetroMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		22D0979720617D3200DA4DDC /* MetroMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetroMap.h; sourceTree = "<group>"; };
+		22D0979820617D3200DA4DDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22D0979D20617D3200DA4DDC /* MetroMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetroMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		22D097A420617D3200DA4DDC /* MetroMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroMapTests.swift; sourceTree = "<group>"; };
+		22D097A620617D3200DA4DDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22D097B820617ECA00DA4DDC /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
+		22D097B920617ECA00DA4DDC /* MetroMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetroMap.swift; sourceTree = "<group>"; };
+		22D097BA20617ECA00DA4DDC /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		22D097BB20617ECA00DA4DDC /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		22D097BD20617ECA00DA4DDC /* MetroMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetroMapViewController.swift; sourceTree = "<group>"; };
+		22D097BE20617ECA00DA4DDC /* MetroMapStationPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetroMapStationPopoverViewController.swift; sourceTree = "<group>"; };
+		22D097C020617ECA00DA4DDC /* MetroMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetroMapView.swift; sourceTree = "<group>"; };
+		22D097C220617ECA00DA4DDC /* LineLayerSquareSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineLayerSquareSegment.swift; sourceTree = "<group>"; };
+		22D097C320617ECA00DA4DDC /* LineLayerSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineLayerSegment.swift; sourceTree = "<group>"; };
+		22D097C420617ECA00DA4DDC /* LineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineLayer.swift; sourceTree = "<group>"; };
+		22D097C520617ECA00DA4DDC /* LineLayerTriangleSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineLayerTriangleSegment.swift; sourceTree = "<group>"; };
 		22DD87F2205EC4DE00EEBBB4 /* TrainK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22DD87F5205EC4DE00EEBBB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		22DD87F7205EC4DE00EEBBB4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,12 +131,28 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		22D0979120617D3100DA4DDC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22D097B420617DE100DA4DDC /* SwiftyJSON.framework in Frameworks */,
+				22D097B320617DCE00DA4DDC /* SwiftSVG.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22D0979A20617D3200DA4DDC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22D0979E20617D3200DA4DDC /* MetroMap.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		22DD87EF205EC4DD00EEBBB4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2248D699205ED10A0007FF11 /* SwiftyJSON.framework in Frameworks */,
-				2248D68A205EC88A0007FF11 /* SwiftSVG.framework in Frameworks */,
+				22D097AA20617D3200DA4DDC /* MetroMap.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,68 +187,87 @@
 			children = (
 				2248D696205ECF130007FF11 /* pubs.json */,
 				2248D6BE2060264B0007FF11 /* line.json */,
-				2248D6BC2060245A0007FF11 /* minor.svg */,
-				2248D690205ECAF50007FF11 /* major.svg */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		2248D692205ECB010007FF11 /* Sources */ = {
+		22D0979620617D3100DA4DDC /* MetroMap */ = {
 			isa = PBXGroup;
 			children = (
-				2248D693205ECB010007FF11 /* MetroMap */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		2248D693205ECB010007FF11 /* MetroMap */ = {
-			isa = PBXGroup;
-			children = (
-				2248D69E205ED34A0007FF11 /* Models */,
-				2248D6A9205FF4570007FF11 /* Views */,
-				2248D6AA205FF4940007FF11 /* Controllers */,
-				2248D6B820601AFA0007FF11 /* Utils.swift */,
+				22D097D22061819B00DA4DDC /* Resources */,
+				22D0979720617D3200DA4DDC /* MetroMap.h */,
+				22D0979820617D3200DA4DDC /* Info.plist */,
+				22D097B620617ECA00DA4DDC /* Sources */,
 			);
 			path = MetroMap;
 			sourceTree = "<group>";
 		};
-		2248D69E205ED34A0007FF11 /* Models */ = {
+		22D097A320617D3200DA4DDC /* MetroMapTests */ = {
 			isa = PBXGroup;
 			children = (
-				2248D6A3205EF0270007FF11 /* MetroMap.swift */,
-				2248D6A7205EF1FC0007FF11 /* Line.swift */,
-				2248D6A5205EF1810007FF11 /* Station.swift */,
+				22D097A420617D3200DA4DDC /* MetroMapTests.swift */,
+				22D097A620617D3200DA4DDC /* Info.plist */,
+			);
+			path = MetroMapTests;
+			sourceTree = "<group>";
+		};
+		22D097B620617ECA00DA4DDC /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				22D097B720617ECA00DA4DDC /* Models */,
+				22D097BB20617ECA00DA4DDC /* Utils.swift */,
+				22D097BC20617ECA00DA4DDC /* Controllers */,
+				22D097BF20617ECA00DA4DDC /* Views */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		22D097B720617ECA00DA4DDC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				22D097B820617ECA00DA4DDC /* Station.swift */,
+				22D097B920617ECA00DA4DDC /* MetroMap.swift */,
+				22D097BA20617ECA00DA4DDC /* Line.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		2248D6A9205FF4570007FF11 /* Views */ = {
+		22D097BC20617ECA00DA4DDC /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2248D694205ECB010007FF11 /* MetroMapView.swift */,
-				2248D6AD205FF8190007FF11 /* Lines */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		2248D6AA205FF4940007FF11 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				2248D69A205ED1350007FF11 /* MetroMapViewController.swift */,
-				2289F4172060F5C50029E6D1 /* MetroMapStationPopoverViewController.swift */,
+				22D097BD20617ECA00DA4DDC /* MetroMapViewController.swift */,
+				22D097BE20617ECA00DA4DDC /* MetroMapStationPopoverViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		2248D6AD205FF8190007FF11 /* Lines */ = {
+		22D097BF20617ECA00DA4DDC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2248D6AE205FF8460007FF11 /* LineLayer.swift */,
-				2248D6B4205FFD320007FF11 /* LineLayerSegment.swift */,
-				2248D6B6206017620007FF11 /* LineLayerSquareSegment.swift */,
-				2248D6B2205FFB7D0007FF11 /* LineLayerTriangleSegment.swift */,
+				22D097C020617ECA00DA4DDC /* MetroMapView.swift */,
+				22D097C120617ECA00DA4DDC /* Lines */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		22D097C120617ECA00DA4DDC /* Lines */ = {
+			isa = PBXGroup;
+			children = (
+				22D097C220617ECA00DA4DDC /* LineLayerSquareSegment.swift */,
+				22D097C320617ECA00DA4DDC /* LineLayerSegment.swift */,
+				22D097C420617ECA00DA4DDC /* LineLayer.swift */,
+				22D097C520617ECA00DA4DDC /* LineLayerTriangleSegment.swift */,
 			);
 			path = Lines;
+			sourceTree = "<group>";
+		};
+		22D097D22061819B00DA4DDC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2248D6BC2060245A0007FF11 /* minor.svg */,
+				2248D690205ECAF50007FF11 /* major.svg */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		22DD87E9205EC4DD00EEBBB4 = {
@@ -197,6 +277,8 @@
 				22DD87F4205EC4DE00EEBBB4 /* TrainK */,
 				22DD8809205EC4DE00EEBBB4 /* TrainKTests */,
 				22DD8814205EC4DE00EEBBB4 /* TrainKUITests */,
+				22D0979620617D3100DA4DDC /* MetroMap */,
+				22D097A320617D3200DA4DDC /* MetroMapTests */,
 				22DD87F3205EC4DE00EEBBB4 /* Products */,
 				2248D688205EC8890007FF11 /* Frameworks */,
 			);
@@ -208,6 +290,8 @@
 				22DD87F2205EC4DE00EEBBB4 /* TrainK.app */,
 				22DD8806205EC4DE00EEBBB4 /* TrainKTests.xctest */,
 				22DD8811205EC4DE00EEBBB4 /* TrainKUITests.xctest */,
+				22D0979520617D3100DA4DDC /* MetroMap.framework */,
+				22D0979D20617D3200DA4DDC /* MetroMapTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -221,7 +305,6 @@
 				22DD87FC205EC4DE00EEBBB4 /* Assets.xcassets */,
 				22DD87FE205EC4DE00EEBBB4 /* LaunchScreen.storyboard */,
 				22DD8801205EC4DE00EEBBB4 /* Info.plist */,
-				2248D692205ECB010007FF11 /* Sources */,
 				2248D68F205ECAF50007FF11 /* Resources */,
 			);
 			path = TrainK;
@@ -247,7 +330,55 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		22D0979220617D3100DA4DDC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22D097A720617D3200DA4DDC /* MetroMap.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		22D0979420617D3100DA4DDC /* MetroMap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22D097B120617D3200DA4DDC /* Build configuration list for PBXNativeTarget "MetroMap" */;
+			buildPhases = (
+				22D0979020617D3100DA4DDC /* Sources */,
+				22D0979120617D3100DA4DDC /* Frameworks */,
+				22D0979220617D3100DA4DDC /* Headers */,
+				22D0979320617D3100DA4DDC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MetroMap;
+			productName = MetroMap;
+			productReference = 22D0979520617D3100DA4DDC /* MetroMap.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		22D0979C20617D3200DA4DDC /* MetroMapTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22D097B220617D3200DA4DDC /* Build configuration list for PBXNativeTarget "MetroMapTests" */;
+			buildPhases = (
+				22D0979920617D3200DA4DDC /* Sources */,
+				22D0979A20617D3200DA4DDC /* Frameworks */,
+				22D0979B20617D3200DA4DDC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22D097A020617D3200DA4DDC /* PBXTargetDependency */,
+				22D097A220617D3200DA4DDC /* PBXTargetDependency */,
+			);
+			name = MetroMapTests;
+			productName = MetroMapTests;
+			productReference = 22D0979D20617D3200DA4DDC /* MetroMapTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		22DD87F1205EC4DD00EEBBB4 /* TrainK */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 22DD881A205EC4DE00EEBBB4 /* Build configuration list for PBXNativeTarget "TrainK" */;
@@ -255,11 +386,13 @@
 				22DD87EE205EC4DD00EEBBB4 /* Sources */,
 				22DD87EF205EC4DD00EEBBB4 /* Frameworks */,
 				22DD87F0205EC4DD00EEBBB4 /* Resources */,
-				2248D68B205EC9110007FF11 /* ShellScript */,
+				22D097AB20617D3200DA4DDC /* Embed Frameworks */,
+				22D097D5206185A300DA4DDC /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				22D097A920617D3200DA4DDC /* PBXTargetDependency */,
 			);
 			name = TrainK;
 			productName = TrainK;
@@ -312,6 +445,15 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "begin Studio";
 				TargetAttributes = {
+					22D0979420617D3100DA4DDC = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					22D0979C20617D3200DA4DDC = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 22DD87F1205EC4DD00EEBBB4;
+					};
 					22DD87F1205EC4DD00EEBBB4 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -344,22 +486,37 @@
 				22DD87F1205EC4DD00EEBBB4 /* TrainK */,
 				22DD8805205EC4DE00EEBBB4 /* TrainKTests */,
 				22DD8810205EC4DE00EEBBB4 /* TrainKUITests */,
+				22D0979420617D3100DA4DDC /* MetroMap */,
+				22D0979C20617D3200DA4DDC /* MetroMapTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		22D0979320617D3100DA4DDC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22D097D4206181B100DA4DDC /* minor.svg in Resources */,
+				22D097D3206181AE00DA4DDC /* major.svg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22D0979B20617D3200DA4DDC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		22DD87F0205EC4DD00EEBBB4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2248D6BD2060245A0007FF11 /* minor.svg in Resources */,
 				2248D6BF2060264B0007FF11 /* line.json in Resources */,
 				22DD8800205EC4DE00EEBBB4 /* LaunchScreen.storyboard in Resources */,
 				2248D697205ECF140007FF11 /* pubs.json in Resources */,
-				2248D691205ECAF50007FF11 /* major.svg in Resources */,
 				22DD87FD205EC4DE00EEBBB4 /* Assets.xcassets in Resources */,
-				22DD8824205EC59100EEBBB4 /* cartfile in Resources */,
 				22DD87FB205EC4DE00EEBBB4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -381,7 +538,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2248D68B205EC9110007FF11 /* ShellScript */ = {
+		22D097D5206185A300DA4DDC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -391,8 +548,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 			);
 			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftSVG.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftyJSON.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftSVG.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -401,23 +558,38 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		22D0979020617D3100DA4DDC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22D097CD20617ECB00DA4DDC /* LineLayerSquareSegment.swift in Sources */,
+				22D097CB20617ECB00DA4DDC /* MetroMapStationPopoverViewController.swift in Sources */,
+				22D097D020617ECB00DA4DDC /* LineLayerTriangleSegment.swift in Sources */,
+				22D097C820617ECB00DA4DDC /* Line.swift in Sources */,
+				22D097C720617ECB00DA4DDC /* MetroMap.swift in Sources */,
+				22D097C620617ECA00DA4DDC /* Station.swift in Sources */,
+				22D097CF20617ECB00DA4DDC /* LineLayer.swift in Sources */,
+				22D097CC20617ECB00DA4DDC /* MetroMapView.swift in Sources */,
+				22D097CA20617ECB00DA4DDC /* MetroMapViewController.swift in Sources */,
+				22D097CE20617ECB00DA4DDC /* LineLayerSegment.swift in Sources */,
+				22D097C920617ECB00DA4DDC /* Utils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22D0979920617D3200DA4DDC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22D097A520617D3200DA4DDC /* MetroMapTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		22DD87EE205EC4DD00EEBBB4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2248D6B3205FFB7D0007FF11 /* LineLayerTriangleSegment.swift in Sources */,
 				22DD87F8205EC4DE00EEBBB4 /* ViewController.swift in Sources */,
-				2248D6B7206017620007FF11 /* LineLayerSquareSegment.swift in Sources */,
-				2248D695205ECB010007FF11 /* MetroMapView.swift in Sources */,
 				22DD87F6205EC4DE00EEBBB4 /* AppDelegate.swift in Sources */,
-				2289F4182060F5C50029E6D1 /* MetroMapStationPopoverViewController.swift in Sources */,
-				2248D6A4205EF0270007FF11 /* MetroMap.swift in Sources */,
-				2248D6B5205FFD320007FF11 /* LineLayerSegment.swift in Sources */,
-				2248D6A6205EF1810007FF11 /* Station.swift in Sources */,
-				2248D6A8205EF1FC0007FF11 /* Line.swift in Sources */,
-				2248D69B205ED1350007FF11 /* MetroMapViewController.swift in Sources */,
-				2248D6AF205FF8460007FF11 /* LineLayer.swift in Sources */,
-				2248D6B920601AFA0007FF11 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +612,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		22D097A020617D3200DA4DDC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22D0979420617D3100DA4DDC /* MetroMap */;
+			targetProxy = 22D0979F20617D3200DA4DDC /* PBXContainerItemProxy */;
+		};
+		22D097A220617D3200DA4DDC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22DD87F1205EC4DD00EEBBB4 /* TrainK */;
+			targetProxy = 22D097A120617D3200DA4DDC /* PBXContainerItemProxy */;
+		};
+		22D097A920617D3200DA4DDC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22D0979420617D3100DA4DDC /* MetroMap */;
+			targetProxy = 22D097A820617D3200DA4DDC /* PBXContainerItemProxy */;
+		};
 		22DD8808205EC4DE00EEBBB4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 22DD87F1205EC4DD00EEBBB4 /* TrainK */;
@@ -472,6 +659,98 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		22D097AD20617D3200DA4DDC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = UZ4B7BFRLE;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = MetroMap/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = studio.begin.MetroMap;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		22D097AE20617D3200DA4DDC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = UZ4B7BFRLE;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = MetroMap/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = studio.begin.MetroMap;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		22D097AF20617D3200DA4DDC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UZ4B7BFRLE;
+				INFOPLIST_FILE = MetroMapTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = studio.begin.MetroMapTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrainK.app/TrainK";
+			};
+			name = Debug;
+		};
+		22D097B020617D3200DA4DDC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UZ4B7BFRLE;
+				INFOPLIST_FILE = MetroMapTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = studio.begin.MetroMapTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrainK.app/TrainK";
+			};
+			name = Release;
+		};
 		22DD8818205EC4DE00EEBBB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -582,6 +861,7 @@
 		22DD881B205EC4DE00EEBBB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UZ4B7BFRLE;
@@ -601,6 +881,7 @@
 		22DD881C205EC4DE00EEBBB4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UZ4B7BFRLE;
@@ -686,6 +967,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		22D097B120617D3200DA4DDC /* Build configuration list for PBXNativeTarget "MetroMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22D097AD20617D3200DA4DDC /* Debug */,
+				22D097AE20617D3200DA4DDC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22D097B220617D3200DA4DDC /* Build configuration list for PBXNativeTarget "MetroMapTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22D097AF20617D3200DA4DDC /* Debug */,
+				22D097B020617D3200DA4DDC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		22DD87ED205EC4DD00EEBBB4 /* Build configuration list for PBXProject "TrainK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

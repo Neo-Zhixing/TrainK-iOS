@@ -15,28 +15,28 @@ public protocol MetroMapViewDelegate: NSObjectProtocol {
     func metroMap(_ metroMap: MetroMapView, deselectStation station: Station)
 }
 
-extension MetroMapViewDelegate {
-    func metroMap(_ metroMap: MetroMapView, canSelectStation station: Station) -> Bool {
+public extension MetroMapViewDelegate {
+    public func metroMap(_ metroMap: MetroMapView, canSelectStation station: Station) -> Bool {
         return true
     }
     
-    func metroMap(_ metroMap: MetroMapView, selectStation station: Station, atPosition position: CGPoint) {
+    public func metroMap(_ metroMap: MetroMapView, selectStation station: Station, atPosition position: CGPoint) {
     }
-    func metroMap(_ metroMap: MetroMapView, deselectStation station: Station){}
+    public func metroMap(_ metroMap: MetroMapView, deselectStation station: Station){}
 }
 
-public class MetroMapView: UIView {
-    public weak var datasource:MetroMap! {
+open class MetroMapView: UIView {
+    open weak var datasource:MetroMap! {
         didSet {
             self.reload()
         }
     }
-    public weak var delegate: MetroMapViewDelegate?
+    open weak var delegate: MetroMapViewDelegate?
 
     
-    var lineLayer = CALayer()
-    var stationLayer = CALayer()
-    var connectionLayer = CALayer()
+    private var lineLayer = CALayer()
+    private var stationLayer = CALayer()
+    private var connectionLayer = CALayer()
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,7 +54,7 @@ public class MetroMapView: UIView {
         self.layer.addSublayer(connectionLayer)
         self.backgroundColor = UIColor.clear
     }
-    public func reload() {
+    open func reload() {
         if self.datasource == nil { return }
         self.drawStations()
         self.drawConnections()
@@ -64,7 +64,7 @@ public class MetroMapView: UIView {
         }
         self.frame.size = self.datasource.configs.size
     }
-    var stationLayerData: [CALayer:Station] = [:]
+    open var stationLayerData: [CALayer:Station] = [:]
     private func drawStations() {
         for station in datasource.stations {
             let iconData = self.datasource.stationIcons[station.level]!
@@ -100,7 +100,7 @@ public class MetroMapView: UIView {
     
     var selected: Selection?
     var selectedLayer: CALayer?
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         for touch in touches {
             let location = touch.location(in: self)
@@ -120,7 +120,7 @@ public class MetroMapView: UIView {
             }
         }
     }
-    func delectedAll(){
+    open func delectedAll(){
         guard let selection = self.selected else {return}
         switch selection {
         case .station(let station):

@@ -8,10 +8,10 @@
 
 import UIKit
 
-class MetroMapViewController: UIViewController, UIScrollViewDelegate, MetroMapViewDelegate {
-    @IBOutlet var metroMapView: MetroMapView!
-    @IBOutlet var scrollView: UIScrollView?
-    var metroMap: MetroMap? {
+open class MetroMapViewController: UIViewController, UIScrollViewDelegate, MetroMapViewDelegate {
+    @IBOutlet open var metroMapView: MetroMapView!
+    @IBOutlet open var scrollView: UIScrollView?
+    open var metroMap: MetroMap? {
         didSet {
             self.metroMapView.datasource = self.metroMap
             guard let metroMap = self.metroMap else { return }
@@ -21,20 +21,20 @@ class MetroMapViewController: UIViewController, UIScrollViewDelegate, MetroMapVi
             self.scrollView?.backgroundColor = metroMap.configs.backgroundColor
         }
     }
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         self.metroMapView.delegate = self
         self.scrollView?.delegate = self
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
+    override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    var selectionPopoverViewController:UIViewController?
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    open var selectionPopoverViewController:UIViewController?
+    override open func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         if segue.identifier == "StationPopover",
             let (station, frame) = sender as? (Station, CGRect),
@@ -46,19 +46,19 @@ class MetroMapViewController: UIViewController, UIScrollViewDelegate, MetroMapVi
         }
     }
     
-    func metroMap(_ metroMap: MetroMapView, selectStation station: Station, onFrame frame: CGRect) {
+    open func metroMap(_ metroMap: MetroMapView, selectStation station: Station, onFrame frame: CGRect) {
         print(station.position)
         self.performSegue(withIdentifier: "StationPopover", sender: (station, frame))
     }
-    func metroMap(_ metroMap: MetroMapView, deselectStation station: Station) {
+    open func metroMap(_ metroMap: MetroMapView, deselectStation station: Station) {
         self.selectionPopoverViewController?.dismiss(animated: false, completion: nil)
     }
     
     
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+    open func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return metroMapView
     }
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.metroMapView.delectedAll()
     }
     

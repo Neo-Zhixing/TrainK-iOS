@@ -10,15 +10,15 @@ import UIKit
 import SwiftyJSON
 import SwiftSVG
 
-public class MetroMap: NSObject {
-    public class Configs {
-        public var size:CGSize
-        public var maxZoom: CGFloat
-        public var minZoom: CGFloat
-        public var spacing: CGFloat = 10
-        public var backgroundColor = UIColor.white
+open class MetroMap: NSObject {
+    open class Configs {
+        open var size:CGSize
+        open var maxZoom: CGFloat
+        open var minZoom: CGFloat
+        open var spacing: CGFloat = 10
+        open var backgroundColor = UIColor.white
         
-        init(data: JSON) {
+        public init(json data: JSON) {
             self.size = CGSize(
                 width: data["size"][0].doubleValue,
                 height: data["size"][1].doubleValue
@@ -30,23 +30,28 @@ public class MetroMap: NSObject {
             }
         }
     }
-    public var configs:Configs
-    public var nodes: Set<Node> = []
-    public var stations: Set<Station> = []
-    public var connections: [Segment] = []
+    open var configs:Configs
+    open var nodes: Set<Node> = []
+    open var stations: Set<Station> = []
+    open var connections: [Segment] = []
     
-    public var nodeMapping: [Int:Node] = [:]
+    open var nodeMapping: [Int:Node] = [:]
     
-    public var stationIcons: [Station.Level : Data] = [:]
+    open var stationIcons: [Station.Level : Data] = [:]
     
-    public var lines: Set<Line> = []
+    open var lines: Set<Line> = []
 
-    public init(data: JSON) {
-        self.configs = Configs(data: data["configs"])
+    public convenience init?(data: Data){
+        guard let json = try? JSON(data: data) else {return nil}
+        self.init(json: json)
+    }
+    public init(json data: JSON) {
+        self.configs = Configs(json: data["configs"])
         super.init()
         for (levelName, iconName) in data["resources"]["stationIcons"] {
             let level = Station.Level(rawValue: levelName)!
-            let iconURL = Bundle.main.url(forResource: iconName.stringValue, withExtension: "svg")!
+            let bundle = Bundle(for: type(of:self))
+            let iconURL = bundle.url(forResource: iconName.stringValue, withExtension: "svg")!
             if let data = try? Data(contentsOf: iconURL) {
                 self.stationIcons[level] = data
             }

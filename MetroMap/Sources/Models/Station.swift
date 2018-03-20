@@ -9,9 +9,9 @@
 import UIKit
 import SwiftyJSON
 
-public class Node:Hashable {
-    public var id: Int
-    public var position: CGPoint
+open class Node:Hashable {
+    open var id: Int
+    open var position: CGPoint
     public init(data: JSON) {
         self.id = data["id"].intValue
         
@@ -20,25 +20,25 @@ public class Node:Hashable {
         
     }
     
-    public var hashValue: Int {
+    open var hashValue: Int {
         return self.id
     }
     
-    public static func ==(lhs: Node, rhs: Node) -> Bool {
+    open static func ==(lhs: Node, rhs: Node) -> Bool {
         return lhs.id == rhs.id
     }
 }
 
-public class Station:Node {
+open class Station:Node {
     public enum Level:String {
         case minor
         case major
         case interchange
         case intercity
     }
-    public var level: Level = .major
+    open var level: Level = .major
 
-    public var name: String?
+    open var name: String?
 
     public override init(data: JSON) {
         super.init(data: data)

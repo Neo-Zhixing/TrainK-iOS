@@ -8,18 +8,18 @@
 
 import UIKit
 
-class MetroMapStationPopoverViewController: UIViewController {
-    var station: Station?
+open class MetroMapStationPopoverViewController: UIViewController {
+    open var station: Station?
     
-    @IBOutlet var stationNameLabel: UILabel?
+    @IBOutlet open var stationNameLabel: UILabel?
 
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         stationNameLabel?.text = station?.name
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
+    override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
