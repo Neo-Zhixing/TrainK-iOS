@@ -74,6 +74,7 @@
     {
       "id": 1,
       "name": "一号线",
+      "color": "000000",
       "segments": [
         {
           "from": 1,

@@ -6,13 +6,14 @@
 //  Copyright © 2018 begin Studio. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import SwiftyJSON
 
 public class Line:Hashable {
     public var id: Int
     public var name: String?
     public var segments: [Segment]
+    public var color: UIColor
 
     public init(data: JSON, onMap map: MetroMap){
         self.id = data["id"].intValue
@@ -20,6 +21,11 @@ public class Line:Hashable {
         self.segments = data["segments"].arrayValue.map {
             (data) in
             return Segment(data: data, onMap: map)
+        }
+        if let colorHexStr = data["color"].string {
+            self.color = UIColor(hex: colorHexStr)
+        } else {
+            self.color = UIColor.red
         }
     }
     public var hashValue: Int {

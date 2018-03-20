@@ -52,6 +52,7 @@ public class MetroMapView: UIView {
         self.layer.addSublayer(lineLayer)
         self.layer.addSublayer(stationLayer)
         self.layer.addSublayer(connectionLayer)
+        self.backgroundColor = UIColor.clear
     }
     public func reload() {
         if self.datasource == nil { return }

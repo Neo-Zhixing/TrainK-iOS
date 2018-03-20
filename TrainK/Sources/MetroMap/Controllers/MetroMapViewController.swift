@@ -18,6 +18,7 @@ class MetroMapViewController: UIViewController, UIScrollViewDelegate, MetroMapVi
             self.scrollView?.contentSize = self.metroMapView.frame.size
             self.scrollView?.maximumZoomScale = metroMap.configs.maxZoom
             self.scrollView?.minimumZoomScale = metroMap.configs.minZoom
+            self.scrollView?.backgroundColor = metroMap.configs.backgroundColor
         }
     }
     override func viewDidLoad() {

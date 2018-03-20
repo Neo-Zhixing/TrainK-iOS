@@ -34,7 +34,7 @@ class LineLayer: CAShapeLayer {
         }
         self.frame = self.bounds
         self.path = path.cgPath
-        self.strokeColor = UIColor.blue.cgColor
+        self.strokeColor = self.line.color.cgColor
         self.fillColor = UIColor.clear.cgColor
         self.lineWidth = 10
     }

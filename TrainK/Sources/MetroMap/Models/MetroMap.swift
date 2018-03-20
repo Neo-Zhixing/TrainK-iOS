@@ -16,6 +16,7 @@ public class MetroMap: NSObject {
         public var maxZoom: CGFloat
         public var minZoom: CGFloat
         public var spacing: CGFloat = 10
+        public var backgroundColor = UIColor.white
         
         init(data: JSON) {
             self.size = CGSize(
@@ -24,6 +25,9 @@ public class MetroMap: NSObject {
             )
             self.maxZoom = CGFloat(data["maxZoom"].double ?? 100.0)
             self.minZoom = CGFloat(data["minZoom"].double ?? 0.1)
+            if let hexStr = data["backgroundColor"].string {
+                self.backgroundColor = UIColor(hex: hexStr)
+            }
         }
     }
     public var configs:Configs
