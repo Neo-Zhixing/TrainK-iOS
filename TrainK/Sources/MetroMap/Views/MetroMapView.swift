@@ -12,6 +12,7 @@ import SwiftSVG
 public protocol MetroMapViewDelegate: NSObjectProtocol {
     func metroMap(_ metroMap: MetroMapView, canSelectStation station: Station) -> Bool
     func metroMap(_ metroMap: MetroMapView, selectStation station: Station, onFrame frame: CGRect)
+    func metroMap(_ metroMap: MetroMapView, deselectStation station: Station)
 }
 
 extension MetroMapViewDelegate {
@@ -21,6 +22,7 @@ extension MetroMapViewDelegate {
     
     func metroMap(_ metroMap: MetroMapView, selectStation station: Station, atPosition position: CGPoint) {
     }
+    func metroMap(_ metroMap: MetroMapView, deselectStation station: Station){}
 }
 
 public class MetroMapView: UIView {
@@ -59,6 +61,7 @@ public class MetroMapView: UIView {
             let layer = LineLayer(line)
             self.lineLayer.addSublayer(layer)
         }
+        self.frame.size = self.datasource.configs.size
     }
     var stationLayerData: [CALayer:Station] = [:]
     private func drawStations() {
@@ -97,6 +100,7 @@ public class MetroMapView: UIView {
     var selected: Selection?
     var selectedLayer: CALayer?
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         for touch in touches {
             let location = touch.location(in: self)
             if let stationLayer = self.stationLayer.presentation()?.hitTest(location),
@@ -105,12 +109,24 @@ public class MetroMapView: UIView {
                 let station = self.stationLayerData[svglayer],
                 self.delegate?.metroMap(self, canSelectStation: station) ?? true {
                 // Select the station and start the animation
-                self.selectedLayer?.transform = CATransform3DMakeScale(1, 1, 1)
+                self.delectedAll()
                 self.selectedLayer = svglayer
                 svglayer.transform = CATransform3DMakeScale(2, 2, 1)
                 self.selected = .station(station)
                 self.delegate?.metroMap(self, selectStation: station, onFrame: svglayer.frame)
+            } else {
+                self.delectedAll()
             }
         }
+    }
+    func delectedAll(){
+        guard let selection = self.selected else {return}
+        switch selection {
+        case .station(let station):
+            self.delegate?.metroMap(self, deselectStation: station)
+        }
+        self.selected = nil
+        self.selectedLayer?.transform = CATransform3DMakeScale(1, 1, 1)
+        self.selectedLayer = nil
     }
 }

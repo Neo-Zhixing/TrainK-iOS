@@ -1,4 +1,9 @@
 {
+  "configs": {
+    "size": [2000, 1100],
+    "maxZoom": 100,
+    "minZoom": 1
+  },
   "resources": {
     "stationIcons": {
       "major": "major",
@@ -42,6 +47,21 @@
       "id": 7,
       "name": "测试2",
       "position": [250, 550]
+    },
+    {
+      "id": 8,
+      "name": "测试2",
+      "position": [250, 700]
+    },
+    {
+      "id": 9,
+      "name": "测试2",
+      "position": [250, 850]
+    },
+    {
+      "id": 10,
+      "name": "测试2",
+      "position": [250, 900]
     }
   ],
   "connections": [
@@ -83,8 +103,13 @@
           "mode": "curve"
         },
         {
-          "from": 2,
-          "to": 5
+          "to": 8
+        },
+        {
+          "to": 9
+        },
+        {
+          "to": 10
         }
       ]
     }

@@ -11,6 +11,22 @@ import SwiftyJSON
 import SwiftSVG
 
 public class MetroMap: NSObject {
+    public class Configs {
+        public var size:CGSize
+        public var maxZoom: CGFloat
+        public var minZoom: CGFloat
+        public var spacing: CGFloat = 10
+        
+        init(data: JSON) {
+            self.size = CGSize(
+                width: data["size"][0].doubleValue,
+                height: data["size"][1].doubleValue
+            )
+            self.maxZoom = CGFloat(data["maxZoom"].double ?? 100.0)
+            self.minZoom = CGFloat(data["minZoom"].double ?? 0.1)
+        }
+    }
+    public var configs:Configs
     public var nodes: Set<Node> = []
     public var stations: Set<Station> = []
     public var connections: [Segment] = []
@@ -21,9 +37,8 @@ public class MetroMap: NSObject {
     
     public var lines: Set<Line> = []
 
-    public var spacing: Double = 10
-
     public init(data: JSON) {
+        self.configs = Configs(data: data["configs"])
         super.init()
         for (levelName, iconName) in data["resources"]["stationIcons"] {
             let level = Station.Level(rawValue: levelName)!
