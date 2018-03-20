@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MetroMapViewController: UIViewController {
+class MetroMapViewController: UIViewController, MetroMapViewDelegate {
     var metroMapView: MetroMapView! {
         get { return self.view as? MetroMapView }
         set { self.view = newValue }
@@ -20,6 +20,7 @@ class MetroMapViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.metroMapView.delegate = self
         // Do any additional setup after loading the view.
     }
 
@@ -28,15 +29,19 @@ class MetroMapViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == "StationPopover",
+            let (station, frame) = sender as? (Station, CGRect),
+            let contentVC = segue.destination as? MetroMapStationPopoverViewController{
+            contentVC.station = station
+            contentVC.popoverPresentationController?.sourceRect = frame
+        }
     }
-    */
+    
+    func metroMap(_ metroMap: MetroMapView, selectStation station: Station, onFrame frame: CGRect) {
+        print(station.position)
+        self.performSegue(withIdentifier: "StationPopover", sender: (station, frame ))
+    }
 
 }

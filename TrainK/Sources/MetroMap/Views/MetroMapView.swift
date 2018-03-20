@@ -9,9 +9,20 @@
 import UIKit
 import SwiftSVG
 
-public protocol MetroMapViewDelegate:NSObjectProtocol {
-    
+public protocol MetroMapViewDelegate: NSObjectProtocol {
+    func metroMap(_ metroMap: MetroMapView, canSelectStation station: Station) -> Bool
+    func metroMap(_ metroMap: MetroMapView, selectStation station: Station, onFrame frame: CGRect)
 }
+
+extension MetroMapViewDelegate {
+    func metroMap(_ metroMap: MetroMapView, canSelectStation station: Station) -> Bool {
+        return true
+    }
+    
+    func metroMap(_ metroMap: MetroMapView, selectStation station: Station, atPosition position: CGPoint) {
+    }
+}
+
 public class MetroMapView: UIView {
     public weak var datasource:MetroMap! {
         didSet {
@@ -20,33 +31,51 @@ public class MetroMapView: UIView {
     }
     public weak var delegate: MetroMapViewDelegate?
 
+    
+    var lineLayer = CALayer()
+    var stationLayer = CALayer()
+    var connectionLayer = CALayer()
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    private func setup() {
+        stationLayer.zPosition = 3
+        self.layer.addSublayer(lineLayer)
+        self.layer.addSublayer(stationLayer)
+        self.layer.addSublayer(connectionLayer)
+    }
     public func reload() {
         if self.datasource == nil { return }
         self.drawStations()
         self.drawConnections()
         for line in datasource.lines {
             let layer = LineLayer(line)
-            self.layer.addSublayer(layer)
+            self.lineLayer.addSublayer(layer)
         }
     }
+    var stationLayerData: [CALayer:Station] = [:]
     private func drawStations() {
-        let stationLayer = CALayer()
         for station in datasource.stations {
             let iconData = self.datasource.stationIcons[station.level]!
             CALayer(SVGData: iconData) { (svglayer) in
-                let iconSize = svglayer.boundingBox.size
                 svglayer.position = CGPoint(
-                    x: station.position.x - iconSize.height / 2,
-                    y: station.position.y - iconSize.width / 2
+                    x: station.position.x,
+                    y: station.position.y
                 )
-                stationLayer.addSublayer(svglayer)
+                svglayer.bounds = svglayer.boundingBox
+                self.stationLayer.addSublayer(svglayer)
+                self.stationLayerData[svglayer] = station
             }
         }
-        stationLayer.zPosition = 1
-        self.layer.addSublayer(stationLayer)
     }
     private func drawConnections() {
-        let layer = CALayer()
         for con in datasource.connections {
             let conlayer = CAShapeLayer()
             let path = UIBezierPath()
@@ -57,8 +86,31 @@ public class MetroMapView: UIView {
             conlayer.strokeColor = UIColor.black.cgColor
             conlayer.fillColor = UIColor.clear.cgColor
             conlayer.lineWidth = 1
-            layer.addSublayer(conlayer)
+            self.connectionLayer.addSublayer(conlayer)
         }
-        self.layer.addSublayer(layer)
+    }
+    
+    enum Selection {
+        case station(Station)
+    }
+    
+    var selected: Selection?
+    var selectedLayer: CALayer?
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let location = touch.location(in: self)
+            if let stationLayer = self.stationLayer.presentation()?.hitTest(location),
+                let svglayer = stationLayer.model().superlayer as? SVGLayer,
+                svglayer != self.selectedLayer,
+                let station = self.stationLayerData[svglayer],
+                self.delegate?.metroMap(self, canSelectStation: station) ?? true {
+                // Select the station and start the animation
+                self.selectedLayer?.transform = CATransform3DMakeScale(1, 1, 1)
+                self.selectedLayer = svglayer
+                svglayer.transform = CATransform3DMakeScale(2, 2, 1)
+                self.selected = .station(station)
+                self.delegate?.metroMap(self, selectStation: station, onFrame: svglayer.frame)
+            }
+        }
     }
 }

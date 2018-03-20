@@ -23,6 +23,7 @@
 		2248D6B920601AFA0007FF11 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2248D6B820601AFA0007FF11 /* Utils.swift */; };
 		2248D6BD2060245A0007FF11 /* minor.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2248D6BC2060245A0007FF11 /* minor.svg */; };
 		2248D6BF2060264B0007FF11 /* line.json in Resources */ = {isa = PBXBuildFile; fileRef = 2248D6BE2060264B0007FF11 /* line.json */; };
+		2289F4182060F5C50029E6D1 /* MetroMapStationPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2289F4172060F5C50029E6D1 /* MetroMapStationPopoverViewController.swift */; };
 		22DD87F6205EC4DE00EEBBB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD87F5205EC4DE00EEBBB4 /* AppDelegate.swift */; };
 		22DD87F8205EC4DE00EEBBB4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD87F7205EC4DE00EEBBB4 /* ViewController.swift */; };
 		22DD87FB205EC4DE00EEBBB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22DD87F9205EC4DE00EEBBB4 /* Main.storyboard */; };
@@ -67,6 +68,7 @@
 		2248D6B820601AFA0007FF11 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		2248D6BC2060245A0007FF11 /* minor.svg */ = {isa = PBXFileReference; explicitFileType = text.xml; fileEncoding = 4; path = minor.svg; sourceTree = "<group>"; };
 		2248D6BE2060264B0007FF11 /* line.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = line.json; sourceTree = "<group>"; };
+		2289F4172060F5C50029E6D1 /* MetroMapStationPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroMapStationPopoverViewController.swift; sourceTree = "<group>"; };
 		22DD87F2205EC4DE00EEBBB4 /* TrainK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22DD87F5205EC4DE00EEBBB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		22DD87F7205EC4DE00EEBBB4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				2248D69A205ED1350007FF11 /* MetroMapViewController.swift */,
+				2289F4172060F5C50029E6D1 /* MetroMapStationPopoverViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				2248D6B7206017620007FF11 /* LineLayerSquareSegment.swift in Sources */,
 				2248D695205ECB010007FF11 /* MetroMapView.swift in Sources */,
 				22DD87F6205EC4DE00EEBBB4 /* AppDelegate.swift in Sources */,
+				2289F4182060F5C50029E6D1 /* MetroMapStationPopoverViewController.swift in Sources */,
 				2248D6A4205EF0270007FF11 /* MetroMap.swift in Sources */,
 				2248D6B5205FFD320007FF11 /* LineLayerSegment.swift in Sources */,
 				2248D6A6205EF1810007FF11 /* Station.swift in Sources */,
