@@ -11,18 +11,22 @@ import SwiftSVG
 
 public protocol MetroMapViewDelegate: NSObjectProtocol {
     func metroMap(_ metroMap: MetroMapView, canSelectStation station: Station) -> Bool
-    func metroMap(_ metroMap: MetroMapView, selectStation station: Station, onFrame frame: CGRect)
-    func metroMap(_ metroMap: MetroMapView, deselectStation station: Station)
+    func metroMap(_ metroMap: MetroMapView, willSelectStation station: Station, onFrame frame: CGRect)
+    func metroMap(_ metroMap: MetroMapView, didSelectStation station: Station, onFrame frame: CGRect)
+    func metroMap(_ metroMap: MetroMapView, moveStation station: Station, to point: CGPoint)
+    func metroMap(_ metroMap: MetroMapView, willDeselectStation station: Station)
+    func metroMap(_ metroMap: MetroMapView, didDeselectStation station: Station)
 }
 
 public extension MetroMapViewDelegate {
     public func metroMap(_ metroMap: MetroMapView, canSelectStation station: Station) -> Bool {
-        return true
+        return false
     }
-    
-    public func metroMap(_ metroMap: MetroMapView, selectStation station: Station, atPosition position: CGPoint) {
-    }
-    public func metroMap(_ metroMap: MetroMapView, deselectStation station: Station){}
+    public func metroMap(_ metroMap: MetroMapView, willSelectStation station: Station, onFrame frame: CGRect) {}
+    public func metroMap(_ metroMap: MetroMapView, didSelectStation station: Station, onFrame frame: CGRect) {}
+    public func metroMap(_ metroMap: MetroMapView, willDeselectStation station: Station) {}
+    public func metroMap(_ metroMap: MetroMapView, didDeselectStation station: Station) {}
+    public func metroMap(_ metroMap: MetroMapView, moveStation station: Station, to point: CGPoint) {}
 }
 
 open class MetroMapView: UIView {
@@ -98,23 +102,47 @@ open class MetroMapView: UIView {
     
     var selected: Selection?
     var selectedLayer: CALayer?
+    private var currentTouch: UITouch?
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         for touch in touches {
             let location = touch.location(in: self)
             if let stationLayer = self.stationLayer.presentation()?.hitTest(location),
                 let svglayer = stationLayer.model().superlayer as? SVGLayer,
-                svglayer != self.selectedLayer,
                 let station = self.stationLayerData[svglayer],
-                self.delegate?.metroMap(self, canSelectStation: station) ?? true {
+                self.delegate?.metroMap(self, canSelectStation: station) ?? false {
                 // Select the station and start the animation
                 self.delectedAll()
                 self.selectedLayer = svglayer
                 svglayer.transform = CATransform3DMakeScale(2, 2, 1)
                 self.selected = .station(station)
-                self.delegate?.metroMap(self, selectStation: station, onFrame: svglayer.frame)
+                self.currentTouch = touch
+                self.delegate?.metroMap(self, willSelectStation: station, onFrame: svglayer.frame)
             } else {
                 self.delectedAll()
+            }
+        }
+    }
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        for touch in touches {
+            if touch == self.currentTouch, let layer = self.selectedLayer, let selection = self.selected {
+                self.currentTouch = nil
+                switch selection {
+                case .station(let station):
+                    self.delegate?.metroMap(self, didSelectStation: station, onFrame: layer.frame)
+                }
+            }
+        }
+    }
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+        for touch in touches {
+            if touch == self.currentTouch, let selection = self.selected {
+                switch selection {
+                case .station(let station):
+                    self.delegate?.metroMap(self, moveStation: station, to: touch.location(in: self))
+                }
             }
         }
     }
@@ -122,7 +150,7 @@ open class MetroMapView: UIView {
         guard let selection = self.selected else {return}
         switch selection {
         case .station(let station):
-            self.delegate?.metroMap(self, deselectStation: station)
+            self.delegate?.metroMap(self, willDeselectStation: station)
         }
         self.selected = nil
         self.selectedLayer?.transform = CATransform3DMakeScale(1, 1, 1)

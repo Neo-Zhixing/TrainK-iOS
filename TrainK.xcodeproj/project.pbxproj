@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2207B00A2062534B005E4932 /* MetroMapInteractiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2207B0092062534B005E4932 /* MetroMapInteractiveViewController.swift */; };
+		2207B00C20625B9F005E4932 /* MetroMapEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2207B00B20625B9F005E4932 /* MetroMapEditingViewController.swift */; };
 		2248D697205ECF140007FF11 /* pubs.json in Resources */ = {isa = PBXBuildFile; fileRef = 2248D696205ECF130007FF11 /* pubs.json */; };
 		2248D6BF2060264B0007FF11 /* line.json in Resources */ = {isa = PBXBuildFile; fileRef = 2248D6BE2060264B0007FF11 /* line.json */; };
 		22D0979E20617D3200DA4DDC /* MetroMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D0979520617D3100DA4DDC /* MetroMap.framework */; };
@@ -91,6 +93,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2207B0092062534B005E4932 /* MetroMapInteractiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroMapInteractiveViewController.swift; sourceTree = "<group>"; };
+		2207B00B20625B9F005E4932 /* MetroMapEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroMapEditingViewController.swift; sourceTree = "<group>"; };
 		2248D689205EC8890007FF11 /* SwiftSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSVG.framework; path = Carthage/Build/iOS/SwiftSVG.framework; sourceTree = "<group>"; };
 		2248D690205ECAF50007FF11 /* major.svg */ = {isa = PBXFileReference; explicitFileType = text.xml; fileEncoding = 4; path = major.svg; sourceTree = "<group>"; };
 		2248D696205ECF130007FF11 /* pubs.json */ = {isa = PBXFileReference; explicitFileType = text.json; fileEncoding = 4; indentWidth = 2; path = pubs.json; sourceTree = "<group>"; tabWidth = 2; };
@@ -236,6 +240,8 @@
 			isa = PBXGroup;
 			children = (
 				22D097BD20617ECA00DA4DDC /* MetroMapViewController.swift */,
+				2207B0092062534B005E4932 /* MetroMapInteractiveViewController.swift */,
+				2207B00B20625B9F005E4932 /* MetroMapEditingViewController.swift */,
 				22D097BE20617ECA00DA4DDC /* MetroMapStationPopoverViewController.swift */,
 			);
 			path = Controllers;
@@ -570,8 +576,10 @@
 				22D097C620617ECA00DA4DDC /* Station.swift in Sources */,
 				22D097CF20617ECB00DA4DDC /* LineLayer.swift in Sources */,
 				22D097CC20617ECB00DA4DDC /* MetroMapView.swift in Sources */,
+				2207B00A2062534B005E4932 /* MetroMapInteractiveViewController.swift in Sources */,
 				22D097CA20617ECB00DA4DDC /* MetroMapViewController.swift in Sources */,
 				22D097CE20617ECB00DA4DDC /* LineLayerSegment.swift in Sources */,
+				2207B00C20625B9F005E4932 /* MetroMapEditingViewController.swift in Sources */,
 				22D097C920617ECB00DA4DDC /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

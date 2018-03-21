@@ -29,7 +29,7 @@
                     </scrollView>
                     <connections>
                         <outlet property="metroMapView" destination="RBv-Dy-OO5" id="Z9E-BF-F3W"/>
-                        <outlet property="scrollView" destination="m4h-a7-Tfi" id="JaT-RF-svB"/>
+                        <outlet property="scrollView" destination="m4h-a7-Tfi" id="dUs-FE-sRB"/>
                         <segue destination="2NM-3i-Elb" kind="popoverPresentation" identifier="StationPopover" popoverAnchorView="RBv-Dy-OO5" id="axP-aI-M75">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>

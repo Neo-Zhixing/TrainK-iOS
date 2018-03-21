@@ -9,7 +9,7 @@
 import UIKit
 import MetroMap
 
-class ViewController: MetroMapViewController {
+class ViewController: MetroMapEditingViewController {
 
     override func viewDidLoad() {
         let url = Bundle.main.url(forResource: "line", withExtension: "json")!
