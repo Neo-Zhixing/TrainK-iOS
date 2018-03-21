@@ -44,7 +44,7 @@ open class MetroMapViewController: UIViewController, MetroMapViewDelegate {
     open func metroMap(_ metroMap: MetroMapView, willDeselectStation station: Station) {}
     open func metroMap(_ metroMap: MetroMapView, didSelectStation station: Station, onFrame frame: CGRect) {}
     open func metroMap(_ metroMap: MetroMapView, didDeselectStation station: Station) {}
-    open func metroMap(_ metroMap: MetroMapView, moveStation station: Station, to point: CGPoint) {}
+    open func metroMap(_ metroMap: MetroMapView, moveStation station: Station, to point: CGPoint, withTouch touch: UITouch) {}
     open func metroMap(_ metroMap: MetroMapView, canSelectStation station: Station) -> Bool {
         return false
     }

@@ -49,9 +49,7 @@ class StationLayer: MetroMapLayer {
         let textLayer = CATextLayer()
         textLayer.string = station.name
         textLayer.foregroundColor = UIColor.black.cgColor
-        textLayer.backgroundColor = UIColor.orange.cgColor
         textLayer.alignmentMode = "center"
-        self.backgroundColor = UIColor.red.cgColor
         self.textLayer = textLayer
         self.addSublayer(textLayer)
         CALayer(SVGData: iconData) { (svglayer) in
@@ -59,7 +57,6 @@ class StationLayer: MetroMapLayer {
             self.bounds.size = CGSize(width: svglayer.boundingBox.width*2, height: svglayer.boundingBox.height*2)
             svglayer.position.x = self.bounds.size.width / 2
             svglayer.position.y = self.bounds.size.height / 2
-            svglayer.backgroundColor = UIColor.blue.cgColor
             
             textLayer.bounds.size.width = self.bounds.width
             textLayer.bounds.size.height = self.bounds.height / 4

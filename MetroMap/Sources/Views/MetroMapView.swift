@@ -13,7 +13,7 @@ public protocol MetroMapViewDelegate: NSObjectProtocol {
     func metroMap(_ metroMap: MetroMapView, canSelectStation station: Station) -> Bool
     func metroMap(_ metroMap: MetroMapView, willSelectStation station: Station, onFrame frame: CGRect)
     func metroMap(_ metroMap: MetroMapView, didSelectStation station: Station, onFrame frame: CGRect)
-    func metroMap(_ metroMap: MetroMapView, moveStation station: Station, to point: CGPoint)
+    func metroMap(_ metroMap: MetroMapView, moveStation station: Station, to point: CGPoint, withTouch touch: UITouch)
     func metroMap(_ metroMap: MetroMapView, willDeselectStation station: Station)
     func metroMap(_ metroMap: MetroMapView, didDeselectStation station: Station)
 }
@@ -26,7 +26,7 @@ public extension MetroMapViewDelegate {
     public func metroMap(_ metroMap: MetroMapView, didSelectStation station: Station, onFrame frame: CGRect) {}
     public func metroMap(_ metroMap: MetroMapView, willDeselectStation station: Station) {}
     public func metroMap(_ metroMap: MetroMapView, didDeselectStation station: Station) {}
-    public func metroMap(_ metroMap: MetroMapView, moveStation station: Station, to point: CGPoint) {}
+    public func metroMap(_ metroMap: MetroMapView, moveStation station: Station, to point: CGPoint, withTouch touch: UITouch) {}
 }
 
 class MetroMapLayer: CAShapeLayer {
@@ -143,11 +143,13 @@ open class MetroMapView: UIView {
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
         for touch in touches {
-            if touch == self.currentTouch, let layer = self.selectedLayer, let selection = self.selected {
+            if touch == self.currentTouch, let selection = self.selected {
                 switch selection {
                 case .station(let station):
-                    let offset = layer.position - touch.previousLocation(in: self)
-                    self.delegate?.metroMap(self, moveStation: station, to: offset + touch.location(in: self))
+                    self.delegate?.metroMap(self,
+                                            moveStation: station,
+                                            to: touch.location(in: self),
+                                            withTouch: touch)
                 }
             }
         }
