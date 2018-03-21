@@ -11,21 +11,42 @@ import UIKit
 open class MetroMapViewController: UIViewController, UIScrollViewDelegate, MetroMapViewDelegate {
     @IBOutlet open var metroMapView: MetroMapView!
     @IBOutlet open var scrollView: UIScrollView?
-    open var metroMap: MetroMap? {
-        didSet {
-            self.metroMapView.datasource = self.metroMap
-            guard let metroMap = self.metroMap else { return }
-            self.scrollView?.contentSize = self.metroMapView.frame.size
-            self.scrollView?.maximumZoomScale = metroMap.configs.maxZoom
-            self.scrollView?.minimumZoomScale = metroMap.configs.minZoom
-            self.scrollView?.backgroundColor = metroMap.configs.backgroundColor
+    open var metroMap: MetroMap?
+    
+    private init(){
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    public convenience init(map: MetroMap, scroll: Bool = false) {
+        self.init()
+        self.metroMapView = MetroMapView()
+        self.metroMapView.datasource = map
+        self.metroMap = map
+        if scroll{
+            let scrollView = UIScrollView()
+            self.scrollView = scrollView
+            self.view = scrollView
         }
+        self.view.addSubview(self.metroMapView)
+        
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     override open func viewDidLoad() {
         super.viewDidLoad()
+        self.reload()
+    }
+    open func reload(){
         self.metroMapView.delegate = self
+        self.metroMapView.datasource = self.metroMap
+        self.metroMapView.reload()
         self.scrollView?.delegate = self
-        // Do any additional setup after loading the view.
+        self.scrollView?.contentSize = self.metroMapView.frame.size
+        self.scrollView?.maximumZoomScale = metroMap?.configs.maxZoom ?? 1
+        self.scrollView?.minimumZoomScale = metroMap?.configs.minZoom ?? 2
+        self.scrollView?.backgroundColor = metroMap?.configs.backgroundColor
     }
 
     override open func didReceiveMemoryWarning() {

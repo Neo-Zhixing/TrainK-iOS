@@ -12,21 +12,24 @@ import SwiftyJSON
 open class Line:Hashable {
     open var id: Int
     open var name: String?
-    open var segments: [Segment]
-    open var color: UIColor
+    open var segments: [Segment] = []
+    open var color = UIColor.red
 
     public init(data: JSON, onMap map: MetroMap){
         self.id = data["id"].intValue
-        self.name = data["name"].stringValue
+        if let name = data["name"].string {
+            self.name = name
+        }
         self.segments = data["segments"].arrayValue.map {
             (data) in
             return Segment(data: data, onMap: map)
         }
         if let colorHexStr = data["color"].string {
             self.color = UIColor(hex: colorHexStr)
-        } else {
-            self.color = UIColor.red
         }
+    }
+    public init(id: Int) {
+        self.id = id
     }
     open var hashValue: Int {
         return self.id

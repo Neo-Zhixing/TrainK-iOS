@@ -26,11 +26,7 @@ public extension MetroMapViewDelegate {
 }
 
 open class MetroMapView: UIView {
-    open weak var datasource:MetroMap! {
-        didSet {
-            self.reload()
-        }
-    }
+    open weak var datasource:MetroMap?
     open weak var delegate: MetroMapViewDelegate?
 
     
@@ -55,19 +51,20 @@ open class MetroMapView: UIView {
         self.backgroundColor = UIColor.clear
     }
     open func reload() {
-        if self.datasource == nil { return }
+        guard let map = self.datasource else { return }
         self.drawStations()
         self.drawConnections()
-        for line in datasource.lines {
+        for line in map.lines {
             let layer = LineLayer(line)
             self.lineLayer.addSublayer(layer)
         }
-        self.frame.size = self.datasource.configs.size
+        self.frame.size = map.configs.size
     }
     open var stationLayerData: [CALayer:Station] = [:]
     private func drawStations() {
-        for station in datasource.stations {
-            let iconData = self.datasource.stationIcons[station.level]!
+        guard let map = self.datasource else { return }
+        for station in map.stations {
+            let iconData = map.stationIcons[station.level]!
             CALayer(SVGData: iconData) { (svglayer) in
                 svglayer.position = CGPoint(
                     x: station.position.x,
@@ -80,7 +77,8 @@ open class MetroMapView: UIView {
         }
     }
     private func drawConnections() {
-        for con in datasource.connections {
+        guard let map = self.datasource else { return }
+        for con in map.connections {
             let conlayer = CAShapeLayer()
             let path = UIBezierPath()
             let drawer = con.drawingMode.drawer.init(con)

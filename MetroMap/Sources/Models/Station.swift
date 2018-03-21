@@ -11,13 +11,16 @@ import SwiftyJSON
 
 open class Node:Hashable {
     open var id: Int
-    open var position: CGPoint
+    open var position = CGPoint()
     public init(data: JSON) {
         self.id = data["id"].intValue
         
         let position = data["position"]
         self.position = CGPoint(x: position[0].doubleValue, y: position[1].doubleValue)
         
+    }
+    public init(id: Int){
+        self.id = id
     }
     
     open var hashValue: Int {
@@ -47,5 +50,8 @@ open class Station:Node {
             self.level = level
         }
         
+    }
+    public override init(id: Int){
+        super.init(id: id)
     }
 }

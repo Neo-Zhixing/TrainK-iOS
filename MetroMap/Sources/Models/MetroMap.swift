@@ -10,44 +10,53 @@ import UIKit
 import SwiftyJSON
 import SwiftSVG
 
-open class MetroMap: NSObject {
+open class MetroMap {
     open class Configs {
-        open var size:CGSize
-        open var maxZoom: CGFloat
-        open var minZoom: CGFloat
+        open var size = CGSize(width: 200, height: 200)
+        open var maxZoom: CGFloat = 10
+        open var minZoom: CGFloat = 1
         open var spacing: CGFloat = 10
         open var backgroundColor = UIColor.white
         
+        
+        public init(){
+        }
         public init(json data: JSON) {
-            self.size = CGSize(
-                width: data["size"][0].doubleValue,
-                height: data["size"][1].doubleValue
-            )
-            self.maxZoom = CGFloat(data["maxZoom"].double ?? 100.0)
-            self.minZoom = CGFloat(data["minZoom"].double ?? 0.1)
+            if let width = data["size"][0].double,
+                let height = data["size"][1].double {
+                self.size = CGSize(width: width, height: height)
+            }
+            if let maxZoom = data["maxZoom"].double{
+                self.maxZoom = CGFloat(maxZoom)
+            }
+            if let minZoom = data["minZoom"].double{
+                self.minZoom = CGFloat(minZoom)
+            }
             if let hexStr = data["backgroundColor"].string {
                 self.backgroundColor = UIColor(hex: hexStr)
             }
         }
     }
-    open var configs:Configs
+    open var configs = Configs()
     open var nodes: Set<Node> = []
     open var stations: Set<Station> = []
     open var connections: [Segment] = []
     
-    open var nodeMapping: [Int:Node] = [:]
+    var nodeMapping: [Int:Node] = [:]
     
     open var stationIcons: [Station.Level : Data] = [:]
     
     open var lines: Set<Line> = []
 
+    public init(){
+    }
     public convenience init?(data: Data){
         guard let json = try? JSON(data: data) else {return nil}
         self.init(json: json)
     }
-    public init(json data: JSON) {
+    public convenience init(json data: JSON) {
+        self.init()
         self.configs = Configs(json: data["configs"])
-        super.init()
         for (levelName, iconName) in data["resources"]["stationIcons"] {
             let level = Station.Level(rawValue: levelName)!
             let bundle = Bundle(for: type(of:self))
