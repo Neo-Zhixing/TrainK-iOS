@@ -22,11 +22,14 @@ extension Segment.DrawingMode {
         }
     }
 }
-class LineLayer: CAShapeLayer {
+class LineLayer: MetroMapLayer {
     var line: Line
     init(_ line: Line) {
         self.line = line
         super.init()
+        self.draw()
+    }
+    override func draw(){
         let path = UIBezierPath()
         for segment in line.segments {
             let drawer = segment.drawingMode.drawer.init(segment)
@@ -38,7 +41,6 @@ class LineLayer: CAShapeLayer {
         self.fillColor = UIColor.clear.cgColor
         self.lineWidth = 10
     }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

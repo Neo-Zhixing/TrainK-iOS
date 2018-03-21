@@ -9,9 +9,10 @@
 import UIKit
 import SwiftyJSON
 
-open class Node:Hashable {
+open class Node: NSObject {
     open var id: Int
-    open var position = CGPoint()
+    @objc dynamic open var position = CGPoint()
+    open var lines:Set<Line> = []
     public init(data: JSON) {
         self.id = data["id"].intValue
         
@@ -23,7 +24,7 @@ open class Node:Hashable {
         self.id = id
     }
     
-    open var hashValue: Int {
+    override open var hashValue: Int {
         return self.id
     }
     

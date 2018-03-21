@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-open class Line:Hashable {
+open class Line: NSObject {
     open var id: Int
     open var name: String?
     open var segments: [Segment] = []
@@ -21,17 +21,22 @@ open class Line:Hashable {
             self.name = name
         }
         self.segments = data["segments"].arrayValue.map {
-            (data) in
+            data in
             return Segment(data: data, onMap: map)
         }
         if let colorHexStr = data["color"].string {
             self.color = UIColor(hex: colorHexStr)
         }
+        super.init()
+        for segment in self.segments {
+            segment.from?.lines.insert(self)
+            segment.to.lines.insert(self)
+        }
     }
     public init(id: Int) {
         self.id = id
     }
-    open var hashValue: Int {
+    override open var hashValue: Int {
         return self.id
     }
     open static func ==(lhs: Line, rhs: Line) -> Bool {

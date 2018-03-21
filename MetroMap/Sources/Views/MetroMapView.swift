@@ -29,6 +29,9 @@ public extension MetroMapViewDelegate {
     public func metroMap(_ metroMap: MetroMapView, moveStation station: Station, to point: CGPoint) {}
 }
 
+class MetroMapLayer: CAShapeLayer {
+    func draw() {}
+}
 open class MetroMapView: UIView {
     open weak var datasource:MetroMap?
     open weak var delegate: MetroMapViewDelegate?
@@ -56,29 +59,25 @@ open class MetroMapView: UIView {
     }
     open func reload() {
         guard let map = self.datasource else { return }
-        self.drawStations()
+        var mapping: [Node: StationLayer] = [:]
+        for station in map.stations {
+            let layer = StationLayer(station, onMapView: self)
+            self.stationLayer.addSublayer(layer)
+            mapping[station] = layer
+        }
         self.drawConnections()
         for line in map.lines {
             let layer = LineLayer(line)
             self.lineLayer.addSublayer(layer)
-        }
-        self.frame.size = map.configs.size
-    }
-    open var stationLayerData: [CALayer:Station] = [:]
-    private func drawStations() {
-        guard let map = self.datasource else { return }
-        for station in map.stations {
-            let iconData = map.stationIcons[station.level]!
-            CALayer(SVGData: iconData) { (svglayer) in
-                svglayer.position = CGPoint(
-                    x: station.position.x,
-                    y: station.position.y
-                )
-                svglayer.bounds = svglayer.boundingBox
-                self.stationLayer.addSublayer(svglayer)
-                self.stationLayerData[svglayer] = station
+            // Adding connectedLayers to our station layers
+            for seg in line.segments {
+                mapping[seg.to]?.connectedLayers.insert(layer)
+                if let from = seg.from {
+                    mapping[from]?.connectedLayers.insert(layer)
+                }
             }
         }
+        self.frame.size = map.configs.size
     }
     private func drawConnections() {
         guard let map = self.datasource else { return }
@@ -101,23 +100,29 @@ open class MetroMapView: UIView {
     }
     
     var selected: Selection?
-    var selectedLayer: CALayer?
+    var selectedLayer: MetroMapLayer?
     private var currentTouch: UITouch?
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         for touch in touches {
             let location = touch.location(in: self)
-            if let stationLayer = self.stationLayer.presentation()?.hitTest(location),
-                let svglayer = stationLayer.model().superlayer as? SVGLayer,
-                let station = self.stationLayerData[svglayer],
-                self.delegate?.metroMap(self, canSelectStation: station) ?? false {
+            var stationLayer: CALayer? = self.stationLayer.presentation()?.hitTest(location)?.model()
+            // Tracing back to find out what's the station layer hitted
+            for _ in 0..<3 {
+                if let _ = stationLayer as? StationLayer {
+                    break
+                }
+                stationLayer = stationLayer?.superlayer
+            }
+            if let layer = stationLayer as? StationLayer,
+                self.delegate?.metroMap(self, canSelectStation: layer.station) ?? false {
                 // Select the station and start the animation
                 self.delectedAll()
-                self.selectedLayer = svglayer
-                svglayer.transform = CATransform3DMakeScale(2, 2, 1)
-                self.selected = .station(station)
+                self.selectedLayer = layer
+                layer.transform = CATransform3DMakeScale(2, 2, 1)
+                self.selected = .station(layer.station)
                 self.currentTouch = touch
-                self.delegate?.metroMap(self, willSelectStation: station, onFrame: svglayer.frame)
+                self.delegate?.metroMap(self, willSelectStation: layer.station, onFrame: layer.frame)
             } else {
                 self.delectedAll()
             }
@@ -138,10 +143,11 @@ open class MetroMapView: UIView {
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
         for touch in touches {
-            if touch == self.currentTouch, let selection = self.selected {
+            if touch == self.currentTouch, let layer = self.selectedLayer, let selection = self.selected {
                 switch selection {
                 case .station(let station):
-                    self.delegate?.metroMap(self, moveStation: station, to: touch.location(in: self))
+                    let offset = layer.position - touch.previousLocation(in: self)
+                    self.delegate?.metroMap(self, moveStation: station, to: offset + touch.location(in: self))
                 }
             }
         }

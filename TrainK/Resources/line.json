@@ -78,25 +78,27 @@
       "segments": [
         {
           "from": 1,
-          "to": 2
+          "to": 2,
+          "mode": "triangle"
         },
         {
           "to": 3,
           "inverse": false,
-          "mode": "square"
+          "mode": "triangle"
         },
         {
           "to": 4,
-          "mode": "line"
+          "mode": "triangle"
         },
         {
           "to": 5,
           "inverse": true,
-          "mode": "curve"
+          "mode": "triangle"
         },
         {
           "to": 6,
-          "inverse": false
+          "inverse": false,
+          "mode": "triangle"
         },
         {
           "to": 7,
@@ -104,13 +106,16 @@
           "mode": "curve"
         },
         {
-          "to": 8
+          "to": 8,
+          "mode": "triangle"
         },
         {
-          "to": 9
+          "to": 9,
+          "mode": "triangle"
         },
         {
-          "to": 10
+          "to": 10,
+          "mode": "triangle"
         }
       ]
     }

@@ -16,7 +16,6 @@ open class MetroMapEditingViewController: MetroMapScrollableViewController {
         self.scrollView?.isScrollEnabled = true
     }
     override open func metroMap(_ metroMap: MetroMapView, moveStation station: Station, to point: CGPoint) {
-        print(point)
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         metroMap.selectedLayer?.position = point
