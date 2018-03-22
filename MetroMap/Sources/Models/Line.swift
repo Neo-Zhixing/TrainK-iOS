@@ -56,6 +56,7 @@ open class Segment: NSObject {
     }
     open var from: Node
     open var to: Node
+    open var length: Float = 1
     open var inverse: Bool = false
     open var drawingMode: DrawingMode = .line
     

@@ -16,6 +16,8 @@ public protocol MetroMapViewDelegate: NSObjectProtocol {
     func metroMap(_ metroMap: MetroMapView, moveStation station: Station, to point: CGPoint, withTouch touch: UITouch)
     func metroMap(_ metroMap: MetroMapView, willDeselectStation station: Station)
     func metroMap(_ metroMap: MetroMapView, didDeselectStation station: Station)
+
+    func metroMap(_ metroMap: MetroMapView, shouldEmphasizeElement element: MetroMapView.Element) -> Bool
 }
 
 public extension MetroMapViewDelegate {
@@ -27,6 +29,9 @@ public extension MetroMapViewDelegate {
     public func metroMap(_ metroMap: MetroMapView, willDeselectStation station: Station) {}
     public func metroMap(_ metroMap: MetroMapView, didDeselectStation station: Station) {}
     public func metroMap(_ metroMap: MetroMapView, moveStation station: Station, to point: CGPoint, withTouch touch: UITouch) {}
+    public func metroMap(_ metroMap: MetroMapView, shouldEmphasizeElement element: MetroMapView.Element) -> Bool {
+        return false
+    }
 }
 
 class MetroMapLayer: CAShapeLayer {
@@ -69,13 +74,13 @@ open class MetroMapView: UIView {
         stationMapping[station] = layer
     }
     private func renderConnection(_ connection: Segment) {
-        let layer = ConnectionLayer(connection)
+        let layer = ConnectionLayer(connection, onMapView: self)
         self.connectionLayer.addSublayer(layer)
         stationMapping[connection.to]?.connectedLayers.insert(layer)
         stationMapping[connection.from]?.connectedLayers.insert(layer)
     }
     private func renderLine(_ line: Line) {
-        let layer = LineLayer(line)
+        let layer = LineLayer(line, onMapView: self)
         self.lineLayer.addSublayer(layer)
         // Adding connectedLayers to our station layers
         for seg in line.segments {
@@ -118,11 +123,13 @@ open class MetroMapView: UIView {
     }
     
     // MARK: - Touch Event Handling
-    enum Selection {
+    public enum Element {
         case station(Station)
+        case connection(Segment)
+        case segment(Segment)
     }
     
-    var selected: Selection?
+    var selected: Element?
     var selectedLayer: MetroMapLayer?
     private var currentTouch: UITouch?
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -159,6 +166,8 @@ open class MetroMapView: UIView {
                 switch selection {
                 case .station(let station):
                     self.delegate?.metroMap(self, didSelectStation: station, onFrame: layer.frame)
+                default:
+                    fatalError("Not Implemented Yet")
                 }
             }
         }
@@ -173,6 +182,8 @@ open class MetroMapView: UIView {
                                             moveStation: station,
                                             to: touch.location(in: self),
                                             withTouch: touch)
+                default:
+                    fatalError("Not Implemented Yet")
                 }
             }
         }
@@ -182,6 +193,8 @@ open class MetroMapView: UIView {
         switch selection {
         case .station(let station):
             self.delegate?.metroMap(self, willDeselectStation: station)
+        default:
+            fatalError("Not Implemented Yet")
         }
         self.selected = nil
         self.selectedLayer?.transform = CATransform3DMakeScale(1, 1, 1)

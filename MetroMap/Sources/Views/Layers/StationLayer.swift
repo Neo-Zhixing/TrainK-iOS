@@ -67,6 +67,9 @@ class StationLayer: MetroMapLayer {
             self.iconLayer = svglayer
             self.addSublayer(svglayer)
         }
+        if let delegate = self.mapView.delegate, delegate.metroMap(self.mapView, shouldEmphasizeElement: .station(self.station)) {
+            self.backgroundColor = UIColor.red.cgColor
+        }
         self.observation = station.observe(\.position) { station, change in
             for layer in self.connectedLayers {
                 layer.draw()

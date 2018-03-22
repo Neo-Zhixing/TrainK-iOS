@@ -10,9 +10,11 @@ import UIKit
 
 class ConnectionLayer: MetroMapLayer {
     var segment: Segment
+    var mapView: MetroMapView
     
-    init(_ segment: Segment) {
+    init(_ segment: Segment, onMapView view: MetroMapView) {
         self.segment = segment
+        self.mapView = view
         super.init()
         self.draw()
     }
@@ -21,6 +23,7 @@ class ConnectionLayer: MetroMapLayer {
             fatalError("Station Layer init(layer: Any) got unexpected layer")
         }
         self.segment = layer.segment
+        self.mapView = layer.mapView
         super.init(layer: layer)
     }
     
@@ -33,7 +36,8 @@ class ConnectionLayer: MetroMapLayer {
         drawer.draw(on: path)
         self.path = path.cgPath
         //self.frame = self.bounds
-        self.strokeColor = UIColor.black.cgColor
+        let emphasize = mapView.delegate?.metroMap(mapView, shouldEmphasizeElement: .connection(segment)) ?? false
+        self.strokeColor = emphasize ? UIColor.red.cgColor : UIColor.black.cgColor
         self.fillColor = UIColor.clear.cgColor
         self.lineWidth = 1
     }

@@ -48,6 +48,9 @@ open class MetroMapViewController: UIViewController, MetroMapViewDelegate {
     open func metroMap(_ metroMap: MetroMapView, canSelectStation station: Station) -> Bool {
         return false
     }
+    open func metroMap(_ metroMap: MetroMapView, shouldEmphasizeElement element: MetroMapView.Element) -> Bool {
+        return false
+    }
 }
 
 open class MetroMapScrollableViewController: MetroMapViewController, UIScrollViewDelegate {

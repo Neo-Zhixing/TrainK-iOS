@@ -24,22 +24,41 @@ extension Segment.DrawingMode {
 }
 class LineLayer: MetroMapLayer {
     var line: Line
-    init(_ line: Line) {
+    var mapView: MetroMapView
+    init(_ line: Line, onMapView view: MetroMapView) {
         self.line = line
+        self.mapView = view
         super.init()
         self.draw()
     }
+    var emphasizeLayer: CAShapeLayer?
     override func draw(){
+        self.emphasizeLayer?.removeFromSuperlayer()
+        self.emphasizeLayer = nil
         let path = UIBezierPath()
+        let emphasizePath = UIBezierPath()
         for segment in line.segments {
             let drawer = segment.drawingMode.drawer.init(segment)
-            drawer.draw(on: path)
+            if let delegate = self.mapView.delegate, delegate.metroMap(self.mapView, shouldEmphasizeElement: .segment(segment)) {
+                drawer.draw(on: emphasizePath)
+            } else {
+                drawer.draw(on: path)
+            }
         }
+        let emphasizeLayer = CAShapeLayer()
         self.frame = self.bounds
+        emphasizeLayer.bounds = self.bounds
+        emphasizeLayer.frame = self.bounds
         self.path = path.cgPath
+        emphasizeLayer.path = emphasizePath.cgPath
         self.strokeColor = self.line.color.cgColor
+        emphasizeLayer.strokeColor = self.line.color.cgColor
         self.fillColor = UIColor.clear.cgColor
+        emphasizeLayer.fillColor = UIColor.clear.cgColor
         self.lineWidth = 10
+        emphasizeLayer.lineWidth = 20
+        self.emphasizeLayer = emphasizeLayer
+        self.addSublayer(emphasizeLayer)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
