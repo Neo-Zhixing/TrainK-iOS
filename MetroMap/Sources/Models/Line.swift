@@ -28,10 +28,6 @@ open class Line: NSObject {
             self.color = UIColor(hex: colorHexStr)
         }
         super.init()
-        for segment in self.segments {
-            segment.from?.lines.insert(self)
-            segment.to.lines.insert(self)
-        }
     }
     public init(id: Int) {
         self.id = id
@@ -44,7 +40,7 @@ open class Line: NSObject {
     }
 }
 
-open class Segment {
+open class Segment: NSObject {
     public enum DrawingMode:String {
         case line
         case square

@@ -12,7 +12,6 @@ import SwiftyJSON
 open class Node: NSObject {
     open var id: Int
     @objc dynamic open var position = CGPoint()
-    open var lines:Set<Line> = []
     public init(data: JSON) {
         self.id = data["id"].intValue
         

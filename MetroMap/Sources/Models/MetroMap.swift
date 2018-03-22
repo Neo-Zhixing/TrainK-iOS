@@ -40,7 +40,7 @@ open class MetroMap {
     open var configs = Configs()
     open var nodes: Set<Node> = []
     open var stations: Set<Station> = []
-    open var connections: [Segment] = []
+    open var connections: Set<Segment> = []
     
     var nodeMapping: [Int:Node] = [:]
     
@@ -85,7 +85,7 @@ open class MetroMap {
         
         for jsondata in data["connections"].arrayValue {
             let con = Segment(data: jsondata, onMap: self)
-            self.connections.append(con)
+            self.connections.insert(con)
         }
         
         // Creating Lines

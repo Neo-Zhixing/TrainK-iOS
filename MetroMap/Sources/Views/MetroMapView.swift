@@ -65,7 +65,14 @@ open class MetroMapView: UIView {
             self.stationLayer.addSublayer(layer)
             mapping[station] = layer
         }
-        self.drawConnections()
+        for connection in map.connections {
+            let layer = ConnectionLayer(connection)
+            self.connectionLayer.addSublayer(layer)
+            mapping[connection.to]?.connectedLayers.insert(layer)
+            if let from = connection.from {
+                mapping[from]?.connectedLayers.insert(layer)
+            }
+        }
         for line in map.lines {
             let layer = LineLayer(line)
             self.lineLayer.addSublayer(layer)
@@ -78,21 +85,6 @@ open class MetroMapView: UIView {
             }
         }
         self.frame.size = map.configs.size
-    }
-    private func drawConnections() {
-        guard let map = self.datasource else { return }
-        for con in map.connections {
-            let conlayer = CAShapeLayer()
-            let path = UIBezierPath()
-            let drawer = con.drawingMode.drawer.init(con)
-            drawer.draw(on: path)
-            conlayer.path = path.cgPath
-            //self.frame = self.bounds
-            conlayer.strokeColor = UIColor.black.cgColor
-            conlayer.fillColor = UIColor.clear.cgColor
-            conlayer.lineWidth = 1
-            self.connectionLayer.addSublayer(conlayer)
-        }
     }
     
     enum Selection {
