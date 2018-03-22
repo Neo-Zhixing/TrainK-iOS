@@ -20,9 +20,16 @@ open class Line: NSObject {
         if let name = data["name"].string {
             self.name = name
         }
+        var lastSegment: Segment?
         self.segments = data["segments"].arrayValue.map {
             data in
-            return Segment(data: data, onMap: map)
+            var json = data
+            if json["from"].int == nil, let lastNode = lastSegment?.to {
+                json["from"].intValue = lastNode.id
+            }
+            let newSegment = Segment(data: json, onMap: map)
+            lastSegment = newSegment
+            return newSegment
         }
         if let colorHexStr = data["color"].string {
             self.color = UIColor(hex: colorHexStr)
@@ -47,7 +54,7 @@ open class Segment: NSObject {
         case triangle
         case curve
     }
-    open var from: Node?
+    open var from: Node
     open var to: Node
     open var inverse: Bool = false
     open var drawingMode: DrawingMode = .line
@@ -55,9 +62,7 @@ open class Segment: NSObject {
     public init(data: JSON, onMap map:MetroMap) {
         let nodes = map.nodeMapping
         self.to = nodes[data["to"].intValue]!
-        if let fromNodeID = data["from"].int {
-            self.from = nodes[fromNodeID]
-        }
+        self.from = nodes[data["from"].intValue]!
         if let inverse = data["inverse"].bool {
             self.inverse = inverse
         }

@@ -72,9 +72,7 @@ open class MetroMapView: UIView {
         let layer = ConnectionLayer(connection)
         self.connectionLayer.addSublayer(layer)
         stationMapping[connection.to]?.connectedLayers.insert(layer)
-        if let from = connection.from {
-            stationMapping[from]?.connectedLayers.insert(layer)
-        }
+        stationMapping[connection.from]?.connectedLayers.insert(layer)
     }
     private func renderLine(_ line: Line) {
         let layer = LineLayer(line)
@@ -82,9 +80,7 @@ open class MetroMapView: UIView {
         // Adding connectedLayers to our station layers
         for seg in line.segments {
             stationMapping[seg.to]?.connectedLayers.insert(layer)
-            if let from = seg.from {
-                stationMapping[from]?.connectedLayers.insert(layer)
-            }
+            stationMapping[seg.from]?.connectedLayers.insert(layer)
         }
     }
     private func renderBackground(_ background: Background) {

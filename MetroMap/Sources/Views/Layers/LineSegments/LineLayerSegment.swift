@@ -19,9 +19,7 @@ class LineLayerSegment {
     }
 
     func draw(on path: UIBezierPath) {
-        if let fromNode = segment.from {
-            path.move(to: fromNode.position)
-        }
+        path.move(to: segment.from.position)
     }
 }
 
