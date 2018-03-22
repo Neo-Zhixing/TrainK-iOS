@@ -47,6 +47,7 @@ open class MetroMap {
     open var stationIcons: [Station.Level : Data] = [:]
     
     open var lines: Set<Line> = []
+    open var backgrounds: Set<Background> = []
 
     public init(){
     }
@@ -86,6 +87,11 @@ open class MetroMap {
         for jsondata in data["connections"].arrayValue {
             let con = Segment(data: jsondata, onMap: self)
             self.connections.insert(con)
+        }
+        for json in data["backgrounds"].arrayValue {
+            if let background = Background(json: json) {
+                self.backgrounds.insert(background)
+            }
         }
         
         // Creating Lines

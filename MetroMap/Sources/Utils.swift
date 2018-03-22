@@ -18,22 +18,29 @@ func point(from: CGPoint, to: CGPoint, apart r: CGFloat) -> CGPoint {
         y: from.y + (L*height) / l
     )
 }
-extension CGPoint{
-    static func +(lhs: CGPoint, rhs: CGPoint) -> CGPoint{
+extension CGPoint {
+    static func +(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
         return CGPoint(x: lhs.x+rhs.x, y: lhs.y+rhs.y)
     }
-    static func -(lhs: CGPoint, rhs: CGPoint) -> CGPoint{
+    static func -(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
         return CGPoint(x: lhs.x-rhs.x, y: lhs.y-rhs.y)
     }
-    static func *(lhs: CGPoint, rhs: CGFloat) -> CGPoint{
+    static func *(lhs: CGPoint, rhs: CGFloat) -> CGPoint {
         return CGPoint(x: lhs.x*rhs, y: lhs.y*rhs)
     }
-    static func /(lhs: CGPoint, rhs: CGFloat) -> CGPoint{
+    static func /(lhs: CGPoint, rhs: CGFloat) -> CGPoint {
         return CGPoint(x: lhs.x/rhs, y: lhs.y/rhs)
     }
 }
 
-
+extension CGSize {
+    static func *(lhs: CGSize, rhs: CGFloat) -> CGSize {
+        return CGSize(width: lhs.width*rhs, height: lhs.height*rhs)
+    }
+    static func /(lhs: CGSize, rhs: CGFloat) -> CGSize {
+        return CGSize(width: lhs.width/rhs, height: lhs.height/rhs)
+    }
+}
 extension UIColor {
     convenience init(hex: String) {
         let hexString = hex.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)

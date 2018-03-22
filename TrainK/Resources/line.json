@@ -1,8 +1,7 @@
 {
   "configs": {
-    "size": [2000, 1100],
-    "maxZoom": 100,
-    "minZoom": 1
+    "size": [1100, 1100],
+    "maxZoom": 100
   },
   "resources": {
     "stationIcons": {
@@ -10,6 +9,12 @@
       "minor": "minor"
     }
   },
+  "backgrounds": [
+    {
+      "position": [0,0],
+      "image": "hongKongLow"
+    }
+  ],
   "nodes": [
     {
       "id": 6,
@@ -74,7 +79,7 @@
     {
       "id": 1,
       "name": "一号线",
-      "color": "000000",
+      "color": "57AE46",
       "segments": [
         {
           "from": 1,

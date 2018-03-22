@@ -11,6 +11,8 @@
 		2207B00C20625B9F005E4932 /* MetroMapEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2207B00B20625B9F005E4932 /* MetroMapEditingViewController.swift */; };
 		2207B00F20629F09005E4932 /* StationLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2207B00E20629F09005E4932 /* StationLayer.swift */; };
 		2207B01220637B71005E4932 /* ConnectionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2207B01120637B71005E4932 /* ConnectionLayer.swift */; };
+		2207B01420638399005E4932 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2207B01320638399005E4932 /* Background.swift */; };
+		2207B01620638C5C005E4932 /* hongKongLow.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2207B01520638C5C005E4932 /* hongKongLow.svg */; };
 		2248D697205ECF140007FF11 /* pubs.json in Resources */ = {isa = PBXBuildFile; fileRef = 2248D696205ECF130007FF11 /* pubs.json */; };
 		2248D6BF2060264B0007FF11 /* line.json in Resources */ = {isa = PBXBuildFile; fileRef = 2248D6BE2060264B0007FF11 /* line.json */; };
 		22D0979E20617D3200DA4DDC /* MetroMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D0979520617D3100DA4DDC /* MetroMap.framework */; };
@@ -99,6 +101,8 @@
 		2207B00B20625B9F005E4932 /* MetroMapEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroMapEditingViewController.swift; sourceTree = "<group>"; };
 		2207B00E20629F09005E4932 /* StationLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationLayer.swift; sourceTree = "<group>"; };
 		2207B01120637B71005E4932 /* ConnectionLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionLayer.swift; sourceTree = "<group>"; };
+		2207B01320638399005E4932 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		2207B01520638C5C005E4932 /* hongKongLow.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = hongKongLow.svg; sourceTree = "<group>"; };
 		2248D689205EC8890007FF11 /* SwiftSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSVG.framework; path = Carthage/Build/iOS/SwiftSVG.framework; sourceTree = "<group>"; };
 		2248D690205ECAF50007FF11 /* major.svg */ = {isa = PBXFileReference; explicitFileType = text.xml; fileEncoding = 4; path = major.svg; sourceTree = "<group>"; };
 		2248D696205ECF130007FF11 /* pubs.json */ = {isa = PBXFileReference; explicitFileType = text.json; fileEncoding = 4; indentWidth = 2; path = pubs.json; sourceTree = "<group>"; tabWidth = 2; };
@@ -205,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				2248D696205ECF130007FF11 /* pubs.json */,
+				2207B01520638C5C005E4932 /* hongKongLow.svg */,
 				2248D6BE2060264B0007FF11 /* line.json */,
 			);
 			path = Resources;
@@ -234,9 +239,9 @@
 			isa = PBXGroup;
 			children = (
 				22D097B720617ECA00DA4DDC /* Models */,
-				22D097BB20617ECA00DA4DDC /* Utils.swift */,
 				22D097BC20617ECA00DA4DDC /* Controllers */,
 				22D097BF20617ECA00DA4DDC /* Views */,
+				22D097BB20617ECA00DA4DDC /* Utils.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -246,6 +251,7 @@
 			children = (
 				22D097B820617ECA00DA4DDC /* Station.swift */,
 				22D097B920617ECA00DA4DDC /* MetroMap.swift */,
+				2207B01320638399005E4932 /* Background.swift */,
 				22D097BA20617ECA00DA4DDC /* Line.swift */,
 			);
 			path = Models;
@@ -533,6 +539,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2207B01620638C5C005E4932 /* hongKongLow.svg in Resources */,
 				2248D6BF2060264B0007FF11 /* line.json in Resources */,
 				22DD8800205EC4DE00EEBBB4 /* LaunchScreen.storyboard in Resources */,
 				2248D697205ECF140007FF11 /* pubs.json in Resources */,
@@ -585,6 +592,7 @@
 				22D097CD20617ECB00DA4DDC /* LineLayerSquareSegment.swift in Sources */,
 				22D097CB20617ECB00DA4DDC /* MetroMapStationPopoverViewController.swift in Sources */,
 				22D097D020617ECB00DA4DDC /* LineLayerTriangleSegment.swift in Sources */,
+				2207B01420638399005E4932 /* Background.swift in Sources */,
 				22D097C820617ECB00DA4DDC /* Line.swift in Sources */,
 				22D097C720617ECB00DA4DDC /* MetroMap.swift in Sources */,
 				2207B01220637B71005E4932 /* ConnectionLayer.swift in Sources */,

@@ -40,6 +40,7 @@ open class MetroMapView: UIView {
     private var lineLayer = CALayer()
     private var stationLayer = CALayer()
     private var connectionLayer = CALayer()
+    private var backgroundLayer = CALayer()
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,9 +53,11 @@ open class MetroMapView: UIView {
     }
     private func setup() {
         stationLayer.zPosition = 3
+        backgroundLayer.zPosition = -1
         self.layer.addSublayer(lineLayer)
         self.layer.addSublayer(stationLayer)
         self.layer.addSublayer(connectionLayer)
+        self.layer.addSublayer(backgroundLayer)
         self.backgroundColor = UIColor.clear
     }
     open func reload() {
@@ -82,6 +85,13 @@ open class MetroMapView: UIView {
                 if let from = seg.from {
                     mapping[from]?.connectedLayers.insert(layer)
                 }
+            }
+        }
+        for background in map.backgrounds {
+            CALayer(SVGURL: background.imageURL) {
+                svglayer in
+                svglayer.position = background.position
+                self.backgroundLayer.addSublayer(svglayer)
             }
         }
         self.frame.size = map.configs.size
