@@ -60,43 +60,68 @@ open class MetroMapView: UIView {
         self.layer.addSublayer(backgroundLayer)
         self.backgroundColor = UIColor.clear
     }
+    // MARK: - View Rendering
+    private var stationMapping: [Node: StationLayer] = [:]
+
+    private func renderStation(_ station: Station) {
+        let layer = StationLayer(station, onMapView: self)
+        self.stationLayer.addSublayer(layer)
+        stationMapping[station] = layer
+    }
+    private func renderConnection(_ connection: Segment) {
+        let layer = ConnectionLayer(connection)
+        self.connectionLayer.addSublayer(layer)
+        stationMapping[connection.to]?.connectedLayers.insert(layer)
+        if let from = connection.from {
+            stationMapping[from]?.connectedLayers.insert(layer)
+        }
+    }
+    private func renderLine(_ line: Line) {
+        let layer = LineLayer(line)
+        self.lineLayer.addSublayer(layer)
+        // Adding connectedLayers to our station layers
+        for seg in line.segments {
+            stationMapping[seg.to]?.connectedLayers.insert(layer)
+            if let from = seg.from {
+                stationMapping[from]?.connectedLayers.insert(layer)
+            }
+        }
+    }
+    private func renderBackground(_ background: Background) {
+        CALayer(SVGURL: background.imageURL) {
+            svglayer in
+            svglayer.position = background.position
+            self.backgroundLayer.addSublayer(svglayer)
+        }
+    }
+    // MARK: - Data Management and Runtime Alternation
     open func reload() {
+        self.stationMapping = [:]
+        self.stationLayer.sublayers = nil
+        self.lineLayer.sublayers = nil
+        self.connectionLayer.sublayers = nil
+        self.backgroundLayer.sublayers = nil
         guard let map = self.datasource else { return }
-        var mapping: [Node: StationLayer] = [:]
         for station in map.stations {
-            let layer = StationLayer(station, onMapView: self)
-            self.stationLayer.addSublayer(layer)
-            mapping[station] = layer
+            renderStation(station)
         }
         for connection in map.connections {
-            let layer = ConnectionLayer(connection)
-            self.connectionLayer.addSublayer(layer)
-            mapping[connection.to]?.connectedLayers.insert(layer)
-            if let from = connection.from {
-                mapping[from]?.connectedLayers.insert(layer)
-            }
+            renderConnection(connection)
         }
         for line in map.lines {
-            let layer = LineLayer(line)
-            self.lineLayer.addSublayer(layer)
-            // Adding connectedLayers to our station layers
-            for seg in line.segments {
-                mapping[seg.to]?.connectedLayers.insert(layer)
-                if let from = seg.from {
-                    mapping[from]?.connectedLayers.insert(layer)
-                }
-            }
+            renderLine(line)
         }
         for background in map.backgrounds {
-            CALayer(SVGURL: background.imageURL) {
-                svglayer in
-                svglayer.position = background.position
-                self.backgroundLayer.addSublayer(svglayer)
-            }
+            renderBackground(background)
         }
         self.frame.size = map.configs.size
     }
+    open func addStation(_ station: Station) {
+        self.datasource?.addStation(station)
+        self.renderStation(station)
+    }
     
+    // MARK: - Touch Event Handling
     enum Selection {
         case station(Station)
     }

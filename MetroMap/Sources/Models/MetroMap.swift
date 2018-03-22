@@ -101,3 +101,14 @@ open class MetroMap {
         }
     }
 }
+
+extension MetroMap {
+    func addNode(_ node: Node) {
+        self.nodes.insert(node)
+        self.nodeMapping[node.id] = node
+    }
+    func addStation(_ station: Station) {
+        self.stations.insert(station)
+        self.nodeMapping[station.id] = station
+    }
+}

@@ -52,7 +52,8 @@ class StationLayer: MetroMapLayer {
         textLayer.alignmentMode = "center"
         self.textLayer = textLayer
         self.addSublayer(textLayer)
-        CALayer(SVGData: iconData) { (svglayer) in
+        CALayer(SVGData: iconData) { (theLayer) in
+            let svglayer = theLayer.svgLayerCopy!
             svglayer.bounds = svglayer.boundingBox
             self.bounds.size = CGSize(width: svglayer.boundingBox.width*2, height: svglayer.boundingBox.height*2)
             svglayer.position.x = self.bounds.size.width / 2
