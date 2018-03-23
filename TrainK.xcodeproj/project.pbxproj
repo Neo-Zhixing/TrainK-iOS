@@ -18,6 +18,7 @@
 		2248D6BF2060264B0007FF11 /* line.json in Resources */ = {isa = PBXBuildFile; fileRef = 2248D6BE2060264B0007FF11 /* line.json */; };
 		22545F1420650B5A00F719EF /* StationPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22545F1220650B5A00F719EF /* StationPopoverViewController.swift */; };
 		22545F1520650B5A00F719EF /* StationPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22545F1320650B5A00F719EF /* StationPopoverViewController.xib */; };
+		22B17A5220655E9D001537D1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 22B17A5120655E9C001537D1 /* README.md */; };
 		22D0979E20617D3200DA4DDC /* MetroMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D0979520617D3100DA4DDC /* MetroMap.framework */; };
 		22D097A520617D3200DA4DDC /* MetroMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097A420617D3200DA4DDC /* MetroMapTests.swift */; };
 		22D097A720617D3200DA4DDC /* MetroMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D0979720617D3200DA4DDC /* MetroMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -114,6 +115,7 @@
 		2248D6BE2060264B0007FF11 /* line.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = line.json; sourceTree = "<group>"; };
 		22545F1220650B5A00F719EF /* StationPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationPopoverViewController.swift; sourceTree = "<group>"; };
 		22545F1320650B5A00F719EF /* StationPopoverViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationPopoverViewController.xib; sourceTree = "<group>"; };
+		22B17A5120655E9C001537D1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		22D0979520617D3100DA4DDC /* MetroMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MetroMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22D0979720617D3200DA4DDC /* MetroMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetroMap.h; sourceTree = "<group>"; };
 		22D0979820617D3200DA4DDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				22DD8823205EC59100EEBBB4 /* cartfile */,
+				22B17A5120655E9C001537D1 /* README.md */,
 				22DD87F4205EC4DE00EEBBB4 /* TrainK */,
 				22DD8809205EC4DE00EEBBB4 /* TrainKTests */,
 				22DD8814205EC4DE00EEBBB4 /* TrainKUITests */,
@@ -549,6 +552,7 @@
 				2207B01620638C5C005E4932 /* hongKongLow.svg in Resources */,
 				2248D6BF2060264B0007FF11 /* line.json in Resources */,
 				22DD8800205EC4DE00EEBBB4 /* LaunchScreen.storyboard in Resources */,
+				22B17A5220655E9D001537D1 /* README.md in Resources */,
 				2248D697205ECF140007FF11 /* pubs.json in Resources */,
 				22DD87FD205EC4DE00EEBBB4 /* Assets.xcassets in Resources */,
 				22DD87FB205EC4DE00EEBBB4 /* Main.storyboard in Resources */,

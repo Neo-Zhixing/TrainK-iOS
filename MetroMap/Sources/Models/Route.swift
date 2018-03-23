@@ -13,6 +13,7 @@ open class Route {
     open var segments: [Segment]
 
     public init?(shortestOnMap map:MetroMap, from: Node, to: Node) {
+        // Essencially an implementation of Dijkstra's algorithm
         var unvisited = map.nodes.union(map.stations as Set<Node>) // All Nodes on the map
         var segments:Set<Segment> = map.connections // Initialize segments with all connections
         for line in map.lines {
@@ -63,6 +64,8 @@ open class Route {
         self.steps = [to]
         self.segments = []
         var u = to
+        // Now we have all the predecessors,
+        // Use reverse iteration to calculate the steps and the segments.
         while predecessors[u] != nil {
             let pre = predecessors[u]!
             self.steps.insert(pre, at: 0)
