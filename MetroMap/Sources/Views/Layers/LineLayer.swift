@@ -33,6 +33,14 @@ class LineLayer: MetroMapLayer {
         super.init()
         self.draw()
     }
+    override init(layer: Any) {
+        guard let lineLayer = layer as? LineLayer else {
+            fatalError("Station Layer init(layer: Any) got unexpected layer")
+        }
+        self.line = lineLayer.line
+        self.mapView = lineLayer.mapView
+        super.init(layer: layer)
+    }
     var emphasizeLayer: CAShapeLayer?
     override func draw(){
         self.emphasizeLayer?.removeFromSuperlayer()

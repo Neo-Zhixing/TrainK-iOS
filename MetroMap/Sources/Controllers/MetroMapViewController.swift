@@ -17,9 +17,7 @@ open class MetroMapViewController: UIViewController, MetroMapViewDelegate {
         super.loadView()
         if metroMapView == nil {
             metroMapView = MetroMapView()
-        }
-        if self.metroMap != nil {
-            metroMapView.reload()
+            metroMapView.datasource = self.metroMap
         }
         
         self.view = metroMapView
@@ -34,7 +32,8 @@ open class MetroMapViewController: UIViewController, MetroMapViewDelegate {
     override open func viewDidLoad() {
         super.viewDidLoad()
         self.title = "MetroMap"
-        self.metroMapView.delegate = self
+        metroMapView.delegate = self
+        metroMapView.datasource = self.metroMap
     }
     open func reload(){
         self.metroMapView.reload()
@@ -45,14 +44,13 @@ open class MetroMapViewController: UIViewController, MetroMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    open func metroMap(_ metroMap: MetroMapView, willSelectStation station: Station, onFrame frame: CGRect) {}
-    open func metroMap(_ metroMap: MetroMapView, willDeselectStation station: Station) {}
-    open func metroMap(_ metroMap: MetroMapView, didSelectStation station: Station, onFrame frame: CGRect) {}
-    open func metroMap(_ metroMap: MetroMapView, didDeselectStation station: Station) {}
-    open func metroMap(_ metroMap: MetroMapView, moveStation station: Station, to point: CGPoint, withTouch touch: UITouch) {}
-    open func metroMap(_ metroMap: MetroMapView, canSelectStation station: Station) -> Bool {
-        return false
-    }
+    open func metroMap(_ metroMap: MetroMapView, canSelectElement element: MetroMapView.Element) -> Bool {return false}
+    open func metroMap(_ metroMap: MetroMapView, willSelectElement element: MetroMapView.Element, onFrame frame: CGRect) {}
+    open func metroMap(_ metroMap: MetroMapView, didSelectElement element: MetroMapView.Element, onFrame frame: CGRect) {}
+    open func metroMap(_ metroMap: MetroMapView, moveElement element: MetroMapView.Element, to point: CGPoint, withTouch touch: UITouch) {}
+    open func metroMap(_ metroMap: MetroMapView, willDeselectElement element: MetroMapView.Element) {}
+    open func metroMap(_ metroMap: MetroMapView, didDeselectElement element: MetroMapView.Element) {}
+    
     open func metroMap(_ metroMap: MetroMapView, shouldEmphasizeElement element: MetroMapView.Element) -> Bool {
         return false
     }
@@ -93,5 +91,8 @@ open class MetroMapScrollableViewController: MetroMapViewController, UIScrollVie
     }
     open func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return metroMapView
+    }
+    open func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        self.metroMapView.setScale(scrollView.zoomScale)
     }
 }

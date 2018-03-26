@@ -10,32 +10,36 @@ import UIKit
 import SwiftSVG
 
 public protocol MetroMapViewDelegate: NSObjectProtocol {
-    func metroMap(_ metroMap: MetroMapView, canSelectStation station: Station) -> Bool
-    func metroMap(_ metroMap: MetroMapView, willSelectStation station: Station, onFrame frame: CGRect)
-    func metroMap(_ metroMap: MetroMapView, didSelectStation station: Station, onFrame frame: CGRect)
-    func metroMap(_ metroMap: MetroMapView, moveStation station: Station, to point: CGPoint, withTouch touch: UITouch)
-    func metroMap(_ metroMap: MetroMapView, willDeselectStation station: Station)
-    func metroMap(_ metroMap: MetroMapView, didDeselectStation station: Station)
+    func metroMap(_ metroMap: MetroMapView, canSelectElement element: MetroMapView.Element) -> Bool
+    func metroMap(_ metroMap: MetroMapView, willSelectElement element: MetroMapView.Element, onFrame frame: CGRect)
+    func metroMap(_ metroMap: MetroMapView, didSelectElement element: MetroMapView.Element, onFrame frame: CGRect)
+    func metroMap(_ metroMap: MetroMapView, moveElement element: MetroMapView.Element, to point: CGPoint, withTouch touch: UITouch)
+    func metroMap(_ metroMap: MetroMapView, willDeselectElement element: MetroMapView.Element)
+    func metroMap(_ metroMap: MetroMapView, didDeselectElement element: MetroMapView.Element)
 
     func metroMap(_ metroMap: MetroMapView, shouldEmphasizeElement element: MetroMapView.Element) -> Bool
 }
 
 public extension MetroMapViewDelegate {
-    public func metroMap(_ metroMap: MetroMapView, canSelectStation station: Station) -> Bool {
-        return false
-    }
-    public func metroMap(_ metroMap: MetroMapView, willSelectStation station: Station, onFrame frame: CGRect) {}
-    public func metroMap(_ metroMap: MetroMapView, didSelectStation station: Station, onFrame frame: CGRect) {}
-    public func metroMap(_ metroMap: MetroMapView, willDeselectStation station: Station) {}
-    public func metroMap(_ metroMap: MetroMapView, didDeselectStation station: Station) {}
-    public func metroMap(_ metroMap: MetroMapView, moveStation station: Station, to point: CGPoint, withTouch touch: UITouch) {}
-    public func metroMap(_ metroMap: MetroMapView, shouldEmphasizeElement element: MetroMapView.Element) -> Bool {
+    func metroMap(_ metroMap: MetroMapView, canSelectElement element: MetroMapView.Element) -> Bool {return false}
+    func metroMap(_ metroMap: MetroMapView, willSelectElement element: MetroMapView.Element, onFrame frame: CGRect) {}
+    func metroMap(_ metroMap: MetroMapView, didSelectElement element: MetroMapView.Element, onFrame frame: CGRect) {}
+    func metroMap(_ metroMap: MetroMapView, moveElement element: MetroMapView.Element, to point: CGPoint, withTouch touch: UITouch) {}
+    func metroMap(_ metroMap: MetroMapView, willDeselectElement element: MetroMapView.Element) {}
+    func metroMap(_ metroMap: MetroMapView, didDeselectElement element: MetroMapView.Element) {}
+    
+    func metroMap(_ metroMap: MetroMapView, shouldEmphasizeElement element: MetroMapView.Element) -> Bool {
         return false
     }
 }
 
 class MetroMapLayer: CAShapeLayer {
     func draw() {}
+    func select() {}
+    func deselect() {}
+    var element:MetroMapView.Element? {
+        return nil
+    }
 }
 open class MetroMapView: UIView {
     open weak var datasource:MetroMap?
@@ -127,10 +131,22 @@ open class MetroMapView: UIView {
     }
     
     // MARK: - Touch Event Handling
-    public enum Element {
+    public enum Element: Equatable {
         case station(Station)
         case connection(Segment)
         case segment(Segment)
+        public static func ==(lhs: Element, rhs: Element) -> Bool {
+            switch (lhs, rhs) {
+            case (let .station(a1), let .station(a2)):
+                return a1 == a2
+            case (let .connection(a1), let .connection(a2)):
+                return a1 == a2
+            case (let .segment(a1), let .segment(a2)):
+                return a1 == a2
+            default:
+                return false
+            }
+        }
     }
     
     var selected: Element?
@@ -140,23 +156,24 @@ open class MetroMapView: UIView {
         super.touchesBegan(touches, with: event)
         for touch in touches {
             let location = touch.location(in: self)
-            var stationLayer: CALayer? = self.stationLayer.presentation()?.hitTest(location)?.model()
+            var testingLayer: CALayer? = self.stationLayer.presentation()?.hitTest(location)?.model()
             // Tracing back to find out what's the station layer hitted
-            for _ in 0..<3 {
-                if let _ = stationLayer as? StationLayer {
+            for _ in 0..<5 {
+                if let _ = testingLayer as? MetroMapLayer {
                     break
                 }
-                stationLayer = stationLayer?.superlayer
+                testingLayer = testingLayer?.superlayer
             }
-            if let layer = stationLayer as? StationLayer,
-                self.delegate?.metroMap(self, canSelectStation: layer.station) ?? false {
-                // Select the station and start the animation
+            if let layer = testingLayer as? MetroMapLayer,
+                let element = layer.element,
+                layer.element != selected,
+                self.delegate?.metroMap(self, canSelectElement: element) ?? false {
                 self.delectedAll()
                 self.selectedLayer = layer
-                layer.transform = CATransform3DMakeScale(2, 2, 1)
-                self.selected = .station(layer.station)
+                self.selected = element
                 self.currentTouch = touch
-                self.delegate?.metroMap(self, willSelectStation: layer.station, onFrame: layer.frame)
+                layer.select()
+                self.delegate?.metroMap(self, willSelectElement: element, onFrame: layer.frame)
             } else {
                 self.delectedAll()
             }
@@ -167,12 +184,7 @@ open class MetroMapView: UIView {
         for touch in touches {
             if touch == self.currentTouch, let layer = self.selectedLayer, let selection = self.selected {
                 self.currentTouch = nil
-                switch selection {
-                case .station(let station):
-                    self.delegate?.metroMap(self, didSelectStation: station, onFrame: layer.frame)
-                default:
-                    fatalError("Not Implemented Yet")
-                }
+                self.delegate?.metroMap(self, didSelectElement: selection, onFrame: layer.frame)
             }
         }
     }
@@ -180,28 +192,30 @@ open class MetroMapView: UIView {
         super.touchesMoved(touches, with: event)
         for touch in touches {
             if touch == self.currentTouch, let selection = self.selected {
-                switch selection {
-                case .station(let station):
-                    self.delegate?.metroMap(self,
-                                            moveStation: station,
-                                            to: touch.location(in: self),
-                                            withTouch: touch)
-                default:
-                    fatalError("Not Implemented Yet")
-                }
+                self.delegate?.metroMap(self,
+                                        moveElement: selection,
+                                        to: touch.location(in: self),
+                                        withTouch: touch)
             }
         }
     }
     open func delectedAll(){
         guard let selection = self.selected else {return}
-        switch selection {
-        case .station(let station):
-            self.delegate?.metroMap(self, willDeselectStation: station)
-        default:
-            fatalError("Not Implemented Yet")
-        }
+        self.delegate?.metroMap(self, willDeselectElement: selection)
         self.selected = nil
-        self.selectedLayer?.transform = CATransform3DMakeScale(1, 1, 1)
+        self.selectedLayer?.deselect()
         self.selectedLayer = nil
     }
+    // MARK: - Scaling
+    var contentScale: CGFloat = 1
+    func setScale(_ scale: CGFloat) {
+        self.contentScale = 1
+        if let stationLayers = self.stationLayer.sublayers as? [StationLayer] {
+            for layer in stationLayers {
+                layer.setScale(scale)
+            }
+        }
+        
+    }
 }
+

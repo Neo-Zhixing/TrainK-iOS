@@ -11,22 +11,28 @@ import UIKit
 open class MetroMapInteractiveViewController: MetroMapScrollableViewController {
     open var stationViewController:StationPopoverViewController?
     
-    override open func metroMap(_ metroMap: MetroMapView, willSelectStation station: Station, onFrame frame: CGRect) {
-        let viewController = StationPopoverViewController(station)
-        viewController.mapViewController = self
-        self.stationViewController = viewController
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            viewController.modalPresentationStyle = .popover
-            viewController.popoverPresentationController?.delegate = viewController
-            viewController.popoverPresentationController?.sourceView = self.metroMapView
-            viewController.popoverPresentationController?.sourceRect = frame
-            viewController.popoverPresentationController?.passthroughViews = [self.metroMapView]
-            self.present(viewController, animated: true, completion: nil)
-        } else {
-            self.navigationController?.pushViewController(viewController, animated: true)
+    open override func metroMap(_ metroMap: MetroMapView, willSelectElement element: MetroMapView.Element, onFrame frame: CGRect) {
+        switch  element {
+        case .station(let station):
+            let viewController = StationPopoverViewController(station)
+            viewController.mapViewController = self
+            self.stationViewController = viewController
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                viewController.modalPresentationStyle = .popover
+                viewController.popoverPresentationController?.delegate = viewController
+                viewController.popoverPresentationController?.sourceView = self.metroMapView
+                viewController.popoverPresentationController?.sourceRect = frame
+                viewController.popoverPresentationController?.passthroughViews = [self.metroMapView]
+                self.present(viewController, animated: true, completion: nil)
+            } else {
+                self.navigationController?.pushViewController(viewController, animated: true)
+            }
+        default:
+            ()
         }
+
     }
-    override open func metroMap(_ metroMap: MetroMapView, willDeselectStation station: Station) {
+    open override func metroMap(_ metroMap: MetroMapView, willDeselectElement element: MetroMapView.Element) {
         if self.navigationController?.topViewController == self {
             self.stationViewController?.dismiss(animated: false, completion: nil)
             self.stationViewController = nil
@@ -34,7 +40,7 @@ open class MetroMapInteractiveViewController: MetroMapScrollableViewController {
             self.navigationController?.popToViewController(self, animated: true)
         }
     }
-    override open func metroMap(_ metroMap: MetroMapView, canSelectStation station: Station) -> Bool {
+    open override func metroMap(_ metroMap: MetroMapView, canSelectElement element: MetroMapView.Element) -> Bool {
         return true
     }
     open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

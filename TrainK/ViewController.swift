@@ -9,7 +9,7 @@
 import UIKit
 import MetroMap
 
-class ViewController: MetroMapInteractiveViewController {
+class ViewController: MetroMapEditingViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

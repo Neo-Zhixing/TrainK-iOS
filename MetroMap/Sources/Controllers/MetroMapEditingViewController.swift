@@ -10,19 +10,25 @@ import UIKit
 
 open class MetroMapEditingViewController: MetroMapScrollableViewController {
     var gridSize: CGFloat = 25
-    override open func metroMap(_ metroMap: MetroMapView, willSelectStation station: Station, onFrame frame: CGRect) {
+    open override func metroMap(_ metroMap: MetroMapView, willSelectElement element: MetroMapView.Element, onFrame frame: CGRect) {
         self.scrollView?.isScrollEnabled = false
     }
-    override open func metroMap(_ metroMap: MetroMapView, didSelectStation station: Station, onFrame frame: CGRect) {
+    open override func metroMap(_ metroMap: MetroMapView, didSelectElement element: MetroMapView.Element, onFrame frame: CGRect) {
         self.scrollView?.isScrollEnabled = true
     }
-    override open func metroMap(_ metroMap: MetroMapView, moveStation station: Station, to point: CGPoint, withTouch touch: UITouch) {
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        let newPosition = snapToGrid(point)
-        metroMap.selectedLayer?.position = newPosition
-        station.position = newPosition
-        CATransaction.commit()
+    open override func metroMap(_ metroMap: MetroMapView, moveElement element: MetroMapView.Element, to point: CGPoint, withTouch touch: UITouch) {
+        switch element {
+        case .station(let station):
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            let newPosition = snapToGrid(point)
+            metroMap.selectedLayer?.position = newPosition
+            station.position = newPosition
+            CATransaction.commit()
+        default:
+            ()
+        }
+
     }
     private func snapToGrid(_ point: CGPoint) -> CGPoint{
         if gridSize == 0 {return point}
@@ -32,8 +38,7 @@ open class MetroMapEditingViewController: MetroMapScrollableViewController {
         
         )
     }
-    override open func metroMap(_ metroMap: MetroMapView, canSelectStation station: Station) -> Bool {
-        return true
+    open override func metroMap(_ metroMap: MetroMapView, canSelectElement element: MetroMapView.Element) -> Bool {        return true
     }
     var addButton: UIBarButtonItem?
     open override func viewDidLoad() {

@@ -44,3 +44,14 @@ class LineLayerCurveSegment: LineLayerSegment {
         path.addQuadCurve(to: targetPoint, controlPoint: intermediatePoint)
     }
 }
+
+internal func point(from: CGPoint, to: CGPoint, apart r: CGFloat) -> CGPoint {
+    let width = to.x - from.x
+    let height = to.y - from.y
+    let L = sqrt(width * width + height * height)
+    let l = L + r
+    return CGPoint(
+        x: from.x + (L*width) / l,
+        y: from.y + (L*height) / l
+    )
+}

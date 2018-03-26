@@ -11,6 +11,9 @@ import SwiftSVG
 
 class StationLayer: MetroMapLayer {
     var station: Station
+    override var element: MetroMapView.Element {
+        return .station(self.station)
+    }
     weak var mapView: MetroMapView!
     var observation: NSKeyValueObservation?
     var connectedLayers: Set<MetroMapLayer> = []
@@ -49,7 +52,9 @@ class StationLayer: MetroMapLayer {
         let textLayer = CATextLayer()
         textLayer.string = station.name
         textLayer.foregroundColor = UIColor.black.cgColor
+        textLayer.backgroundColor = mapView.datasource?.configs.backgroundColor.cgColor
         textLayer.alignmentMode = "center"
+        textLayer.zPosition = 10
         self.textLayer = textLayer
         self.addSublayer(textLayer)
         CALayer(SVGData: iconData) { (theLayer) in
@@ -58,12 +63,7 @@ class StationLayer: MetroMapLayer {
             self.bounds.size = CGSize(width: svglayer.boundingBox.width*2, height: svglayer.boundingBox.height*2)
             svglayer.position.x = self.bounds.size.width / 2
             svglayer.position.y = self.bounds.size.height / 2
-            
-            textLayer.bounds.size.width = self.bounds.width
-            textLayer.bounds.size.height = self.bounds.height / 4
-            textLayer.fontSize = textLayer.bounds.size.height
-            textLayer.frame.origin.x = 0
-            textLayer.frame.origin.y = self.bounds.height
+            self.setScale(1)
             self.iconLayer = svglayer
             self.addSublayer(svglayer)
         }
@@ -75,5 +75,60 @@ class StationLayer: MetroMapLayer {
                 layer.draw()
             }
         }
+    }
+    override func select() {
+        self.transform = CATransform3DMakeScale(2, 2, 1)
+    }
+    override func deselect() {
+        self.transform = CATransform3DMakeScale(1, 1, 1)
+    }
+    
+    enum LabelPosition {
+        case top, bottom, left, right, upright, upleft, downright, downleft, center
+        func position(frame: CGRect, targetSize size: CGSize) -> CGPoint {
+            let horizontalCenter = frame.width/2 + frame.minX
+            let verticleCenter = frame.minY + frame.height/2
+            let up = frame.minY - size.height/2
+            let down = frame.maxY + size.height/2
+            let left = frame.minX - size.width/2
+            let right = frame.maxX + size.width/2
+            switch self {
+            case .top:
+                return CGPoint(x: horizontalCenter, y: up)
+            case .bottom:
+                return CGPoint(x: horizontalCenter, y: down)
+            case .left:
+                return CGPoint(x: left, y: verticleCenter)
+            case .right:
+                return CGPoint(x: right, y: verticleCenter)
+            case .downleft:
+                return CGPoint(x: left, y: down)
+            case .downright:
+                return CGPoint(x: right, y: down)
+            case .upleft:
+                return CGPoint(x: left, y: up)
+            case .upright:
+                return CGPoint(x: right, y: up)
+            case .center:
+                return CGPoint(x: size.width/2, y: size.height/2)
+            }
+        }
+    }
+    func setScale(_ scale: CGFloat) {
+        guard let textLayer = self.textLayer else {
+            return
+        }
+        let fontSize = (40 * self.bounds.width) / sqrt(scale) / 100
+        let font = UIFont.systemFont(ofSize: fontSize)
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        textLayer.contentsScale = UIScreen.main.scale * scale
+        if let size = station.name?.size(withAttributes: [NSAttributedStringKey.font: font]) {
+            textLayer.bounds.size = size
+        }
+        textLayer.font = font
+        textLayer.fontSize = fontSize
+        textLayer.position = LabelPosition.top.position(frame: self.bounds, targetSize: textLayer.bounds.size)
+        CATransaction.commit()
     }
 }

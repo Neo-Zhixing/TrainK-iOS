@@ -37,7 +37,9 @@ open class Route {
                     nodeFounded = node
                 }
             }
-            let nodeVisiting = nodeFounded!
+            guard let nodeVisiting = nodeFounded else {
+                return nil
+            } // There's no such route connection two nodes.
             unvisited.remove(nodeVisiting)
             if (nodeVisiting == to) { break }
             var neighbors:Set<Node> = []

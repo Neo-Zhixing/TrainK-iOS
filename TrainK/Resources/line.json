@@ -89,7 +89,7 @@
         {
           "to": 3,
           "inverse": false,
-          "mode": "triangle"
+          "mode": "parallel"
         },
         {
           "to": 4,
@@ -103,7 +103,7 @@
         {
           "to": 6,
           "inverse": false,
-          "mode": "triangle"
+          "mode": "parallel"
         },
         {
           "to": 7,
