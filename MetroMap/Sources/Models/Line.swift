@@ -53,6 +53,7 @@ open class Segment: NSObject {
         case square
         case triangle
         case curve
+        case parallel
     }
     open var from: Node
     open var to: Node
@@ -70,5 +71,9 @@ open class Segment: NSObject {
         if let drawingModeStr = data["mode"].string, let drawingMode = Segment.DrawingMode(rawValue: drawingModeStr) {
             self.drawingMode = drawingMode
         }
+    }
+    public init(from: Node, to: Node) {
+        self.from = from
+        self.to = to
     }
 }

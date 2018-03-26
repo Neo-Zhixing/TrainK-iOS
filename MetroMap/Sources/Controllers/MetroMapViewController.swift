@@ -13,25 +13,30 @@ open class MetroMapViewController: UIViewController, MetroMapViewDelegate {
     @IBOutlet open var metroMapView: MetroMapView!
     
     open var metroMap: MetroMap?
-    
-    public init(map: MetroMap) {
-        super.init(nibName: nil, bundle: nil)
-        self.metroMapView = MetroMapView()
-        self.metroMapView.datasource = map
-        self.metroMap = map
-        self.view = self.metroMapView
+    open override func loadView() {
+        super.loadView()
+        if metroMapView == nil {
+            metroMapView = MetroMapView()
+        }
+        if self.metroMap != nil {
+            metroMapView.reload()
+        }
+        
+        self.view = metroMapView
     }
     
+    public init() {
+        super.init(nibName: nil, bundle: nil)
+    }
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     override open func viewDidLoad() {
         super.viewDidLoad()
-        self.reload()
+        self.title = "MetroMap"
+        self.metroMapView.delegate = self
     }
     open func reload(){
-        self.metroMapView.delegate = self
-        self.metroMapView.datasource = self.metroMap
         self.metroMapView.reload()
     }
 
@@ -56,16 +61,25 @@ open class MetroMapViewController: UIViewController, MetroMapViewDelegate {
 open class MetroMapScrollableViewController: MetroMapViewController, UIScrollViewDelegate {
     @IBOutlet open var scrollView: UIScrollView?
     
-    public override init(map: MetroMap) {
-        super.init(map: map)
-        let scrollView = UIScrollView()
-        self.scrollView = scrollView
-        scrollView.addSubview(self.metroMapView)
+    open override func loadView() {
+        super.loadView()
+        if scrollView == nil {
+            let scrollView = UIScrollView()
+            scrollView.addSubview(self.metroMapView)
+            self.scrollView = scrollView
+        }
         self.view = scrollView
+    }
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        self.scrollView?.delegate = self
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    public override init() {
+        super.init()
     }
     
     override open func reload() {

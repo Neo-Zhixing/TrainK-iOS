@@ -12,7 +12,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StationPopoverViewController" customModule="MetroMap" customModuleProvider="target">
             <connections>
-                <outlet property="directionButton" destination="F6c-i5-jQa" id="JWj-qy-WJc"/>
+                <outlet property="directionButton" destination="F6c-i5-jQa" id="uzg-C9-cAj"/>
+                <outlet property="dismissButton" destination="zO2-xK-5a5" id="Xoi-sn-Zyw"/>
                 <outlet property="stationNameLabel" destination="gj4-S6-doQ" id="Pow-gs-fGg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -32,7 +33,15 @@
                     <rect key="frame" x="16" y="250" width="288" height="30"/>
                     <state key="normal" title="Directions"/>
                     <connections>
-                        <action selector="directionButtonPressedWithSender:" destination="-1" eventType="touchDown" id="xP6-aC-WyD"/>
+                        <action selector="directionButtonPressedWithSender:" destination="-1" eventType="touchDown" id="LU0-PL-ywU"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zO2-xK-5a5">
+                    <rect key="frame" x="267" y="16" width="37" height="30"/>
+                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                    <state key="normal" title="Done"/>
+                    <connections>
+                        <action selector="dismissWithSender:" destination="-1" eventType="touchDown" id="Tto-wR-HZA"/>
                     </connections>
                 </button>
             </subviews>
@@ -44,6 +53,8 @@
                 <constraint firstItem="gj4-S6-doQ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="gaj-xp-G1V"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gj4-S6-doQ" secondAttribute="trailing" constant="16" id="k7f-xL-9oN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="F6c-i5-jQa" secondAttribute="bottom" constant="20" id="oTx-sU-PhD"/>
+                <constraint firstItem="zO2-xK-5a5" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="pi2-uK-Tnp"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="zO2-xK-5a5" secondAttribute="trailing" constant="16" id="t3e-b8-hGr"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

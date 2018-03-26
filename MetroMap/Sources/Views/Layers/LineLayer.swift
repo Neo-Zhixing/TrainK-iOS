@@ -19,6 +19,8 @@ extension Segment.DrawingMode {
             return LineLayerSquareSegment.self
         case .curve:
             return LineLayerCurveSegment.self
+        case .parallel:
+            return LineLayerParallelSegment.self
         }
     }
 }

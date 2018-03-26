@@ -12,11 +12,12 @@ import MetroMap
 class ViewController: MetroMapInteractiveViewController {
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         let url = Bundle.main.url(forResource: "line", withExtension: "json")!
         let data = try! Data(contentsOf: url)
         self.metroMap = MetroMap(data: data)
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        metroMapView.datasource = self.metroMap
+        self.reload()
     }
 
     override func didReceiveMemoryWarning() {

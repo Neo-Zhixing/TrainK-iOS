@@ -9,23 +9,30 @@
 import UIKit
 
 open class MetroMapInteractiveViewController: MetroMapScrollableViewController {
-    open var popoverViewController:StationPopoverViewController?
+    open var stationViewController:StationPopoverViewController?
     
     override open func metroMap(_ metroMap: MetroMapView, willSelectStation station: Station, onFrame frame: CGRect) {
-        let popoverViewController = StationPopoverViewController(station)
-        popoverViewController.mapViewController = self
-        popoverViewController.modalPresentationStyle = .popover
-        popoverViewController.popoverPresentationController?.sourceView = self.metroMapView
-        popoverViewController.popoverPresentationController?.sourceRect = frame
-        popoverViewController.popoverPresentationController?.passthroughViews = [self.metroMapView]
-        self.popoverViewController = popoverViewController
-        self.present(popoverViewController, animated: true, completion: nil)
-
-
+        let viewController = StationPopoverViewController(station)
+        viewController.mapViewController = self
+        self.stationViewController = viewController
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            viewController.modalPresentationStyle = .popover
+            viewController.popoverPresentationController?.delegate = viewController
+            viewController.popoverPresentationController?.sourceView = self.metroMapView
+            viewController.popoverPresentationController?.sourceRect = frame
+            viewController.popoverPresentationController?.passthroughViews = [self.metroMapView]
+            self.present(viewController, animated: true, completion: nil)
+        } else {
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
     }
     override open func metroMap(_ metroMap: MetroMapView, willDeselectStation station: Station) {
-        self.popoverViewController?.dismiss(animated: false, completion: nil)
-        self.popoverViewController = nil
+        if self.navigationController?.topViewController == self {
+            self.stationViewController?.dismiss(animated: false, completion: nil)
+            self.stationViewController = nil
+        } else {
+            self.navigationController?.popToViewController(self, animated: true)
+        }
     }
     override open func metroMap(_ metroMap: MetroMapView, canSelectStation station: Station) -> Bool {
         return true

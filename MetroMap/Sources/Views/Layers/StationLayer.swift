@@ -44,7 +44,7 @@ class StationLayer: MetroMapLayer {
         self.iconLayer?.removeFromSuperlayer()
         self.iconLayer = nil
 
-        guard let iconData = mapView.datasource?.stationIcons[station.level] else { return }
+        guard let iconData = try? mapView.datasource?.stationIcons[station.level] ?? Data(contentsOf: Bundle(for: StationLayer.self).url(forResource: station.level.rawValue, withExtension: "svg")!) else {return}
         self.position = self.station.position
         let textLayer = CATextLayer()
         textLayer.string = station.name

@@ -102,7 +102,10 @@ open class MetroMapView: UIView {
         self.lineLayer.sublayers = nil
         self.connectionLayer.sublayers = nil
         self.backgroundLayer.sublayers = nil
-        guard let map = self.datasource else { return }
+        guard let map = self.datasource else {
+            print("MetroMap Doesn't have a datasource")
+            return
+        }
         for station in map.stations {
             renderStation(station)
         }
@@ -116,6 +119,7 @@ open class MetroMapView: UIView {
             renderBackground(background)
         }
         self.frame.size = map.configs.size
+        self.backgroundColor = map.configs.backgroundColor
     }
     open func addStation(_ station: Station) {
         self.datasource?.addStation(station)

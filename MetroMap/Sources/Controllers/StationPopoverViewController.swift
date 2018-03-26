@@ -8,9 +8,10 @@
 
 import UIKit
 
-open class StationPopoverViewController: UIViewController {
+open class StationPopoverViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     @IBOutlet open var stationNameLabel: UILabel!
     @IBOutlet open var directionButton: UIButton!
+    @IBOutlet open var dismissButton: UIButton!
     open var station: Station
     open weak var mapViewController: MetroMapInteractiveViewController?
     open override func viewDidLoad() {
@@ -42,5 +43,11 @@ open class StationPopoverViewController: UIViewController {
         }
         mapViewController?.setupRoute()
         self.dismiss(animated: true)
+    }
+    @IBAction open func dismiss(sender: AnyObject?) {
+        self.dismiss(animated: true)
+    }
+    public func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
+        dismissButton.isHidden = true
     }
 }
