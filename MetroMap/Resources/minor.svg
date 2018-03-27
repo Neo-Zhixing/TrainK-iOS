@@ -1,3 +1,3 @@
 <svg width="10" height="10" xmlns="http://www.w3.org/2000/svg">
-    <ellipse ry="5" rx="5" cy="5" cx="5" fill="#000000"/>
+  <rect height="6" width="4" y="4" x="3" fill="#FFFFFF"/>
 </svg>

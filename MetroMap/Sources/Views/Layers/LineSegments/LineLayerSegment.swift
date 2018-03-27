@@ -19,10 +19,30 @@ class LineLayerSegment {
     }
 
     func draw(on path: UIBezierPath) {
-        path.move(to: segment.from.position)
+        if (path.currentPoint != segment.from.position) {
+            path.move(to: segment.from.position)
+        }
     }
     func overlapRect(_ rect: CGRect) -> Bool {
         return false
+    }
+    func endpointOrientation(for node: Node) -> CGFloat? {
+        if node == segment.from {
+            return angle(from: node.position, to: segment.to.position)
+        } else if node == segment.to {
+            return angle(from: node.position, to: segment.from.position)
+        }
+        return nil
+    }
+}
+
+extension LineLayerSegment: Hashable {
+    static func ==(lhs: LineLayerSegment, rhs: LineLayerSegment) -> Bool {
+        return lhs.segment == rhs.segment
+    }
+    
+    var hashValue: Int {
+        return segment.hashValue
     }
 }
 
@@ -60,4 +80,19 @@ internal func point(from: CGPoint, to: CGPoint, apart r: CGFloat) -> CGPoint {
         x: from.x + (L*width) / l,
         y: from.y + (L*height) / l
     )
+}
+
+internal func angle(from: CGPoint, to: CGPoint) -> CGFloat {
+    let height = to.y - from.y
+    let width = to.x - from.x
+    if width == 0 {
+        return height > 0 ? CGFloat.pi*0.5 : CGFloat.pi*1.5
+    }
+    let slope = height / width
+    var result = atan(slope)
+    if width < 0 {
+        result += CGFloat.pi
+    }
+    if (result < 0) { result += 2 * CGFloat.pi }
+    return  result
 }

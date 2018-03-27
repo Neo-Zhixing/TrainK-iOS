@@ -10,7 +10,7 @@ import UIKit
 
 class LineLayerSquareSegment: LineLayerSegment {
     var cornerRadius:CGFloat = 30
-    private var intermediatePoint: CGPoint?
+    var intermediatePoint: CGPoint?
     override func draw(on path: UIBezierPath) {
         super.draw(on: path)
         self.intermediatePoint = nil
@@ -39,5 +39,11 @@ class LineLayerSquareSegment: LineLayerSegment {
         }
         return !rect.intersectionsWithLine(segment.from.position, segment.to.position).isEmpty
 
+    }
+    override func endpointOrientation(for node: Node) -> CGFloat? {
+        guard let intermediatePoint = self.intermediatePoint else {
+            return super.endpointOrientation(for: node)
+        }
+        return angle(from: node.position, to: intermediatePoint)
     }
 }

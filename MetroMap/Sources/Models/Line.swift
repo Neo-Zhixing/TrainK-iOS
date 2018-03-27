@@ -15,7 +15,7 @@ open class Line: NSObject {
     open var segments: [Segment] = []
     open var color = UIColor.red
 
-    public init(data: JSON, onMap map: MetroMap){
+    public init(data: JSON, forNodes nodes: [Int:Node]){
         self.id = data["id"].intValue
         if let name = data["name"].string {
             self.name = name
@@ -27,7 +27,7 @@ open class Line: NSObject {
             if json["from"].int == nil, let lastNode = lastSegment?.to {
                 json["from"].intValue = lastNode.id
             }
-            let newSegment = Segment(data: json, onMap: map)
+            let newSegment = Segment(data: json, forNodes: nodes)
             lastSegment = newSegment
             return newSegment
         }
@@ -61,8 +61,7 @@ open class Segment: NSObject {
     open var inverse: Bool = false
     open var drawingMode: DrawingMode = .line
     
-    public init(data: JSON, onMap map:MetroMap) {
-        let nodes = map.nodeMapping
+    public init(data: JSON, forNodes nodes:[Int: Node]) {
         self.to = nodes[data["to"].intValue]!
         self.from = nodes[data["from"].intValue]!
         if let inverse = data["inverse"].bool {

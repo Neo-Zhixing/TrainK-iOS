@@ -51,4 +51,10 @@ class LineLayerTriangleSegment: LineLayerSegment {
         }
         return !rect.intersectionsWithLine(segment.from.position, segment.to.position).isEmpty
     }
+    override func endpointOrientation(for node: Node) -> CGFloat? {
+        guard let intermediatePoint = self.intermediatePoint else {
+            return super.endpointOrientation(for: node)
+        }
+        return angle(from: node.position, to: intermediatePoint)
+    }
 }

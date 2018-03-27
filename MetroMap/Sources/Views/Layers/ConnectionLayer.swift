@@ -16,7 +16,6 @@ class ConnectionLayer: MetroMapLayer {
         self.segment = segment
         self.mapView = view
         super.init()
-        self.draw()
     }
     override init(layer: Any) {
         guard let layer = layer as? ConnectionLayer else {

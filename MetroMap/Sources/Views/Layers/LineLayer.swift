@@ -31,7 +31,6 @@ class LineLayer: MetroMapLayer {
         self.line = line
         self.mapView = view
         super.init()
-        self.draw()
     }
     override init(layer: Any) {
         guard let lineLayer = layer as? LineLayer else {
@@ -53,6 +52,8 @@ class LineLayer: MetroMapLayer {
         for segment in line.segments {
             let drawer = segmentDrawers[segment] ?? segment.drawingMode.drawer.init(segment)
             segmentDrawers[segment] = drawer
+            mapView.stationMapping[segment.from]?.connectedSegmentDrawer.insert(drawer)
+            mapView.stationMapping[segment.to]?.connectedSegmentDrawer.insert(drawer)
             if let delegate = self.mapView.delegate, delegate.metroMap(self.mapView, shouldEmphasizeElement: .segment(segment)) {
                 drawer.draw(on: emphasizePath)
             } else {

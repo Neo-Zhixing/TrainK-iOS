@@ -70,7 +70,7 @@ open class MetroMapView: UIView {
         self.backgroundColor = UIColor.clear
     }
     // MARK: - View Rendering
-    private var stationMapping: [Node: StationLayer] = [:]
+    var stationMapping: [Node: StationLayer] = [:]
 
     private func renderStation(_ station: Station) {
         let layer = StationLayer(station, onMapView: self)
@@ -122,11 +122,20 @@ open class MetroMapView: UIView {
         for background in map.backgrounds {
             renderBackground(background)
         }
+        for layer in self.connectionLayer.sublayers as! [ConnectionLayer] {
+            layer.draw()
+        }
+        for layer in self.lineLayer.sublayers as! [LineLayer] {
+            layer.draw()
+        }
+        for layer in self.stationLayer.sublayers as! [StationLayer] {
+            layer.draw()
+        }
         self.frame.size = map.configs.size
         self.backgroundColor = map.configs.backgroundColor
     }
     open func addStation(_ station: Station) {
-        self.datasource?.addStation(station)
+        self.datasource?.stations.insert(station)
         self.renderStation(station)
     }
     

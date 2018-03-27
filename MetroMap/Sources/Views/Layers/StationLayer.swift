@@ -17,12 +17,12 @@ class StationLayer: MetroMapLayer {
     weak var mapView: MetroMapView!
     var observation: NSKeyValueObservation?
     var connectedLayers: Set<MetroMapLayer> = []
+    var connectedSegmentDrawer: Set<LineLayerSegment> = []
 
     init(_ station: Station, onMapView view: MetroMapView) {
         self.station = station
         self.mapView = view
         super.init()
-        self.draw()
     }
     override init(layer: Any) {
         guard let stationLayer = layer as? StationLayer else {
@@ -59,14 +59,17 @@ class StationLayer: MetroMapLayer {
         self.addSublayer(textLayer)
         CALayer(SVGData: iconData) { (theLayer) in
             let svglayer = theLayer.svgLayerCopy!
-            svglayer.bounds = svglayer.boundingBox
-            self.bounds.size = CGSize(width: svglayer.boundingBox.width*2, height: svglayer.boundingBox.height*2)
+            if let size = svglayer.sublayers?.first?.frame.size {
+                svglayer.bounds.size = size
+            }
+            self.bounds.size = CGSize(width: svglayer.bounds.size.width*2, height: svglayer.bounds.size.height*2)
             svglayer.position.x = self.bounds.size.width / 2
             svglayer.position.y = self.bounds.size.height / 2
             self.setScale(1)
             self.iconLayer = svglayer
             self.addSublayer(svglayer)
             self.layoutLabel()
+            self.adjustOrientation()
         }
         if let delegate = self.mapView.delegate, delegate.metroMap(self.mapView, shouldEmphasizeElement: .station(self.station)) {
             self.backgroundColor = UIColor.red.cgColor
@@ -75,7 +78,10 @@ class StationLayer: MetroMapLayer {
             for layer in self.connectedLayers {
                 layer.draw()
             }
-            self.layoutLabel()
+            for layer in self.mapView.stationLayer.sublayers as! [StationLayer] {
+                layer.adjustOrientation()
+                layer.layoutLabel()
+            }
         }
     }
     override func select() {
@@ -152,5 +158,17 @@ class StationLayer: MetroMapLayer {
             }
         }
         CATransaction.commit()
+    }
+    func adjustOrientation() {
+        var orientation = CGFloat()
+        if self.connectedSegmentDrawer.count == 2,
+        let segment1 = Array(connectedSegmentDrawer)[0].endpointOrientation(for: station),
+        let segment2 = Array(connectedSegmentDrawer)[1].endpointOrientation(for: station) {
+            var angle = segment1 - segment2
+            if angle > CGFloat.pi*2 { angle -= CGFloat.pi*2 }
+            if angle < 0 { angle += CGFloat.pi*2 }
+            orientation = angle < CGFloat.pi ? segment1 : segment2
+        }
+        iconLayer?.setAffineTransform(CGAffineTransform(rotationAngle: orientation))
     }
 }

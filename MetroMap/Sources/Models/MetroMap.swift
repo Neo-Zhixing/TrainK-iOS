@@ -42,8 +42,6 @@ open class MetroMap {
     open var stations: Set<Station> = []
     open var connections: Set<Segment> = []
     
-    var nodeMapping: [Int:Node] = [:]
-    
     open var stationIcons: [Station.Level : Data] = [:]
     
     open var lines: Set<Line> = []
@@ -57,6 +55,7 @@ open class MetroMap {
     }
     public convenience init(json data: JSON) {
         self.init()
+        var nodeMapping: [Int:Node] = [:]
         self.configs = Configs(json: data["configs"])
         for (levelName, iconName) in data["resources"]["stationIcons"] {
             let level = Station.Level(rawValue: levelName)!
@@ -77,15 +76,15 @@ open class MetroMap {
 
         // Generating Node Mappings so that we could fetch the node using its id
         for node in self.stations {
-            self.nodeMapping[node.id] = node
+            nodeMapping[node.id] = node
         }
         for node in self.nodes {
-            self.nodeMapping[node.id] = node
+            nodeMapping[node.id] = node
         }
         
         
         for jsondata in data["connections"].arrayValue {
-            let con = Segment(data: jsondata, onMap: self)
+            let con = Segment(data: jsondata, forNodes: nodeMapping)
             self.connections.insert(con)
         }
         for json in data["backgrounds"].arrayValue {
@@ -96,19 +95,8 @@ open class MetroMap {
         
         // Creating Lines
         for line in data["lines"].arrayValue {
-            let line = Line(data: line, onMap: self)
+            let line = Line(data: line, forNodes: nodeMapping)
             self.lines.insert(line)
         }
-    }
-}
-
-extension MetroMap {
-    func addNode(_ node: Node) {
-        self.nodes.insert(node)
-        self.nodeMapping[node.id] = node
-    }
-    func addStation(_ station: Station) {
-        self.stations.insert(station)
-        self.nodeMapping[station.id] = station
     }
 }

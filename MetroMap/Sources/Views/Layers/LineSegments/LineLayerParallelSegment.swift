@@ -50,4 +50,16 @@ class LineLayerParallelSegment: LineLayerSegment {
             }
         return !rect.intersectionsWithLine(segment.from.position, segment.to.position).isEmpty
     }
+    override func endpointOrientation(for node: Node) -> CGFloat? {
+        if let entrancePoint = self.entrancePoint, let exitPoint = self.exitPoint {
+            if node == segment.from {
+                return angle(from: node.position, to: entrancePoint)
+            } else if node == segment.to {
+                return angle(from: node.position, to: exitPoint)
+            }
+        } else {
+            return super.endpointOrientation(for: node)
+        }
+        return nil
+    }
 }
