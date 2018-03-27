@@ -46,10 +46,10 @@ open class MetroMapView: UIView {
     open weak var delegate: MetroMapViewDelegate?
 
     
-    private var lineLayer = CALayer()
-    private var stationLayer = CALayer()
-    private var connectionLayer = CALayer()
-    private var backgroundLayer = CALayer()
+    var lineLayer = CALayer()
+    var stationLayer = CALayer()
+    var connectionLayer = CALayer()
+    var backgroundLayer = CALayer()
     
     public override init(frame: CGRect) {
         super.init(frame: frame)

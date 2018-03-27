@@ -39,16 +39,20 @@ class LineLayer: MetroMapLayer {
         }
         self.line = lineLayer.line
         self.mapView = lineLayer.mapView
+        self.emphasizeLayer = lineLayer.emphasizeLayer
+        self.segmentDrawers = lineLayer.segmentDrawers
         super.init(layer: layer)
     }
     var emphasizeLayer: CAShapeLayer?
+    var segmentDrawers:[Segment:LineLayerSegment] = [:]
     override func draw(){
         self.emphasizeLayer?.removeFromSuperlayer()
         self.emphasizeLayer = nil
         let path = UIBezierPath()
         let emphasizePath = UIBezierPath()
         for segment in line.segments {
-            let drawer = segment.drawingMode.drawer.init(segment)
+            let drawer = segmentDrawers[segment] ?? segment.drawingMode.drawer.init(segment)
+            segmentDrawers[segment] = drawer
             if let delegate = self.mapView.delegate, delegate.metroMap(self.mapView, shouldEmphasizeElement: .segment(segment)) {
                 drawer.draw(on: emphasizePath)
             } else {
@@ -72,5 +76,13 @@ class LineLayer: MetroMapLayer {
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    open func overlapRect(_ rect: CGRect) -> Bool {
+        for segment in self.segmentDrawers.values {
+            if segment.overlapRect(rect) {
+                return true
+            }
+        }
+        return false
     }
 }

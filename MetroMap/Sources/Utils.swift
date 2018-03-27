@@ -55,3 +55,40 @@ extension UIColor {
         self.init(red:red, green:green, blue:blue, alpha:1)
     }
 }
+
+func intersectionBetweenSegments(_ p0: CGPoint, _ p1: CGPoint, _ p2: CGPoint, _ p3: CGPoint) -> CGPoint? {
+    var denominator = (p3.y - p2.y) * (p1.x - p0.x) - (p3.x - p2.x) * (p1.y - p0.y)
+    var ua = (p3.x - p2.x) * (p0.y - p2.y) - (p3.y - p2.y) * (p0.x - p2.x)
+    var ub = (p1.x - p0.x) * (p0.y - p2.y) - (p1.y - p0.y) * (p0.x - p2.x)
+    if (denominator < 0) {
+        ua = -ua; ub = -ub; denominator = -denominator
+    }
+    
+    if ua >= 0.0 && ua <= denominator && ub >= 0.0 && ub <= denominator && denominator != 0 {
+        return CGPoint(x: p0.x + ua / denominator * (p1.x - p0.x), y: p0.y + ua / denominator * (p1.y - p0.y))
+    }
+    
+    return nil
+}
+extension CGRect {
+    func intersectionsWithLine(_ p0:CGPoint, _ p1: CGPoint) -> [CGPoint] {
+        let pointA = CGPoint(x: self.minX, y: self.minY)
+        let pointC = CGPoint(x: self.maxX, y: self.maxY)
+        let pointD = CGPoint(x: self.minX, y: self.maxY)
+        let pointB = CGPoint(x: self.maxX, y: self.minY)
+        let lineA = (pointA, pointB)
+        let lineB = (pointB, pointC)
+        let lineC = (pointC, pointD)
+        let lineD = (pointD, pointA)
+        
+        var intersections : [CGPoint] = []
+        
+        for line in [lineA, lineB, lineC, lineD] {
+            if let point = intersectionBetweenSegments(p0, p1, line.0, line.1) {
+                intersections.append(point)
+            }
+        }
+        
+        return intersections
+    }
+}

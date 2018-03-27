@@ -66,6 +66,7 @@ class StationLayer: MetroMapLayer {
             self.setScale(1)
             self.iconLayer = svglayer
             self.addSublayer(svglayer)
+            self.layoutLabel()
         }
         if let delegate = self.mapView.delegate, delegate.metroMap(self.mapView, shouldEmphasizeElement: .station(self.station)) {
             self.backgroundColor = UIColor.red.cgColor
@@ -74,6 +75,7 @@ class StationLayer: MetroMapLayer {
             for layer in self.connectedLayers {
                 layer.draw()
             }
+            self.layoutLabel()
         }
     }
     override func select() {
@@ -85,6 +87,7 @@ class StationLayer: MetroMapLayer {
     
     enum LabelPosition {
         case top, bottom, left, right, upright, upleft, downright, downleft, center
+        static let all:[LabelPosition] = [.top, .bottom, .left, .right, .upright, .upleft, .downright, .downleft, .center]
         func position(frame: CGRect, targetSize size: CGSize) -> CGPoint {
             let horizontalCenter = frame.width/2 + frame.minX
             let verticleCenter = frame.minY + frame.height/2
@@ -110,25 +113,44 @@ class StationLayer: MetroMapLayer {
             case .upright:
                 return CGPoint(x: right, y: up)
             case .center:
-                return CGPoint(x: size.width/2, y: size.height/2)
+                return CGPoint(x: horizontalCenter, y: verticleCenter)
             }
         }
     }
     func setScale(_ scale: CGFloat) {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
         guard let textLayer = self.textLayer else {
             return
         }
         let fontSize = (40 * self.bounds.width) / sqrt(scale) / 100
         let font = UIFont.systemFont(ofSize: fontSize)
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        textLayer.contentsScale = UIScreen.main.scale * scale
         if let size = station.name?.size(withAttributes: [NSAttributedStringKey.font: font]) {
             textLayer.bounds.size = size
         }
         textLayer.font = font
         textLayer.fontSize = fontSize
-        textLayer.position = LabelPosition.top.position(frame: self.bounds, targetSize: textLayer.bounds.size)
+
+        textLayer.contentsScale = UIScreen.main.scale * scale
+
+        CATransaction.commit()
+    }
+    func layoutLabel() {
+        guard let textLayer = self.textLayer,
+            let lineLayers = self.mapView.lineLayer.sublayers as? [LineLayer] else {
+            return
+        }
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(0.2)
+        CATransaction.setDisableActions(false)
+        labelPositionLoop: for position in LabelPosition.all {
+            textLayer.position = position.position(frame: self.bounds, targetSize: textLayer.bounds.size)
+            for lineLayer in lineLayers {
+                if !lineLayer.overlapRect(convert(textLayer.frame, to: self.mapView.layer)) {
+                    break labelPositionLoop
+                }
+            }
+        }
         CATransaction.commit()
     }
 }

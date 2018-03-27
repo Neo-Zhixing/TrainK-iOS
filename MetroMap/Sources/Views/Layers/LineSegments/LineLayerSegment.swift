@@ -21,12 +21,18 @@ class LineLayerSegment {
     func draw(on path: UIBezierPath) {
         path.move(to: segment.from.position)
     }
+    func overlapRect(_ rect: CGRect) -> Bool {
+        return false
+    }
 }
 
 class LineLayerDirectSegment:LineLayerSegment {
     override func draw(on path: UIBezierPath) {
         super.draw(on: path)
         path.addLine(to: targetPoint)
+    }
+    override func overlapRect(_ rect: CGRect) -> Bool {
+        return !rect.intersectionsWithLine(segment.from.position, segment.to.position).isEmpty
     }
 }
 

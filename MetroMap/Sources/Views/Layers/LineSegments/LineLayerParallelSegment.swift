@@ -10,8 +10,12 @@ import UIKit
 
 class LineLayerParallelSegment: LineLayerSegment {
     var cornerRadius: CGFloat = 10
+    var entrancePoint: CGPoint?
+    var exitPoint: CGPoint?
     override func draw(on path: UIBezierPath) {
         super.draw(on: path)
+        entrancePoint = nil
+        exitPoint = nil
         let width = abs(targetPoint.x - path.currentPoint.x)
         let height = abs(targetPoint.y - path.currentPoint.y)
         if width != height && width != 0 && height != 0 {
@@ -29,11 +33,21 @@ class LineLayerParallelSegment: LineLayerSegment {
                 intermediatePoint1 = CGPoint(x: path.currentPoint.x, y: path.currentPoint.y + parallelSegmentLength)
                 intermediatePoint2 = CGPoint(x: targetPoint.x, y: targetPoint.y - parallelSegmentLength)
             }
+            self.entrancePoint = intermediatePoint1
+            self.exitPoint = intermediatePoint2
             path.addLine(to: point(from: path.currentPoint, to: intermediatePoint1, apart: self.cornerRadius))
             path.addQuadCurve(to: point(from: intermediatePoint2, to: intermediatePoint1, apart: self.cornerRadius), controlPoint: intermediatePoint1)
             path.addLine(to: point(from: intermediatePoint1, to: intermediatePoint2, apart: self.cornerRadius))
             path.addQuadCurve(to: point(from: targetPoint, to: intermediatePoint2, apart: self.cornerRadius), controlPoint: intermediatePoint2)
         }
         path.addLine(to: targetPoint)
+    }
+    override func overlapRect(_ rect: CGRect) -> Bool {
+        if let entrancePoint = self.entrancePoint, let exitPoint = self.exitPoint {
+                return !(rect.intersectionsWithLine(segment.from.position, entrancePoint).isEmpty &&
+                    rect.intersectionsWithLine(entrancePoint, exitPoint).isEmpty &&
+                    rect.intersectionsWithLine(segment.to.position, exitPoint).isEmpty)
+            }
+        return !rect.intersectionsWithLine(segment.from.position, segment.to.position).isEmpty
     }
 }

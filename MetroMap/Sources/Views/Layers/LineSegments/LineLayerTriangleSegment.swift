@@ -10,8 +10,10 @@ import UIKit
 
 class LineLayerTriangleSegment: LineLayerSegment {
     var cornerRadius: CGFloat = 10
+    var intermediatePoint: CGPoint?
     override func draw(on path: UIBezierPath) {
         super.draw(on: path)
+        self.intermediatePoint = nil
         let width = abs(targetPoint.x - path.currentPoint.x)
         let height = abs(targetPoint.y - path.currentPoint.y)
         let xDir:CGFloat = targetPoint.x - path.currentPoint.x > 0 ? 1 : -1
@@ -35,11 +37,18 @@ class LineLayerTriangleSegment: LineLayerSegment {
                         y: targetPoint.y - width * yDir
                 )
             }
+            self.intermediatePoint = intermediatePoint
             let curveFrom = point(from: path.currentPoint, to: intermediatePoint, apart: self.cornerRadius)
             let curveTo = point(from: targetPoint, to: intermediatePoint, apart: self.cornerRadius)
             path.addLine(to: curveFrom)
             path.addQuadCurve(to: curveTo, controlPoint: intermediatePoint)
         }
         path.addLine(to: targetPoint)
+    }
+    override func overlapRect(_ rect: CGRect) -> Bool {
+        if let intermediatePoint = self.intermediatePoint {
+            return !(rect.intersectionsWithLine(segment.from.position, intermediatePoint).isEmpty && rect.intersectionsWithLine(segment.to.position, intermediatePoint).isEmpty)
+        }
+        return !rect.intersectionsWithLine(segment.from.position, segment.to.position).isEmpty
     }
 }

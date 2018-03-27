@@ -19,12 +19,14 @@ open class MetroMapEditingViewController: MetroMapScrollableViewController {
     open override func metroMap(_ metroMap: MetroMapView, moveElement element: MetroMapView.Element, to point: CGPoint, withTouch touch: UITouch) {
         switch element {
         case .station(let station):
-            CATransaction.begin()
-            CATransaction.setDisableActions(true)
             let newPosition = snapToGrid(point)
-            metroMap.selectedLayer?.position = newPosition
-            station.position = newPosition
-            CATransaction.commit()
+            if newPosition != station.position {
+                CATransaction.begin()
+                CATransaction.setDisableActions(true)
+                metroMap.selectedLayer?.position = newPosition
+                station.position = newPosition
+                CATransaction.commit()
+            }
         default:
             ()
         }
