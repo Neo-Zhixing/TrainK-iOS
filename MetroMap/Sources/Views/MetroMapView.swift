@@ -122,15 +122,15 @@ open class MetroMapView: UIView {
         for background in map.backgrounds {
             renderBackground(background)
         }
-        for layer in self.connectionLayer.sublayers as! [ConnectionLayer] {
-            layer.draw()
+        func draw(forSublayersOf superlayer: CALayer) {
+            guard let layers = superlayer.sublayers as? [MetroMapLayer]  else { return }
+            for layer in layers {
+                layer.draw()
+            }
         }
-        for layer in self.lineLayer.sublayers as! [LineLayer] {
-            layer.draw()
-        }
-        for layer in self.stationLayer.sublayers as! [StationLayer] {
-            layer.draw()
-        }
+        draw(forSublayersOf: connectionLayer)
+        draw(forSublayersOf: lineLayer)
+        draw(forSublayersOf: stationLayer)
         self.frame.size = map.configs.size
         self.backgroundColor = map.configs.backgroundColor
     }

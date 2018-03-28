@@ -58,6 +58,7 @@ class LineLayerDirectSegment:LineLayerSegment {
 
 class LineLayerCurveSegment: LineLayerSegment {
     var cornerRadius:CGFloat = 30
+    var intermediatePoint: CGPoint?
     override func draw(on path: UIBezierPath) {
         super.draw(on: path)
         let intermediatePoint = self.segment.inverse ? CGPoint(
@@ -67,7 +68,14 @@ class LineLayerCurveSegment: LineLayerSegment {
             x: targetPoint.x,
             y: path.currentPoint.y
         )
+        self.intermediatePoint = intermediatePoint
         path.addQuadCurve(to: targetPoint, controlPoint: intermediatePoint)
+    }
+    override func endpointOrientation(for node: Node) -> CGFloat? {
+        guard let intermediatePoint = self.intermediatePoint else {
+            return super.endpointOrientation(for: node)
+        }
+        return angle(from: node.position, to: intermediatePoint)
     }
 }
 

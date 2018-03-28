@@ -152,10 +152,11 @@ class StationLayer: MetroMapLayer {
         labelPositionLoop: for position in LabelPosition.all {
             textLayer.position = position.position(frame: self.bounds, targetSize: textLayer.bounds.size)
             for lineLayer in lineLayers {
-                if !lineLayer.overlapRect(convert(textLayer.frame, to: self.mapView.layer)) {
-                    break labelPositionLoop
+                if lineLayer.overlapRect(convert(textLayer.frame, to: self.mapView.layer)) {
+                    continue labelPositionLoop
                 }
             }
+            break
         }
         CATransaction.commit()
     }
