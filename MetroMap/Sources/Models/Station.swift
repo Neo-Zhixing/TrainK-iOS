@@ -12,11 +12,11 @@ import SwiftyJSON
 open class Node: NSObject {
     open var id: Int
     @objc dynamic open var position = CGPoint()
-    public init(data: JSON) {
+    public init(data: JSON, spacing: Double) {
         self.id = data["id"].intValue
         
         let position = data["position"]
-        self.position = CGPoint(x: position[0].doubleValue, y: position[1].doubleValue)
+        self.position = CGPoint(x: position[0].doubleValue * spacing, y: position[1].doubleValue * spacing)
         
     }
     public init(id: Int){
@@ -39,12 +39,12 @@ open class Station:Node {
         case interchange
         case intercity
     }
-    open var level: Level = .major
+    open var level: Level = .minor
 
     open var name: String?
 
-    public override init(data: JSON) {
-        super.init(data: data)
+    public override init(data: JSON, spacing: Double) {
+        super.init(data: data, spacing: spacing)
         self.name = data["name"].stringValue
         if let levelName = data["level"].string, let level = Level(rawValue: levelName) {
             self.level = level

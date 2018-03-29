@@ -46,17 +46,36 @@ class StationLayer: MetroMapLayer {
         self.textLayer = nil
         self.iconLayer?.removeFromSuperlayer()
         self.iconLayer = nil
-
-        guard let iconData = try? mapView.datasource?.stationIcons[station.level] ?? Data(contentsOf: Bundle(for: StationLayer.self).url(forResource: station.level.rawValue, withExtension: "svg")!) else {return}
+        
+        let iconData: Data
+        if let oriData = mapView.datasource?.stationIcons[station.level] {
+            iconData = oriData
+        } else {
+            guard let oriData = NSDataAsset(name: station.level.rawValue, bundle: Bundle(for: StationLayer.self))?.data else {return}
+            iconData = oriData
+            mapView.datasource?.stationIcons[station.level] = oriData
+        }
+        
+        
         self.position = self.station.position
         let textLayer = CATextLayer()
         textLayer.string = station.name
         textLayer.foregroundColor = UIColor.black.cgColor
         textLayer.backgroundColor = mapView.datasource?.configs.backgroundColor.cgColor
-        textLayer.alignmentMode = "center"
-        textLayer.zPosition = 10
+        let fontSize = self.station.level.fontSize
+        let font = UIFont.systemFont(ofSize: fontSize)
+        if let size = self.station.name?.size(withAttributes: [NSAttributedStringKey.font: font]) {
+            textLayer.bounds.size = size
+        }
+        textLayer.font = font
+        textLayer.fontSize = fontSize
+        if let maxScale = self.mapView.datasource?.configs.maxZoom {
+            textLayer.contentsScale = UIScreen.main.scale * maxScale
+        }
         self.textLayer = textLayer
         self.addSublayer(textLayer)
+        self.setScale(1)
+        
         CALayer(SVGData: iconData) { (theLayer) in
             let svglayer = theLayer.svgLayerCopy!
             if let size = svglayer.sublayers?.first?.frame.size {
@@ -65,7 +84,7 @@ class StationLayer: MetroMapLayer {
             self.bounds.size = CGSize(width: svglayer.bounds.size.width*2, height: svglayer.bounds.size.height*2)
             svglayer.position.x = self.bounds.size.width / 2
             svglayer.position.y = self.bounds.size.height / 2
-            self.setScale(1)
+            
             self.iconLayer = svglayer
             self.addSublayer(svglayer)
             self.layoutLabel()
@@ -124,22 +143,16 @@ class StationLayer: MetroMapLayer {
         }
     }
     func setScale(_ scale: CGFloat) {
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        guard let textLayer = self.textLayer else {
-            return
+        if scale < station.level.displayLabelThresholdScale {
+            textLayer?.isHidden = true
+        } else {
+            textLayer?.isHidden = false
         }
-        let fontSize = (40 * self.bounds.width) / sqrt(scale) / 100
-        let font = UIFont.systemFont(ofSize: fontSize)
-        if let size = station.name?.size(withAttributes: [NSAttributedStringKey.font: font]) {
-            textLayer.bounds.size = size
+        if scale < station.level.displayIconThresholdScale {
+            iconLayer?.isHidden = true
+        } else {
+            iconLayer?.isHidden = false
         }
-        textLayer.font = font
-        textLayer.fontSize = fontSize
-
-        textLayer.contentsScale = UIScreen.main.scale * scale
-
-        CATransaction.commit()
     }
     func layoutLabel() {
         guard let textLayer = self.textLayer,
@@ -168,8 +181,41 @@ class StationLayer: MetroMapLayer {
             var angle = segment1 - segment2
             if angle > CGFloat.pi*2 { angle -= CGFloat.pi*2 }
             if angle < 0 { angle += CGFloat.pi*2 }
-            orientation = angle < CGFloat.pi ? segment1 : segment2
+            if angle == CGFloat.pi {
+                orientation = segment1 > segment2 ? segment1 : segment2
+            }
+            else {
+                orientation = angle < CGFloat.pi ? segment1 : segment2
+            }
         }
         iconLayer?.setAffineTransform(CGAffineTransform(rotationAngle: orientation))
+    }
+}
+
+
+private extension Station.Level {
+    var displayLabelThresholdScale: CGFloat {
+        switch self {
+        case .minor: return 1
+        case .major: return 0.7
+        case .interchange: return 0.4
+        case .intercity: return 0.2
+        }
+    }
+    var displayIconThresholdScale: CGFloat {
+        switch self {
+        case .minor: return 0.5
+        case .major: return 0.3
+        case .interchange: return 0.1
+        case .intercity: return 0
+        }
+    }
+    var fontSize: CGFloat {
+        switch self {
+        case .minor: return 13
+        case .major: return 15
+        case .interchange: return 17
+        case .intercity: return 20
+        }
     }
 }

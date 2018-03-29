@@ -9,11 +9,11 @@
 import UIKit
 import MetroMap
 
-class ViewController: MetroMapEditingViewController {
+class ViewController: MetroMapInteractiveViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url = Bundle.main.url(forResource: "line", withExtension: "json")!
+        let url = Bundle.main.url(forResource: "hefei", withExtension: "json")!
         let data = try! Data(contentsOf: url)
         self.metroMap = MetroMap(data: data)
         metroMapView.datasource = self.metroMap

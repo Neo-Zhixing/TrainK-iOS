@@ -12,14 +12,14 @@
 		2207B00F20629F09005E4932 /* StationLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2207B00E20629F09005E4932 /* StationLayer.swift */; };
 		2207B01220637B71005E4932 /* ConnectionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2207B01120637B71005E4932 /* ConnectionLayer.swift */; };
 		2207B01420638399005E4932 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2207B01320638399005E4932 /* Background.swift */; };
-		2207B01620638C5C005E4932 /* hongKongLow.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2207B01520638C5C005E4932 /* hongKongLow.svg */; };
 		2207B0182063E04D005E4932 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2207B0172063E04D005E4932 /* Route.swift */; };
-		2248D697205ECF140007FF11 /* pubs.json in Resources */ = {isa = PBXBuildFile; fileRef = 2248D696205ECF130007FF11 /* pubs.json */; };
-		2248D6BF2060264B0007FF11 /* line.json in Resources */ = {isa = PBXBuildFile; fileRef = 2248D6BE2060264B0007FF11 /* line.json */; };
+		2248D697205ECF140007FF11 /* hongkong.json in Resources */ = {isa = PBXBuildFile; fileRef = 2248D696205ECF130007FF11 /* hongkong.json */; };
+		2248D6BF2060264B0007FF11 /* hefei.json in Resources */ = {isa = PBXBuildFile; fileRef = 2248D6BE2060264B0007FF11 /* hefei.json */; };
 		22545F1420650B5A00F719EF /* StationPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22545F1220650B5A00F719EF /* StationPopoverViewController.swift */; };
 		22545F1520650B5A00F719EF /* StationPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22545F1320650B5A00F719EF /* StationPopoverViewController.xib */; };
 		2286387D2067707000011109 /* LineLayerParallelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2286387C2067707000011109 /* LineLayerParallelSegment.swift */; };
 		22B17A5220655E9D001537D1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 22B17A5120655E9C001537D1 /* README.md */; };
+		22BD9535206D5F5D00DFC475 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22BD9534206D5F5D00DFC475 /* Assets.xcassets */; };
 		22D0979E20617D3200DA4DDC /* MetroMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D0979520617D3100DA4DDC /* MetroMap.framework */; };
 		22D097A520617D3200DA4DDC /* MetroMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097A420617D3200DA4DDC /* MetroMapTests.swift */; };
 		22D097A720617D3200DA4DDC /* MetroMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D0979720617D3200DA4DDC /* MetroMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -37,8 +37,6 @@
 		22D097CE20617ECB00DA4DDC /* LineLayerSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097C320617ECA00DA4DDC /* LineLayerSegment.swift */; };
 		22D097CF20617ECB00DA4DDC /* LineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097C420617ECA00DA4DDC /* LineLayer.swift */; };
 		22D097D020617ECB00DA4DDC /* LineLayerTriangleSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D097C520617ECA00DA4DDC /* LineLayerTriangleSegment.swift */; };
-		22D097D3206181AE00DA4DDC /* major.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2248D690205ECAF50007FF11 /* major.svg */; };
-		22D097D4206181B100DA4DDC /* minor.svg in Resources */ = {isa = PBXBuildFile; fileRef = 2248D6BC2060245A0007FF11 /* minor.svg */; };
 		22DD87F6205EC4DE00EEBBB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD87F5205EC4DE00EEBBB4 /* AppDelegate.swift */; };
 		22DD87F8205EC4DE00EEBBB4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD87F7205EC4DE00EEBBB4 /* ViewController.swift */; };
 		22DD87FB205EC4DE00EEBBB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22DD87F9205EC4DE00EEBBB4 /* Main.storyboard */; };
@@ -106,18 +104,16 @@
 		2207B00E20629F09005E4932 /* StationLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationLayer.swift; sourceTree = "<group>"; };
 		2207B01120637B71005E4932 /* ConnectionLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionLayer.swift; sourceTree = "<group>"; };
 		2207B01320638399005E4932 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
-		2207B01520638C5C005E4932 /* hongKongLow.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = hongKongLow.svg; sourceTree = "<group>"; };
 		2207B0172063E04D005E4932 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		2248D689205EC8890007FF11 /* SwiftSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSVG.framework; path = Carthage/Build/iOS/SwiftSVG.framework; sourceTree = "<group>"; };
-		2248D690205ECAF50007FF11 /* major.svg */ = {isa = PBXFileReference; explicitFileType = text.xml; fileEncoding = 4; path = major.svg; sourceTree = "<group>"; };
-		2248D696205ECF130007FF11 /* pubs.json */ = {isa = PBXFileReference; explicitFileType = text.json; fileEncoding = 4; indentWidth = 2; path = pubs.json; sourceTree = "<group>"; tabWidth = 2; };
+		2248D696205ECF130007FF11 /* hongkong.json */ = {isa = PBXFileReference; explicitFileType = text.json; fileEncoding = 4; indentWidth = 2; path = hongkong.json; sourceTree = "<group>"; tabWidth = 2; };
 		2248D698205ED10A0007FF11 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
-		2248D6BC2060245A0007FF11 /* minor.svg */ = {isa = PBXFileReference; explicitFileType = text.xml; fileEncoding = 4; path = minor.svg; sourceTree = "<group>"; };
-		2248D6BE2060264B0007FF11 /* line.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = line.json; sourceTree = "<group>"; };
+		2248D6BE2060264B0007FF11 /* hefei.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hefei.json; sourceTree = "<group>"; };
 		22545F1220650B5A00F719EF /* StationPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationPopoverViewController.swift; sourceTree = "<group>"; };
 		22545F1320650B5A00F719EF /* StationPopoverViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationPopoverViewController.xib; sourceTree = "<group>"; };
 		2286387C2067707000011109 /* LineLayerParallelSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineLayerParallelSegment.swift; sourceTree = "<group>"; };
 		22B17A5120655E9C001537D1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		22BD9534206D5F5D00DFC475 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		22D0979520617D3100DA4DDC /* MetroMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MetroMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22D0979720617D3200DA4DDC /* MetroMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetroMap.h; sourceTree = "<group>"; };
 		22D0979820617D3200DA4DDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -216,9 +212,8 @@
 		2248D68F205ECAF50007FF11 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2248D696205ECF130007FF11 /* pubs.json */,
-				2207B01520638C5C005E4932 /* hongKongLow.svg */,
-				2248D6BE2060264B0007FF11 /* line.json */,
+				2248D696205ECF130007FF11 /* hongkong.json */,
+				2248D6BE2060264B0007FF11 /* hefei.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -226,9 +221,9 @@
 		22D0979620617D3100DA4DDC /* MetroMap */ = {
 			isa = PBXGroup;
 			children = (
-				22D097D22061819B00DA4DDC /* Resources */,
 				22D0979720617D3200DA4DDC /* MetroMap.h */,
 				22D0979820617D3200DA4DDC /* Info.plist */,
+				22BD9534206D5F5D00DFC475 /* Assets.xcassets */,
 				22D097B620617ECA00DA4DDC /* Sources */,
 			);
 			path = MetroMap;
@@ -296,15 +291,6 @@
 				2286387C2067707000011109 /* LineLayerParallelSegment.swift */,
 			);
 			path = LineSegments;
-			sourceTree = "<group>";
-		};
-		22D097D22061819B00DA4DDC /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				2248D6BC2060245A0007FF11 /* minor.svg */,
-				2248D690205ECAF50007FF11 /* major.svg */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		22DD87E9205EC4DD00EEBBB4 = {
@@ -535,9 +521,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22D097D4206181B100DA4DDC /* minor.svg in Resources */,
 				22545F1520650B5A00F719EF /* StationPopoverViewController.xib in Resources */,
-				22D097D3206181AE00DA4DDC /* major.svg in Resources */,
+				22BD9535206D5F5D00DFC475 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,11 +537,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2207B01620638C5C005E4932 /* hongKongLow.svg in Resources */,
-				2248D6BF2060264B0007FF11 /* line.json in Resources */,
+				2248D6BF2060264B0007FF11 /* hefei.json in Resources */,
 				22DD8800205EC4DE00EEBBB4 /* LaunchScreen.storyboard in Resources */,
 				22B17A5220655E9D001537D1 /* README.md in Resources */,
-				2248D697205ECF140007FF11 /* pubs.json in Resources */,
+				2248D697205ECF140007FF11 /* hongkong.json in Resources */,
 				22DD87FD205EC4DE00EEBBB4 /* Assets.xcassets in Resources */,
 				22DD87FB205EC4DE00EEBBB4 /* Main.storyboard in Resources */,
 			);

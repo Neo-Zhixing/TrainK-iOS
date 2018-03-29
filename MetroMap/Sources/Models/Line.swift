@@ -21,15 +21,11 @@ open class Line: NSObject {
             self.name = name
         }
         var lastSegment: Segment?
-        self.segments = data["segments"].arrayValue.map {
-            data in
-            var json = data
-            if json["from"].int == nil, let lastNode = lastSegment?.to {
-                json["from"].intValue = lastNode.id
+        for json in data["segments"].arrayValue {
+            if let newSegment = Segment(data: json, forNodes: nodes, lastSegmentNode: lastSegment?.to) {
+                self.segments.append(newSegment)
+                lastSegment = newSegment
             }
-            let newSegment = Segment(data: json, forNodes: nodes)
-            lastSegment = newSegment
-            return newSegment
         }
         if let colorHexStr = data["color"].string {
             self.color = UIColor(hex: colorHexStr)
@@ -61,9 +57,22 @@ open class Segment: NSObject {
     open var inverse: Bool = false
     open var drawingMode: DrawingMode = .line
     
-    public init(data: JSON, forNodes nodes:[Int: Node]) {
-        self.to = nodes[data["to"].intValue]!
-        self.from = nodes[data["from"].intValue]!
+    public init?(data: JSON, forNodes nodes:[Int: Node], lastSegmentNode: Node? = nil) {
+        guard let toID = data["to"].int, let to = nodes[toID] else {
+            print("MetroMap: Compile Segment error. Can't get node 'to'")
+            return nil
+        }
+        self.to = to
+        if let l = lastSegmentNode {
+            self.from = l
+        } else {
+            guard let fromID = data["from"].int, let from = nodes[fromID]  else {
+                print("MetroMap: Compile Segment error. Can't get node 'from'")
+                return nil
+            }
+            self.from = from
+        }
+        
         if let inverse = data["inverse"].bool {
             self.inverse = inverse
         }

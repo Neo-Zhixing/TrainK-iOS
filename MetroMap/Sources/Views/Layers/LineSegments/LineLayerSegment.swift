@@ -19,9 +19,7 @@ class LineLayerSegment {
     }
 
     func draw(on path: UIBezierPath) {
-        if (path.currentPoint != segment.from.position) {
-            path.move(to: segment.from.position)
-        }
+        path.move(to: segment.from.position)
     }
     func overlapRect(_ rect: CGRect) -> Bool {
         return false

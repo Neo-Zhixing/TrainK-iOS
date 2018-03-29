@@ -15,16 +15,19 @@ open class MetroMap {
         open var size = CGSize(width: 200, height: 200)
         open var maxZoom: CGFloat = 10
         open var minZoom: CGFloat = 1
-        open var spacing: CGFloat = 10
+        open var spacing: Double = 10
         open var backgroundColor = UIColor.white
         
         
         public init(){
         }
         public init(json data: JSON) {
+            if let spacing = data["spacing"].double {
+                self.spacing = spacing
+            }
             if let width = data["size"][0].double,
                 let height = data["size"][1].double {
-                self.size = CGSize(width: width, height: height)
+                self.size = CGSize(width: width*spacing, height: height*spacing)
             }
             if let maxZoom = data["maxZoom"].double{
                 self.maxZoom = CGFloat(maxZoom)
@@ -35,6 +38,7 @@ open class MetroMap {
             if let hexStr = data["backgroundColor"].string {
                 self.backgroundColor = UIColor(hex: hexStr)
             }
+
         }
     }
     open var configs = Configs()
@@ -66,11 +70,11 @@ open class MetroMap {
             }
         }
         for jsondata in data["stations"].arrayValue {
-            let station = Station(data: jsondata)
+            let station = Station(data: jsondata, spacing: configs.spacing)
             self.stations.insert(station)
         }
         for jsondata in data["nodes"].arrayValue {
-            let node = Node(data: jsondata)
+            let node = Node(data: jsondata, spacing: configs.spacing)
             self.nodes.insert(node)
         }
 
@@ -84,8 +88,9 @@ open class MetroMap {
         
         
         for jsondata in data["connections"].arrayValue {
-            let con = Segment(data: jsondata, forNodes: nodeMapping)
-            self.connections.insert(con)
+            if let con = Segment(data: jsondata, forNodes: nodeMapping) {
+                self.connections.insert(con)
+            }
         }
         for json in data["backgrounds"].arrayValue {
             if let background = Background(json: json) {
