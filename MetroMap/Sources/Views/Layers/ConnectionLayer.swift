@@ -10,20 +10,19 @@ import UIKit
 
 class ConnectionLayer: MetroMapLayer {
     var segment: Segment
-    var mapView: MetroMapView
     
     init(_ segment: Segment, onMapView view: MetroMapView) {
         self.segment = segment
-        self.mapView = view
         super.init()
+        self.mapView = view
     }
     override init(layer: Any) {
         guard let layer = layer as? ConnectionLayer else {
             fatalError("Station Layer init(layer: Any) got unexpected layer")
         }
         self.segment = layer.segment
-        self.mapView = layer.mapView
         super.init(layer: layer)
+        self.mapView = layer.mapView
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,7 +30,7 @@ class ConnectionLayer: MetroMapLayer {
     }
     override func draw(){
         let path = UIBezierPath()
-        let drawer = segment.drawingMode.drawer.init(segment)
+        let drawer = segment.drawingMode.drawer.init(segment, onLayer: self)
         drawer.draw(on: path)
         self.path = path.cgPath
         //self.frame = self.bounds

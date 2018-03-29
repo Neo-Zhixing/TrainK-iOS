@@ -10,12 +10,14 @@ import UIKit
 
 class LineLayerSegment {
     var segment: Segment
+    weak var layer: MetroMapLayer!
     var targetPoint:CGPoint {
         return segment.to.position
     }
     
-    required init(_ segment: Segment) {
+    required init(_ segment: Segment, onLayer layer: MetroMapLayer) {
         self.segment = segment
+        self.layer = layer
     }
 
     func draw(on path: UIBezierPath) {

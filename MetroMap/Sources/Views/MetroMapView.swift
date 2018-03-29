@@ -34,6 +34,7 @@ public extension MetroMapViewDelegate {
 }
 
 class MetroMapLayer: CAShapeLayer {
+    weak var mapView: MetroMapView!
     func draw() {}
     func select() {}
     func deselect() {}

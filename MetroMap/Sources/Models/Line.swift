@@ -76,6 +76,9 @@ open class Segment: NSObject {
         if let inverse = data["inverse"].bool {
             self.inverse = inverse
         }
+        if let length = data["length"].float {
+            self.length = length
+        }
         if let drawingModeStr = data["mode"].string, let drawingMode = Segment.DrawingMode(rawValue: drawingModeStr) {
             self.drawingMode = drawingMode
         }

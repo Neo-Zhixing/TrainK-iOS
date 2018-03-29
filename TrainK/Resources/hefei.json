@@ -88,7 +88,7 @@
       "id": 4,
       "name": "大东门",
       "position": [16, 10],
-      "level": "interchange"
+      "level": "major"
     },
     {
       "id": 5,
@@ -311,36 +311,43 @@
         {
           "from": 56,
           "to": 55,
-          "mode": "triangle"
+          "mode": "triangle",
+          "length": 5
         },
         {
           "from": 55,
           "to": 11,
           "mode": "triangle",
-          "inverse": true
+          "inverse": true,
+          "length": 5
         },
         {
           "to": 39,
-          "mode": "triangle"
+          "mode": "triangle",
+          "length": 5
         },
         {
           "to": 48,
           "mode": "triangle",
-          "inverse": true
+          "inverse": true,
+          "length": 5
         },
         {
           "to": 49,
-          "mode": "triangle"
+          "mode": "triangle",
+          "length": 5
         },
         {
           "to": 50,
           "mode": "triangle",
-          "inverse": true
+          "inverse": true,
+          "length": 5
         },
         {
           "to": 51,
           "mode": "triangle",
-          "inverse": true
+          "inverse": true,
+          "length": 5
         }
       ]
     },
@@ -352,39 +359,47 @@
         {
           "from": 59,
           "to": 58,
-          "mode": "triangle"
+          "mode": "triangle",
+          "length": 5
         },
         {
           "to": 57,
           "mode": "triangle",
-          "inverse": true
+          "inverse": true,
+          "length": 5
         },
         {
           "to": 1,
-          "mode": "triangle"
+          "mode": "triangle",
+          "length": 5
         },
         {
           "to": 50,
           "mode": "triangle",
-          "inverse": true
+          "inverse": true,
+          "length": 5
         },
         {
           "to": 49,
-          "mode": "triangle"
+          "mode": "triangle",
+          "length": 5
         },
         {
           "to": 48,
           "mode": "triangle",
-          "inverse": true
+          "inverse": true,
+          "length": 5
         },
         {
           "to": 53,
-          "mode": "triangle"
+          "mode": "triangle",
+          "length": 5
         },
         {
           "to": 54,
           "mode": "triangle",
-          "inverse": true
+          "inverse": true,
+          "length": 5
         }
       ]
     },
@@ -395,7 +410,8 @@
       "segments": [
         {
           "from": 48,
-          "to": 52
+          "to": 52,
+          "length": 5
         }
       ]
     },
@@ -407,21 +423,25 @@
         {
           "from": 51,
           "to": 1,
-          "mode": "triangle"
+          "mode": "triangle",
+          "length": 5
         },
         {
           "to": 57,
           "mode": "triangle",
-          "inverse": true
+          "inverse": true,
+          "length": 5
         },
         {
           "to": 58,
-          "mode": "triangle"
+          "mode": "triangle",
+          "length": 5
         },
         {
           "to": 60,
           "mode": "triangle",
-          "inverse": true
+          "inverse": true,
+          "length": 5
         }
       ]
     },
@@ -433,10 +453,12 @@
         {
           "from": 59,
           "to": 11,
-          "mode": "parallel"
+          "mode": "parallel",
+          "length": 5
         },
         {
-          "to": 54
+          "to": 54,
+          "length": 5
         }
       ]
     },

@@ -18,6 +18,7 @@ class ViewController: MetroMapInteractiveViewController {
         self.metroMap = MetroMap(data: data)
         metroMapView.datasource = self.metroMap
         self.reload()
+        scrollView?.zoom(to: metroMapView.frame, animated: true)
     }
 
     override func didReceiveMemoryWarning() {

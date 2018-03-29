@@ -14,25 +14,24 @@ class StationLayer: MetroMapLayer {
     override var element: MetroMapView.Element {
         return .station(self.station)
     }
-    weak var mapView: MetroMapView!
     var observation: NSKeyValueObservation?
     var connectedLayers: Set<MetroMapLayer> = []
     var connectedSegmentDrawer: Set<LineLayerSegment> = []
 
     init(_ station: Station, onMapView view: MetroMapView) {
         self.station = station
-        self.mapView = view
         super.init()
+        self.mapView = view
     }
     override init(layer: Any) {
         guard let stationLayer = layer as? StationLayer else {
             fatalError("Station Layer init(layer: Any) got unexpected layer")
         }
         self.station = stationLayer.station
-        self.mapView = stationLayer.mapView
         self.observation = stationLayer.observation
         self.connectedLayers = stationLayer.connectedLayers
         super.init(layer: layer)
+        self.mapView = stationLayer.mapView
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -74,7 +73,6 @@ class StationLayer: MetroMapLayer {
         }
         self.textLayer = textLayer
         self.addSublayer(textLayer)
-        self.setScale(1)
         
         CALayer(SVGData: iconData) { (theLayer) in
             let svglayer = theLayer.svgLayerCopy!
