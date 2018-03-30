@@ -163,7 +163,12 @@ class StationLayer: MetroMapLayer {
         labelPositionLoop: for position in LabelPosition.all {
             textLayer.position = position.position(frame: self.bounds, targetSize: textLayer.bounds.size)
             for lineLayer in lineLayers {
-                if lineLayer.overlapRect(convert(textLayer.frame, to: self.mapView.layer)) {
+                var frame = convert(textLayer.frame, to: self.mapView.layer)
+                frame.size.width += 10
+                frame.size.height += 10
+                frame.origin.x -= 5
+                frame.origin.y -= 5
+                if lineLayer.overlapRect(frame) {
                     continue labelPositionLoop
                 }
             }

@@ -63,14 +63,12 @@ open class Segment: NSObject {
             return nil
         }
         self.to = to
-        if let l = lastSegmentNode {
+        if let fromID = data["from"].int, let from = nodes[fromID] {
+            self.from = from
+        } else if let l = lastSegmentNode {
             self.from = l
         } else {
-            guard let fromID = data["from"].int, let from = nodes[fromID]  else {
-                print("MetroMap: Compile Segment error. Can't get node 'from'")
-                return nil
-            }
-            self.from = from
+            return nil
         }
         
         if let inverse = data["inverse"].bool {
