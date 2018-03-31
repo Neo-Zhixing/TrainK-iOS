@@ -8,33 +8,26 @@
 
 import UIKit
 
-open class StationPopoverViewController: UIViewController, UIPopoverPresentationControllerDelegate {
-    @IBOutlet open var stationNameLabel: UILabel!
+open class StationPopoverViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
     @IBOutlet open var directionButton: UIButton!
-    @IBOutlet open var dismissButton: UIButton!
-    open var station: Station
+    open var station: Station?
     open weak var mapViewController: MetroMapInteractiveViewController?
     open override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
     private func setupViews() {
-        stationNameLabel?.text = station.name
+        navigationItem.title = station?.name
         if let origin = mapViewController?.directionOrigin {
             directionButton.titleLabel?.text?.append("\nfrom \(origin.name ?? "Untitled")")
         }
         directionButton.isEnabled = mapViewController?.directionDestination != station && mapViewController?.directionOrigin != station
     }
-    
-    init(_ station: Station) {
-        self.station = station
-        super.init(nibName: "StationPopoverViewController", bundle: Bundle(for: StationPopoverViewController.self))
-        self.preferredContentSize = CGSize(width: 320, height: 300)
-    }
-    
+
     required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
+    
     @IBAction open func directionButtonPressed(sender: UIButton?) {
         if mapViewController?.directionOrigin == nil {
             mapViewController?.directionOrigin = self.station
@@ -42,12 +35,40 @@ open class StationPopoverViewController: UIViewController, UIPopoverPresentation
             mapViewController?.directionDestination = self.station
         }
         mapViewController?.setupRoute()
-        self.dismiss(animated: true)
+        self.dismiss()
     }
-    @IBAction open func dismiss(sender: AnyObject?) {
+    @objc open func dismiss(sender: AnyObject? = nil) {
         self.dismiss(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
-    public func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-        dismissButton.isHidden = true
+    // MARK: - Table View
+    lazy var lines: [Line] = {
+        var lines:[Line] = []
+        guard let allLines = self.mapViewController?.metroMap?.lines,
+        let station = self.station else {return lines}
+        for line in allLines {
+            for segment in line.segments {
+                if segment.from == station || segment.to == station {
+                    lines.append(line)
+                    break
+                }
+            }
+        }
+        return lines
+    }()
+    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return lines.count
+    }
+    open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let line = lines[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Line")!
+        cell.textLabel?.text = line.name
+        cell.accessoryView?.backgroundColor = line.color
+        return cell
+    }
+    open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let line = self.lines[indexPath.row]
+        mapViewController?.setupRoute(line: line)
+        self.dismiss()
     }
 }

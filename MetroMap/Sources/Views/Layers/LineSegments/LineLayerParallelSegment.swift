@@ -12,33 +12,41 @@ class LineLayerParallelSegment: LineLayerSegment {
     var cornerRadius: CGFloat = 10
     var entrancePoint: CGPoint?
     var exitPoint: CGPoint?
+    private func intermediatePoints(from: CGPoint, to: CGPoint) -> (CGPoint, CGPoint)? {
+        let width = abs(to.x - from.x)
+        let height = abs(to.y - from.y)
+        if width != height && width != 0 && height != 0 {
+            if width > height {
+                let dir:CGFloat = to.x - from.x > 0 ? 1 : -1
+                let parallelSegmentLength = (width - height) / 2 * dir
+                return (
+                    CGPoint(x: from.x + parallelSegmentLength, y: from.y),
+                    CGPoint(x: to.x - parallelSegmentLength, y: to.y)
+                )
+            } else {
+                let dir:CGFloat = to.y - from.y > 0 ? 1 : -1
+                let parallelSegmentLength = (height-width) / 2 * dir
+                return (
+                    CGPoint(x: from.x, y: from.y + parallelSegmentLength),
+                    CGPoint(x: to.x, y: to.y - parallelSegmentLength)
+                )
+            }
+        }
+        return nil
+    }
     override func draw(on path: UIBezierPath) {
         super.draw(on: path)
         entrancePoint = nil
         exitPoint = nil
-        let width = abs(targetPoint.x - path.currentPoint.x)
-        let height = abs(targetPoint.y - path.currentPoint.y)
-        if width != height && width != 0 && height != 0 {
-            let intermediatePoint1: CGPoint
-            let intermediatePoint2: CGPoint
-            if width > height {
-                let dir:CGFloat = targetPoint.x - path.currentPoint.x > 0 ? 1 : -1
-                let parallelSegmentLength = (width - height) / 2 * dir
-                
-                intermediatePoint1 = CGPoint(x: path.currentPoint.x + parallelSegmentLength, y: path.currentPoint.y)
-                intermediatePoint2 = CGPoint(x: targetPoint.x - parallelSegmentLength, y: targetPoint.y)
-            } else {
-                let dir:CGFloat = targetPoint.y - path.currentPoint.y > 0 ? 1 : -1
-                let parallelSegmentLength = (height-width) / 2 * dir
-                intermediatePoint1 = CGPoint(x: path.currentPoint.x, y: path.currentPoint.y + parallelSegmentLength)
-                intermediatePoint2 = CGPoint(x: targetPoint.x, y: targetPoint.y - parallelSegmentLength)
-            }
-            self.entrancePoint = intermediatePoint1
-            self.exitPoint = intermediatePoint2
-            path.addLine(to: point(from: path.currentPoint, to: intermediatePoint1, apart: self.cornerRadius))
-            path.addQuadCurve(to: point(from: intermediatePoint2, to: intermediatePoint1, apart: self.cornerRadius), controlPoint: intermediatePoint1)
-            path.addLine(to: point(from: intermediatePoint1, to: intermediatePoint2, apart: self.cornerRadius))
-            path.addQuadCurve(to: point(from: targetPoint, to: intermediatePoint2, apart: self.cornerRadius), controlPoint: intermediatePoint2)
+        let originPoint = path.currentPoint
+        let targetPoint = self.targetPoint
+        if let intermediatePoints = self.intermediatePoints(from: originPoint, to: targetPoint) {
+            self.entrancePoint = intermediatePoints.0
+            self.exitPoint = intermediatePoints.1
+            path.addLine(to: point(from: originPoint, to: intermediatePoints.0, apart: self.cornerRadius))
+            path.addQuadCurve(to: point(from: intermediatePoints.1, to: intermediatePoints.0, apart: self.cornerRadius), controlPoint: intermediatePoints.0)
+            path.addLine(to: point(from: intermediatePoints.0, to: intermediatePoints.1, apart: self.cornerRadius))
+            path.addQuadCurve(to: point(from: targetPoint, to: intermediatePoints.1, apart: self.cornerRadius), controlPoint: intermediatePoints.1)
         }
         path.addLine(to: targetPoint)
     }
@@ -51,11 +59,11 @@ class LineLayerParallelSegment: LineLayerSegment {
         return !rect.intersectionsWithLine(segment.from.position, segment.to.position).isEmpty
     }
     override func endpointOrientation(for node: Node) -> CGFloat? {
-        if let entrancePoint = self.entrancePoint, let exitPoint = self.exitPoint {
+        if let intermediatePoints = self.intermediatePoints(from: segment.from.position, to: segment.to.position) {
             if node == segment.from {
-                return angle(from: node.position, to: entrancePoint)
+                return angle(from: node.position, to: intermediatePoints.0)
             } else if node == segment.to {
-                return angle(from: node.position, to: exitPoint)
+                return angle(from: node.position, to: intermediatePoints.1)
             }
         } else {
             return super.endpointOrientation(for: node)

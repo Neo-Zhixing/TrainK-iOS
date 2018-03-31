@@ -11,8 +11,26 @@ import UIKit
 class LineLayerSegment {
     var segment: Segment
     weak var layer: MetroMapLayer!
-    var targetPoint:CGPoint {
-        return segment.to.position
+    func offset(for node: Node) -> CGPoint {
+        var offset = CGPoint()
+        guard let stationLayer = self.layer.mapView.stationMapping[node],
+            let myOrientation = self.endpointOrientation(for: node)
+            else {return offset}
+        
+        for drawer in stationLayer.connectedSegmentDrawer where drawer.layer != self.layer {
+            if let orientation = drawer.endpointOrientation(for: node),
+                orientation == myOrientation {
+                // Parallel
+                offset = offset + CGPoint(x: sin(myOrientation)*10, y: cos(myOrientation)*10)
+            }
+        }
+        return offset
+    }
+    var targetPoint: CGPoint {
+        return segment.to.position + offset(for: segment.to)
+    }
+    var originPoint: CGPoint {
+        return segment.from.position + offset(for: segment.from) * -1
     }
     
     required init(_ segment: Segment, onLayer layer: MetroMapLayer) {
@@ -21,7 +39,7 @@ class LineLayerSegment {
     }
 
     func draw(on path: UIBezierPath) {
-        path.move(to: segment.from.position)
+        path.move(to: self.originPoint)
     }
     func overlapRect(_ rect: CGRect) -> Bool {
         return false

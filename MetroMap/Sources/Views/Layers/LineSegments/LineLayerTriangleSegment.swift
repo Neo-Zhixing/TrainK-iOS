@@ -11,34 +11,40 @@ import UIKit
 class LineLayerTriangleSegment: LineLayerSegment {
     var cornerRadius: CGFloat = 10
     var intermediatePoint: CGPoint?
+    private func intermediatePoint(from: CGPoint, to: CGPoint) -> CGPoint? {
+        let width = abs(to.x - from.x)
+        let height = abs(to.y - from.y)
+        let xDir:CGFloat = to.x - from.x > 0 ? 1 : -1
+        let yDir:CGFloat = to.y - from.y > 0 ? 1 : -1
+        if width != height && width != 0 && height != 0 {
+            if width > height {
+                return segment.inverse ? CGPoint(
+                    x: from.x + height * xDir,
+                    y: to.y
+                    ) : CGPoint(
+                        x: to.x - height * xDir,
+                        y: from.y
+                )
+            } else {
+                return segment.inverse ? CGPoint(
+                    x: to.x,
+                    y: from.y + width * yDir
+                    ) : CGPoint(
+                        x: from.x,
+                        y: to.y - width * yDir
+                )
+            }
+        }
+        return nil
+    }
     override func draw(on path: UIBezierPath) {
         super.draw(on: path)
         self.intermediatePoint = nil
-        let width = abs(targetPoint.x - path.currentPoint.x)
-        let height = abs(targetPoint.y - path.currentPoint.y)
-        let xDir:CGFloat = targetPoint.x - path.currentPoint.x > 0 ? 1 : -1
-        let yDir:CGFloat = targetPoint.y - path.currentPoint.y > 0 ? 1 : -1
-        if width != height && width != 0 && height != 0 {
-            let intermediatePoint:CGPoint
-            if width > height {
-                intermediatePoint = segment.inverse ? CGPoint(
-                    x: path.currentPoint.x + height * xDir,
-                    y: targetPoint.y
-                    ) : CGPoint(
-                        x: targetPoint.x - height * xDir,
-                        y: path.currentPoint.y
-                )
-            } else {
-                intermediatePoint = segment.inverse ? CGPoint(
-                    x: targetPoint.x,
-                    y: path.currentPoint.y + width * yDir
-                    ) : CGPoint(
-                        x: path.currentPoint.x,
-                        y: targetPoint.y - width * yDir
-                )
-            }
+        let targetPoint = self.targetPoint
+        let originPoint = path.currentPoint
+        if let intermediatePoint = intermediatePoint(from: originPoint, to: targetPoint) {
             self.intermediatePoint = intermediatePoint
-            let curveFrom = point(from: path.currentPoint, to: intermediatePoint, apart: self.cornerRadius)
+            let curveFrom = point(from: originPoint, to: intermediatePoint, apart: self.cornerRadius)
             let curveTo = point(from: targetPoint, to: intermediatePoint, apart: self.cornerRadius)
             path.addLine(to: curveFrom)
             path.addQuadCurve(to: curveTo, controlPoint: intermediatePoint)
@@ -52,7 +58,7 @@ class LineLayerTriangleSegment: LineLayerSegment {
         return !rect.intersectionsWithLine(segment.from.position, segment.to.position).isEmpty
     }
     override func endpointOrientation(for node: Node) -> CGFloat? {
-        guard let intermediatePoint = self.intermediatePoint else {
+        guard let intermediatePoint = self.intermediatePoint(from: segment.from.position, to: segment.to.position) else {
             return super.endpointOrientation(for: node)
         }
         return angle(from: node.position, to: intermediatePoint)

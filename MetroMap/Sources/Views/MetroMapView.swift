@@ -236,15 +236,11 @@ open class MetroMapView: UIView {
         self.selectedLayer = nil
     }
     // MARK: - Scaling
-    var contentScale: CGFloat = 1
     func setScale(_ scale: CGFloat) {
-        self.contentScale = 1
-        if let stationLayers = self.stationLayer.sublayers as? [StationLayer] {
-            for layer in stationLayers {
-                layer.setScale(scale)
-            }
+        guard let stationLayers = self.stationLayer.sublayers as? [StationLayer] else {return}
+        for layer in stationLayers {
+            layer.setScale(scale)
         }
-        
     }
 }
 

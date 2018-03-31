@@ -13,10 +13,10 @@
 		2207B01220637B71005E4932 /* ConnectionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2207B01120637B71005E4932 /* ConnectionLayer.swift */; };
 		2207B01420638399005E4932 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2207B01320638399005E4932 /* Background.swift */; };
 		2207B0182063E04D005E4932 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2207B0172063E04D005E4932 /* Route.swift */; };
+		222FE66A2070A5D9000CA7CF /* StationPopoverViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 222FE6692070A5D9000CA7CF /* StationPopoverViewController.storyboard */; };
 		2248D697205ECF140007FF11 /* hongkong.json in Resources */ = {isa = PBXBuildFile; fileRef = 2248D696205ECF130007FF11 /* hongkong.json */; };
 		2248D6BF2060264B0007FF11 /* hefei.json in Resources */ = {isa = PBXBuildFile; fileRef = 2248D6BE2060264B0007FF11 /* hefei.json */; };
 		22545F1420650B5A00F719EF /* StationPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22545F1220650B5A00F719EF /* StationPopoverViewController.swift */; };
-		22545F1520650B5A00F719EF /* StationPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22545F1320650B5A00F719EF /* StationPopoverViewController.xib */; };
 		2286387D2067707000011109 /* LineLayerParallelSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2286387C2067707000011109 /* LineLayerParallelSegment.swift */; };
 		22AE890F206E7F1100F68C7C /* hongkong.svg in Resources */ = {isa = PBXBuildFile; fileRef = 22AE890E206E7F1100F68C7C /* hongkong.svg */; };
 		22AE8912206ECAC700F68C7C /* StationSearchResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE8910206ECAC700F68C7C /* StationSearchResultController.swift */; };
@@ -108,12 +108,12 @@
 		2207B01120637B71005E4932 /* ConnectionLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionLayer.swift; sourceTree = "<group>"; };
 		2207B01320638399005E4932 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		2207B0172063E04D005E4932 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		222FE6692070A5D9000CA7CF /* StationPopoverViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StationPopoverViewController.storyboard; sourceTree = "<group>"; };
 		2248D689205EC8890007FF11 /* SwiftSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSVG.framework; path = Carthage/Build/iOS/SwiftSVG.framework; sourceTree = "<group>"; };
 		2248D696205ECF130007FF11 /* hongkong.json */ = {isa = PBXFileReference; explicitFileType = text.json; fileEncoding = 4; indentWidth = 2; path = hongkong.json; sourceTree = "<group>"; tabWidth = 2; };
 		2248D698205ED10A0007FF11 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		2248D6BE2060264B0007FF11 /* hefei.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hefei.json; sourceTree = "<group>"; };
 		22545F1220650B5A00F719EF /* StationPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationPopoverViewController.swift; sourceTree = "<group>"; };
-		22545F1320650B5A00F719EF /* StationPopoverViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationPopoverViewController.xib; sourceTree = "<group>"; };
 		2286387C2067707000011109 /* LineLayerParallelSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineLayerParallelSegment.swift; sourceTree = "<group>"; };
 		22AE890E206E7F1100F68C7C /* hongkong.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = hongkong.svg; sourceTree = "<group>"; };
 		22AE8910206ECAC700F68C7C /* StationSearchResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSearchResultController.swift; sourceTree = "<group>"; };
@@ -275,7 +275,7 @@
 				2207B0092062534B005E4932 /* MetroMapInteractiveViewController.swift */,
 				2207B00B20625B9F005E4932 /* MetroMapEditingViewController.swift */,
 				22545F1220650B5A00F719EF /* StationPopoverViewController.swift */,
-				22545F1320650B5A00F719EF /* StationPopoverViewController.xib */,
+				222FE6692070A5D9000CA7CF /* StationPopoverViewController.storyboard */,
 				22AE8910206ECAC700F68C7C /* StationSearchResultController.swift */,
 				22AE8911206ECAC700F68C7C /* StationSearchResultController.xib */,
 			);
@@ -530,8 +530,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22545F1520650B5A00F719EF /* StationPopoverViewController.xib in Resources */,
 				22BD9535206D5F5D00DFC475 /* Assets.xcassets in Resources */,
+				222FE66A2070A5D9000CA7CF /* StationPopoverViewController.storyboard in Resources */,
 				22AE8913206ECAC800F68C7C /* StationSearchResultController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

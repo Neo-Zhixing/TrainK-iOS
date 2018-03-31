@@ -28,19 +28,28 @@ open class MetroMapInteractiveViewController: MetroMapScrollableViewController, 
     open override func metroMap(_ metroMap: MetroMapView, willSelectElement element: MetroMapView.Element, onFrame frame: CGRect) {
         switch  element {
         case .station(let station):
-            let viewController = StationPopoverViewController(station)
-            viewController.mapViewController = self
-            self.stationViewController = viewController
+            let storyboard = UIStoryboard(name: "StationPopoverViewController", bundle: Bundle(for: StationPopoverViewController.self))
+            let viewController: StationPopoverViewController
             if UIDevice.current.userInterfaceIdiom == .pad {
-                viewController.modalPresentationStyle = .popover
-                viewController.popoverPresentationController?.delegate = viewController
-                viewController.popoverPresentationController?.sourceView = self.metroMapView
-                viewController.popoverPresentationController?.sourceRect = frame
-                viewController.popoverPresentationController?.passthroughViews = [self.metroMapView]
-                self.present(viewController, animated: true, completion: nil)
+                let navController = storyboard.instantiateInitialViewController() as! UINavigationController
+                viewController = navController.topViewController as! StationPopoverViewController
+                viewController.station = station
+                self.stationViewController = viewController
+                viewController.preferredContentSize = CGSize(width: 320, height: 300)
+                viewController.mapViewController = self
+                navController.modalPresentationStyle = .popover
+                navController.popoverPresentationController?.delegate = viewController
+                navController.popoverPresentationController?.sourceView = self.metroMapView
+                navController.popoverPresentationController?.sourceRect = frame
+                navController.popoverPresentationController?.passthroughViews = [self.metroMapView]
+                self.present(navController, animated: true, completion: nil)
             } else {
+                viewController = storyboard.instantiateViewController(withIdentifier: "RootViewController") as! StationPopoverViewController
+                viewController.mapViewController = self
+                viewController.station = station
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
+            self.stationViewController = viewController
         default:
             ()
         }
@@ -73,23 +82,26 @@ open class MetroMapInteractiveViewController: MetroMapScrollableViewController, 
     @IBAction private func cancelDirections(sender: UIBarButtonItem?) {
         self.directionOrigin = nil
         self.directionDestination = nil
-        self.setupRoute()
+        self.clearRoute()
     }
     func setupRoute() {
-        if directionOrigin == nil && directionDestination == nil {
-            self.navigationItem.setRightBarButton(nil, animated: true)
-            self.title = "MetroMap"
-        } else {
-            self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelDirections)), animated: true)
-            self.title = "Directions"
-            if let name = directionOrigin?.name { self.title! += " from \(name)" }
-            if let name = directionDestination?.name { self.title! += " to \(name)"}
-        }
-        if let origin = directionOrigin, let destination = directionDestination, let map = metroMap {
+        self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .cancel,target: self, action: #selector(cancelDirections)), animated: true)
+        self.title = "Directions"
+        if let name = directionOrigin?.name { self.title! += " from \(name)" }
+        if let name = directionDestination?.name { self.title! += " to \(name)"}
+        if let origin = self.directionOrigin, let destination = self.directionDestination, let map = self.metroMap {
             route = Route(shortestOnMap: map, from: origin, to: destination)
-        } else {
-            route = nil
         }
+    }
+    func clearRoute() {
+        self.navigationItem.setRightBarButton(nil, animated: true)
+        self.title = "MetroMap"
+        self.route = nil
+    }
+    func setupRoute(line: Line) {
+        self.route = Route(line: line)
+        self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelDirections)), animated: true)
+        self.title = line.name
     }
     override open func metroMap(_ metroMap: MetroMapView, shouldEmphasizeElement element: MetroMapView.Element) -> Bool {
         switch element {

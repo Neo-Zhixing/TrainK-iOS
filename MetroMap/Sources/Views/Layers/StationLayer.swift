@@ -178,22 +178,32 @@ class StationLayer: MetroMapLayer {
         }
         CATransaction.commit()
     }
+    var orientation: CGFloat = 0 {
+        didSet{
+            iconLayer?.setAffineTransform(CGAffineTransform(rotationAngle: orientation))
+        }
+    }
     func adjustOrientation() {
-        var orientation = CGFloat()
-        if self.connectedSegmentDrawer.count == 2,
-        let segment1 = Array(connectedSegmentDrawer)[0].endpointOrientation(for: station),
-        let segment2 = Array(connectedSegmentDrawer)[1].endpointOrientation(for: station) {
+        let segArray = Array(connectedSegmentDrawer)
+        if self.connectedSegmentDrawer.count == 1,
+            let orientation = self.connectedSegmentDrawer.first?.endpointOrientation(for: station) {
+            var rOrientation = orientation - CGFloat.pi
+            if rOrientation < 0 { rOrientation += CGFloat.pi*2}
+            self.orientation = orientation > rOrientation ? orientation : rOrientation
+        }
+        else if self.connectedSegmentDrawer.count == 2,
+        let segment1 = segArray[0].endpointOrientation(for: station),
+        let segment2 = segArray[1].endpointOrientation(for: station) {
             var angle = segment1 - segment2
             if angle > CGFloat.pi*2 { angle -= CGFloat.pi*2 }
             if angle < 0 { angle += CGFloat.pi*2 }
             if angle == CGFloat.pi {
-                orientation = segment1 > segment2 ? segment1 : segment2
+                self.orientation = segment1 > segment2 ? segment1 : segment2
             }
             else {
-                orientation = angle < CGFloat.pi ? segment1 : segment2
+                self.orientation = angle < CGFloat.pi ? segment1 : segment2
             }
         }
-        iconLayer?.setAffineTransform(CGAffineTransform(rotationAngle: orientation))
     }
 }
 
@@ -201,10 +211,10 @@ class StationLayer: MetroMapLayer {
 private extension Station.Level {
     var displayLabelThresholdScale: CGFloat {
         switch self {
-        case .minor: return 1
-        case .major: return 0.7
-        case .interchange: return 0.4
-        case .intercity: return 0.2
+        case .minor: return 0.8
+        case .major: return 0.5
+        case .interchange: return 0.3
+        case .intercity: return 0.1
         }
     }
     var displayIconThresholdScale: CGFloat {

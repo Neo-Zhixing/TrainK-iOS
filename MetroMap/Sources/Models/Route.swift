@@ -11,7 +11,17 @@ import Foundation
 open class Route {
     open var steps: [Node]
     open var segments: [Segment]
-
+    
+    public init?(line: Line) {
+        var nodes: Set<Node> = []
+        self.segments = line.segments
+        for segment in line.segments {
+            nodes.insert(segment.from)
+            nodes.insert(segment.to)
+        }
+        self.steps = Array(nodes)
+    }
+    
     public init?(shortestOnMap map:MetroMap, from: Node, to: Node) {
         // Essencially an implementation of Dijkstra's algorithm
         var unvisited = map.nodes.union(map.stations as Set<Node>) // All Nodes on the map
