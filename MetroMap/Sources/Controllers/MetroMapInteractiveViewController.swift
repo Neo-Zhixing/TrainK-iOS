@@ -8,9 +8,23 @@
 
 import UIKit
 
-open class MetroMapInteractiveViewController: MetroMapScrollableViewController {
+open class MetroMapInteractiveViewController: MetroMapScrollableViewController, UISearchControllerDelegate {
     open var stationViewController:StationPopoverViewController?
-    
+    var searchResultController: StationSearchResultController!
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        searchResultController = StationSearchResultController()
+        searchResultController.metroMap = self.metroMap
+        searchResultController.mapViewController = self
+        self.navigationItem.searchController = UISearchController(searchResultsController: searchResultController)
+        self.navigationItem.searchController?.delegate = self
+        self.navigationItem.searchController?.searchResultsUpdater = searchResultController
+        self.definesPresentationContext = true
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchBtnClicked))
+    }
+    @objc func searchBtnClicked(sender: Any?) {
+        self.navigationItem.searchController?.searchBar.becomeFirstResponder()
+    }
     open override func metroMap(_ metroMap: MetroMapView, willSelectElement element: MetroMapView.Element, onFrame frame: CGRect) {
         switch  element {
         case .station(let station):
@@ -32,6 +46,7 @@ open class MetroMapInteractiveViewController: MetroMapScrollableViewController {
         }
 
     }
+
     open override func metroMap(_ metroMap: MetroMapView, willDeselectElement element: MetroMapView.Element) {
         if self.navigationController?.topViewController == self {
             self.stationViewController?.dismiss(animated: false, completion: nil)
@@ -44,7 +59,7 @@ open class MetroMapInteractiveViewController: MetroMapScrollableViewController {
         return true
     }
     open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        self.metroMapView.delectedAll()
+        self.metroMapView.deselectAll()
     }
     
     // MARK: - Interactive Route Planning

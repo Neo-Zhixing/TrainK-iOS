@@ -178,14 +178,14 @@ open class MetroMapView: UIView {
                 let element = layer.element,
                 layer.element != selected,
                 self.delegate?.metroMap(self, canSelectElement: element) ?? false {
-                self.delectedAll()
+                self.deselectAll()
                 self.selectedLayer = layer
                 self.selected = element
                 self.currentTouch = touch
                 layer.select()
                 self.delegate?.metroMap(self, willSelectElement: element, onFrame: layer.frame)
             } else {
-                self.delectedAll()
+                self.deselectAll()
             }
         }
     }
@@ -209,7 +209,21 @@ open class MetroMapView: UIView {
             }
         }
     }
-    open func delectedAll(){
+    open func select (_ element: Element) {
+        guard self.delegate?.metroMap(self, canSelectElement: element) ?? false else {
+            return
+        }
+        self.deselectAll()
+        if case let .station(station) = element, let layer = self.stationMapping[station] {
+            self.delegate?.metroMap(self, willSelectElement: element, onFrame: layer.frame)
+            self.selected = element
+            self.selectedLayer = layer
+            layer.select()
+            self.delegate?.metroMap(self, didSelectElement: element, onFrame: layer.frame)
+        }
+
+    }
+    open func deselectAll(){
         guard let selection = self.selected else {return}
         self.delegate?.metroMap(self, willDeselectElement: selection)
         self.selected = nil
