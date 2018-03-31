@@ -67,12 +67,12 @@ class LineLayer: MetroMapLayer {
         emphasizeLayer.frame = self.bounds
         self.path = path.cgPath
         emphasizeLayer.path = emphasizePath.cgPath
-        self.strokeColor = self.line.color.cgColor
+        self.strokeColor = UIColor.gray.cgColor
         emphasizeLayer.strokeColor = self.line.color.cgColor
         self.fillColor = UIColor.clear.cgColor
         emphasizeLayer.fillColor = UIColor.clear.cgColor
         self.lineWidth = 10
-        emphasizeLayer.lineWidth = 20
+        emphasizeLayer.lineWidth = 10
         self.emphasizeLayer = emphasizeLayer
         self.addSublayer(emphasizeLayer)
     }

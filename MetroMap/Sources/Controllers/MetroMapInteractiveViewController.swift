@@ -94,11 +94,11 @@ open class MetroMapInteractiveViewController: MetroMapScrollableViewController, 
     override open func metroMap(_ metroMap: MetroMapView, shouldEmphasizeElement element: MetroMapView.Element) -> Bool {
         switch element {
         case .segment(let segment):
-            return self.route?.segments.contains(segment) ?? false
+            return self.route?.segments.contains(segment) ?? true
         case .connection(let connection):
             return self.route?.segments.contains(connection) ?? false
         case .station(let station):
-            guard let nodes = self.route?.steps else { return false }
+            guard let nodes = self.route?.steps else { return true }
             return nodes.first == station || nodes.last == station
         }
     }
