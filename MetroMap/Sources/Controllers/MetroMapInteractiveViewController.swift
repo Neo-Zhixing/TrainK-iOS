@@ -98,8 +98,7 @@ open class MetroMapInteractiveViewController: MetroMapScrollableViewController, 
         case .connection(let connection):
             return self.route?.segments.contains(connection) ?? false
         case .station(let station):
-            guard let nodes = self.route?.steps else { return true }
-            return nodes.first == station || nodes.last == station
+            return self.route?.steps.contains(station) ?? true
         }
     }
     

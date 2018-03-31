@@ -52,7 +52,12 @@ open class MetroMapViewController: UIViewController, MetroMapViewDelegate {
     open func metroMap(_ metroMap: MetroMapView, didDeselectElement element: MetroMapView.Element) {}
     
     open func metroMap(_ metroMap: MetroMapView, shouldEmphasizeElement element: MetroMapView.Element) -> Bool {
-        return false
+        switch element {
+        case .connection(_):
+            return false
+        default:
+            return true
+        }
     }
 }
 
@@ -71,6 +76,10 @@ open class MetroMapScrollableViewController: MetroMapViewController, UIScrollVie
     open override func viewDidLoad() {
         super.viewDidLoad()
         self.scrollView?.delegate = self
+        self.zoomToFit()
+    }
+    open func zoomToFit() {
+        scrollView?.zoom(to: metroMapView.frame, animated: true)
     }
     
     required public init?(coder aDecoder: NSCoder) {

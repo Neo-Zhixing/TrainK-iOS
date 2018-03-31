@@ -29,7 +29,12 @@ public extension MetroMapViewDelegate {
     func metroMap(_ metroMap: MetroMapView, didDeselectElement element: MetroMapView.Element) {}
     
     func metroMap(_ metroMap: MetroMapView, shouldEmphasizeElement element: MetroMapView.Element) -> Bool {
-        return false
+        switch element {
+        case .connection(_):
+            return false
+        default:
+            return true
+        }
     }
 }
 
