@@ -75,8 +75,12 @@ open class MetroMapInteractiveViewController: MetroMapScrollableViewController, 
     open var route: Route? {
         didSet {
             guard let lineLayers = self.metroMapView.lineLayer.sublayers as? [LineLayer] else {return}
+            guard let stationLayers = self.metroMapView.stationLayer.sublayers as? [StationLayer] else {return}
             for layer in lineLayers {
                 layer.draw()
+            }
+            for layer in stationLayers {
+                layer.updateHighlight()
             }
         }
     }

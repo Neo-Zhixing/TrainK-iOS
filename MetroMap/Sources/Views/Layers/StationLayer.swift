@@ -79,10 +79,6 @@ class StationLayer: MetroMapLayer {
             if let size = svglayer.sublayers?.first?.frame.size {
                 svglayer.bounds.size = size
             }
-            if let delegate = self.mapView.delegate, !delegate.metroMap(self.mapView, shouldEmphasizeElement: .station(self.station)) {
-                svglayer.fillColor = UIColor.gray.cgColor
-                svglayer.strokeColor = UIColor.gray.cgColor
-            }
             self.bounds.size = CGSize(width: svglayer.bounds.size.width*2, height: svglayer.bounds.size.height*2)
             svglayer.position.x = self.bounds.size.width / 2
             svglayer.position.y = self.bounds.size.height / 2
@@ -204,6 +200,19 @@ class StationLayer: MetroMapLayer {
             else {
                 self.orientation = angle < CGFloat.pi ? segment1 : segment2
             }
+        }
+    }
+    var grayLayer: SVGLayer?
+    func updateHighlight() {
+        if let delegate = self.mapView.delegate, !delegate.metroMap(self.mapView, shouldEmphasizeElement: .station(self.station)) {
+            iconLayer?.removeFromSuperlayer()
+            self.grayLayer = iconLayer?.svgLayerCopy
+            grayLayer?.fillColor = UIColor.gray.cgColor
+            grayLayer?.strokeColor = UIColor.gray.cgColor
+            self.addSublayer(grayLayer!)
+        } else {
+            grayLayer?.removeFromSuperlayer()
+            addSublayer(iconLayer!)
         }
     }
 }

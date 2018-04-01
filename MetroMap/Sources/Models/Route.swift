@@ -38,35 +38,24 @@ open class Route {
         distances[from] = 0
         while !unvisited.isEmpty {
             // Calculating unsettled nodes with min distance
-            var minDistance: Float = Float.infinity
-            var nodeFounded: Node?
-            for node in unvisited {
-                let distance = distances[node]!
-                if distance < minDistance {
-                    minDistance = distance
-                    nodeFounded = node
-                }
-            }
-            guard let nodeVisiting = nodeFounded else {
+            
+            guard let nodeVisiting = unvisited.min(by: {distances[$0]! < distances[$1]!}) else {
                 return nil
             } // There's no such route connection two nodes.
             unvisited.remove(nodeVisiting)
             if (nodeVisiting == to) { break }
-            var neighbors:Set<Node> = []
             var segmentMap:[Node:Segment] = [:] // segmentMap[neighboringNode] = the segment from nodeVisiting to neighboringNode
             for segment in segments {
                 if segment.from == nodeVisiting {
-                    neighbors.insert(segment.to)
                     segmentMap[segment.to] = segment
                 }
                 else if segment.to == nodeVisiting {
-                    neighbors.insert(segment.from)
                     segmentMap[segment.from] = segment
                 }
             }
             
-            for neighboringNode in neighbors {
-                let newDistance = distances[nodeVisiting]! + segmentMap[neighboringNode]!.length
+            for (neighboringNode, segmentToNeighboringNode) in segmentMap {
+                let newDistance = distances[nodeVisiting]! + segmentToNeighboringNode.length
                 if newDistance < distances[neighboringNode]! {
                     distances[neighboringNode] = newDistance
                     predecessors[neighboringNode] = nodeVisiting
