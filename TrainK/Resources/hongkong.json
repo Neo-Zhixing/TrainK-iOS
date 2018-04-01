@@ -104,13 +104,13 @@
       "id": 11,
       "name": "大围",
       "position": [18, 4.5],
-      "level": "interchange"
+      "level": "major"
     },
     {
       "id": 12,
       "name": "九龙塘",
       "position": [18, 5.5],
-      "level": "interchange"
+      "level": "major"
     },
     {
       "id": 13,
@@ -276,7 +276,8 @@
     {
       "id": 44,
       "name": "中环",
-      "position": [13.5, 14]
+      "position": [13.5, 14],
+      "level": "major"
     },
     {
       "id": 45,
@@ -385,7 +386,7 @@
       "id": 66,
       "name": "美孚",
       "position": [11.5, 5.5],
-      "level": "interchange"
+      "level": "major"
     },
     {
       "id": 67,
