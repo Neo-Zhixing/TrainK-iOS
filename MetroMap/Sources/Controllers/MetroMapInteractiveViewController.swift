@@ -74,7 +74,10 @@ open class MetroMapInteractiveViewController: MetroMapScrollableViewController, 
     // MARK: - Interactive Route Planning
     open var route: Route? {
         didSet {
-            self.reload()
+            guard let lineLayers = self.metroMapView.lineLayer.sublayers as? [LineLayer] else {return}
+            for layer in lineLayers {
+                layer.draw()
+            }
         }
     }
     open var directionOrigin: Station?

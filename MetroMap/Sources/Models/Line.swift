@@ -17,20 +17,21 @@ open class Line: NSObject {
 
     public init(data: JSON, forNodes nodes: [Int:Node]){
         self.id = data["id"].intValue
+        super.init()
         if let name = data["name"].string {
             self.name = name
         }
         var lastSegment: Segment?
         for json in data["segments"].arrayValue {
             if let newSegment = Segment(data: json, forNodes: nodes, lastSegmentNode: lastSegment?.to) {
-                self.segments.append(newSegment)
+                self.addSegment(newSegment)
                 lastSegment = newSegment
             }
         }
         if let colorHexStr = data["color"].string {
             self.color = UIColor(hex: colorHexStr)
         }
-        super.init()
+        
     }
     public init(id: Int) {
         self.id = id
@@ -40,6 +41,10 @@ open class Line: NSObject {
     }
     open static func ==(lhs: Line, rhs: Line) -> Bool {
         return lhs.id == rhs.id
+    }
+    open func addSegment(_ segment: Segment) {
+        self.segments.append(segment)
+        segment.line = self
     }
 }
 
@@ -51,6 +56,7 @@ open class Segment: NSObject {
         case curve
         case parallel
     }
+    open var line: Line?
     open var from: Node
     open var to: Node
     open var length: Float = 1
@@ -58,6 +64,7 @@ open class Segment: NSObject {
     open var drawingMode: DrawingMode = .line
     
     public init?(data: JSON, forNodes nodes:[Int: Node], lastSegmentNode: Node? = nil) {
+
         guard let toID = data["to"].int, let to = nodes[toID] else {
             print("MetroMap: Compile Segment error. Can't get node 'to'")
             return nil

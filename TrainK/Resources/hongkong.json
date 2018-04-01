@@ -14,11 +14,13 @@
   "connections": [
     {
       "from": 23,
-      "to": 24
+      "to": 24,
+      "length": 10,
     },
     {
       "from": 44,
-      "to": 81
+      "to": 81,
+      "length": 5
     },
     {
       "from": 96,
@@ -179,17 +181,20 @@
     {
       "id": 26,
       "name": "油麻地",
-      "position": [16, 9.5]
+      "position": [16, 9.5],
+      "level": "major"
     },
     {
       "id": 27,
       "name": "旺角",
-      "position": [16, 8.5]
+      "position": [16, 8.5],
+      "level": "major"
     },
     {
       "id": 28,
       "name": "太子",
-      "position": [16, 7.5]
+      "position": [16, 7.5],
+      "level": "major"
     },
     {
       "id": 29,
@@ -599,9 +604,6 @@
           "mode": "square"
         },
         {
-          "to": 83
-        },
-        {
           "to": 73
         },
         {
@@ -670,11 +672,13 @@
         },
         {
           "to": 72,
-          "mode": "square"
+          "mode": "square",
+          "length": 2
         },
         {
           "to": 73,
-          "mode": "parallel"
+          "mode": "parallel",
+          "length": 3
         },
         {
           "to": 66
@@ -1016,10 +1020,12 @@
           "to": 12
         },
         {
-          "to": 13
+          "to": 13,
+          "length": 3
         },
         {
-          "to": 14
+          "to": 14,
+          "length": 3
         }
       ]
     }

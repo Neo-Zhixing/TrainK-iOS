@@ -9,6 +9,9 @@
 import UIKit
 
 class LineLayerParallelSegment: LineLayerSegment {
+    override var priority: Int {
+        return 20
+    }
     var cornerRadius: CGFloat = 10
     var entrancePoint: CGPoint?
     var exitPoint: CGPoint?

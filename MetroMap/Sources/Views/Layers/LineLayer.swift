@@ -43,17 +43,21 @@ class LineLayer: MetroMapLayer {
     }
     var emphasizeLayer: CAShapeLayer?
     var segmentDrawers:[Segment:LineLayerSegment] = [:]
-    override func draw(){
-        self.emphasizeLayer?.removeFromSuperlayer()
-        self.emphasizeLayer = nil
-        let path = UIBezierPath()
-        let emphasizePath = UIBezierPath()
+    func createDrawers() {
         for segment in line.segments {
             let drawer = segmentDrawers[segment] ?? segment.drawingMode.drawer.init(segment, onLayer: self)
             segmentDrawers[segment] = drawer
             mapView.stationMapping[segment.from]?.connectedSegmentDrawer.insert(drawer)
             mapView.stationMapping[segment.to]?.connectedSegmentDrawer.insert(drawer)
-            if let delegate = self.mapView.delegate, delegate.metroMap(self.mapView, shouldEmphasizeElement: .segment(segment)) {
+        }
+    }
+    override func draw(){
+        self.emphasizeLayer?.removeFromSuperlayer()
+        self.emphasizeLayer = nil
+        let path = UIBezierPath()
+        let emphasizePath = UIBezierPath()
+        for drawer in segmentDrawers.values {
+            if let delegate = self.mapView.delegate, delegate.metroMap(self.mapView, shouldEmphasizeElement: .segment(drawer.segment)) {
                 drawer.draw(on: emphasizePath)
             } else {
                 drawer.draw(on: path)

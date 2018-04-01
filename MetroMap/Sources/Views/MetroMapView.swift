@@ -135,8 +135,15 @@ open class MetroMapView: UIView {
             }
         }
         draw(forSublayersOf: connectionLayer)
-        draw(forSublayersOf: lineLayer)
         draw(forSublayersOf: stationLayer)
+        guard let linelayers = self.lineLayer.sublayers as? [LineLayer]  else { return }
+        for layer in linelayers {
+            layer.createDrawers()
+        }
+        for layer in linelayers {
+            layer.draw()
+        }
+        
         self.frame.size = map.configs.size
         self.backgroundColor = map.configs.backgroundColor
     }

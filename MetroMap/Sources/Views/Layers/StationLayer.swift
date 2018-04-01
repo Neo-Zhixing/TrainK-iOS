@@ -184,6 +184,7 @@ class StationLayer: MetroMapLayer {
         }
     }
     func adjustOrientation() {
+        if self.station.level != .minor {return}
         let segArray = Array(connectedSegmentDrawer)
         if self.connectedSegmentDrawer.count == 1,
             let orientation = self.connectedSegmentDrawer.first?.endpointOrientation(for: station) {

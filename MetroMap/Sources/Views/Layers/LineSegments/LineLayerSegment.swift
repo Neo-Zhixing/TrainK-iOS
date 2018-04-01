@@ -9,19 +9,32 @@
 import UIKit
 
 class LineLayerSegment {
+    var priority: Int {
+        return 0
+    }
     var segment: Segment
     weak var layer: MetroMapLayer!
     func offset(for node: Node) -> CGPoint {
         var offset = CGPoint()
         guard let stationLayer = self.layer.mapView.stationMapping[node],
             let myOrientation = self.endpointOrientation(for: node)
-            else {return offset}
-        
+        else {
+            return offset
+        }
         for drawer in stationLayer.connectedSegmentDrawer where drawer.layer != self.layer {
             if let orientation = drawer.endpointOrientation(for: node),
                 orientation == myOrientation {
                 // Parallel
-                offset = offset + CGPoint(x: sin(myOrientation)*10, y: cos(myOrientation)*10)
+                
+                if self.priority > drawer.priority {
+                    offset = offset + CGPoint(x: sin(-myOrientation)*10, y: cos(-myOrientation)*10)
+                }
+                else if self.priority == drawer.priority,
+                    let myLine = self.segment.line,
+                    let theLine = drawer.segment.line,
+                    myLine.id > theLine.id{
+                    offset = offset + CGPoint(x: sin(-myOrientation)*10, y: cos(-myOrientation)*10)
+                }
             }
         }
         return offset
@@ -65,6 +78,9 @@ extension LineLayerSegment: Hashable {
 }
 
 class LineLayerDirectSegment:LineLayerSegment {
+    override var priority: Int {
+        return 1
+    }
     override func draw(on path: UIBezierPath) {
         super.draw(on: path)
         path.addLine(to: targetPoint)

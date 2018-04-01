@@ -9,6 +9,9 @@
 import UIKit
 
 class LineLayerSquareSegment: LineLayerSegment {
+    override var priority: Int {
+        return 10
+    }
     var cornerRadius:CGFloat = 30
     private func intermediatePoint(from: CGPoint, to: CGPoint) -> CGPoint? {
         let width = to.x - from.x

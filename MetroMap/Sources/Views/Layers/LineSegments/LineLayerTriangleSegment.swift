@@ -9,6 +9,9 @@
 import UIKit
 
 class LineLayerTriangleSegment: LineLayerSegment {
+    override var priority: Int {
+        return 10
+    }
     var cornerRadius: CGFloat = 10
     var intermediatePoint: CGPoint?
     private func intermediatePoint(from: CGPoint, to: CGPoint) -> CGPoint? {
